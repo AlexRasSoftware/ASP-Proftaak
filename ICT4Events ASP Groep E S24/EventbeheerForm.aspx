@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <%--ik neuk jullie allemaal de moeder--%>
+    
     </div>
     </form>
 </body>
