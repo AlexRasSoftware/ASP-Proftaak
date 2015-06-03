@@ -39,6 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\..\app\FrankHaver\product\11.2.0\client_2\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -71,6 +75,7 @@
     <Content Include="LoginForm.aspx" />
     <Content Include="MateriaalverhuurForm.aspx" />
     <Content Include="MediaSharingForm.aspx" />
+    <Content Include="Plaatjes\Camping_ReeënDal %281%29.png" />
     <Content Include="PostForm.aspx" />
     <Content Include="PostFormImage.aspx" />
     <Content Include="SysteemkiezerForm.aspx" />
@@ -78,6 +83,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseKoppeling.cs" />
     <Compile Include="EventbeheerForm.aspx.cs">
       <DependentUpon>EventbeheerForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -150,6 +156,7 @@
       <DependentUpon>ToegangscontroleForm.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

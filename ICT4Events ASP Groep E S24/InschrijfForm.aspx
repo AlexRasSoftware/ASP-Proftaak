@@ -14,7 +14,7 @@
             position: relative;
             top: 20px;
             left: 0px;
-            width: 450px;
+            width: 451px;
         }
         .auto-style1 {
             position: relative;
@@ -26,13 +26,26 @@
         }
         .EindInschrijf {
             position: relative;
-            top: 40px;
+            top: 47px;
+            left: 2px;
+            width: 450px;
+        }
+        #form1 {
+            height: 1416px;
+        }
+        .Plaatje {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            height: 982px;
+            width: 1221px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div style="height: 202px; width: 319px;" id="Persoonsinfo">
+        <h1>Inschrijf Formulier</h1>
+    <div style="height: 254px; width: 319px;" id="Persoonsinfo">
     
         <asp:Label ID="Label2" runat="server" Text="Voornaam:"></asp:Label>
         <asp:TextBox ID="tbVoornaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
@@ -62,7 +75,12 @@
         <asp:TextBox ID="tbEmail" runat="server" CssClass="InschrijfForm"></asp:TextBox>
         <br />
         <br />
-    
+        
+
+        <asp:Button ID="btnMaakBezoeker" runat="server" Text="Maak Bezoeker" Width="131px" OnClick="btnMaakBezoeker_Click" />
+        <br />
+        
+
     </div>
 
     <div id="Plaats" class="Plaatsen">
@@ -85,7 +103,21 @@
     </div>
     <div class="EindInschrijf" id="Eindinschrijf">
 
+        <asp:CheckBox ID="chbMeederePersonen" runat="server" Text="Meerdere Personen" />
+        <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 22px" Width="118px">
+        </asp:DropDownList>
+        <br />
+        <br />
+        <asp:Button ID="btnBevestig" runat="server" Text="Bevestig" />
+        <asp:Button ID="btnMateriaalHuren" runat="server" style="margin-left: 24px" Text="Materiaal Huren" />
+        <asp:Button ID="btnAnnuleren" runat="server" style="margin-left: 31px" Text="Annuleren" Width="126px" />
+
     </div>
+        <br />
+
+        <br />
+        <br />
+        <asp:Image ID="imgCamping" runat="server" CssClass="Plaatje" ImageUrl="~/Plaatjes/Camping_ReeënDal (1).png" />
 
     </form>
 </body>

@@ -9,6 +9,33 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <h1>Materiaal Verhuur</h1>
+        <br />
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Type Huuritem"></asp:Label>
+        <br />
+        <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px">
+        </asp:DropDownList>
+        <br />
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="Huuritems"></asp:Label>
+        <br />
+        <asp:DropDownList ID="ddlHuurItems" runat="server" Width="136px">
+        </asp:DropDownList>
+        <asp:Button ID="btnKiesHuurItem" runat="server" Height="28px" style="margin-left: 52px" Text="Kies" Width="59px" />
+        <br />
+        <br />
+        <asp:Label ID="Label3" runat="server" Text="Gekozen Items"></asp:Label>
+        <br />
+        <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
+        <br />
+        <br />
+        <asp:Button ID="btnVerwijderItem" runat="server" Text="Verwijder Item" />
+        <br />
+        <br />
+        <asp:Button ID="btnBevestig" runat="server" Text="Bevestigen" />
+        <asp:Button ID="btnAnnuleer" runat="server" style="margin-left: 197px" Text="Annuleren" />
+        <br />
     
     </div>
     </form>
