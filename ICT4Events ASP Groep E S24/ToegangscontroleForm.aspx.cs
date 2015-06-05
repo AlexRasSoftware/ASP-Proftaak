@@ -16,12 +16,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             TextBoxCheckIn.Focus();
             administratie = new Administratie();
             database = new DatabaseKoppeling();
-            RefreshData("SME de Valkenhof 2014");
+            //RefreshData(administratie.HuidigEvent.Naam);
         }
 
         protected void ButtonCheckInUit_Click(object sender, EventArgs e)
         {
-
+            administratie.CheckInUit(TextBoxCheckIn.Text, administratie.HuidigEvent);
         }
 
         private void RefreshData(string eventnaam)
