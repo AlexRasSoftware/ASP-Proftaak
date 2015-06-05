@@ -25,16 +25,17 @@
         <asp:Label ID="LabelAfwezig" runat="server" Text="0"></asp:Label>
         <br />
         <asp:ListBox ID="ListBoxAfwezig" runat="server" Height="120px" Width="300px"></asp:ListBox>
+        <br />
         <asp:Label ID="Label4" runat="server" Text="Lijsten sorteren op:"></asp:Label>
-        <asp:Button ID="ButtonSorteerRFID" runat="server" style="margin-left: 12px" Text="RFID" />
-        <asp:Button ID="ButtonSorteerNaam" runat="server" style="margin-left: 13px" Text="Naam" />
+        <asp:Button ID="ButtonSorteerRFID" runat="server" style="margin-left: 0px" Text="Barcode" />
+        <asp:Button ID="ButtonSorteerNaam" runat="server" style="margin-left: 0px" Text="Naam" />
         <br />
         <br />
         Wanneer de barcodescanner niet werkt, kunt u altijd nog handmatig inchecken!<br />
         <br />
         Barcode:<br />
         <asp:TextBox ID="TextBoxCheckIn" runat="server" Width="300px"></asp:TextBox>
-        <asp:Button ID="ButtonCheckInUit" runat="server" style="margin-left: 27px" Text="Check In/Uit" />
+        <asp:Button ID="ButtonCheckInUit" runat="server" style="margin-left: 0px" Text="Check In/Uit" OnClick="ButtonCheckInUit_Click" />
     </form>
 </body>
 </html>
