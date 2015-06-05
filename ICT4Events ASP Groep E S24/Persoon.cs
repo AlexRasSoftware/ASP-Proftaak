@@ -10,12 +10,19 @@ namespace ICT4Events_ASP_Groep_E_S24
     {
         //Fields
         protected static int lastRfidCode = 0;
+        //dit zijn nog de oude fields
         protected string rfidCode;
-        protected string gebruikersnaam;
         protected string naam;
-        protected string achternaam;
         protected DateTime geboorteDatum;
+
+        protected string gebruikersnaam;
+        protected string voornaam;
+        protected string achternaam;
         protected string wachtwoord;
+        protected string tussenVoegsel;
+        protected string straat;
+        protected string huisNr;
+        protected string woonplaats;
 
         //Properties
         public string RfidCode
@@ -28,17 +35,13 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return gebruikersnaam; }
         }
 
-        public string Naam
+        public string Voornaam
         {
-            get { return naam; }
+            get { return voornaam; }
         }
         public string Achternaam
         {
             get { return achternaam; }
-        }
-        public DateTime GeboorteDatum
-        {
-            get { return geboorteDatum; }
         }
 
         public string Wachtwoord
@@ -46,12 +49,32 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return wachtwoord; }
         }
 
+        public string Naam
+        {
+            get { return naam; }
+        }
+
+        public DateTime GeboorteDatum
+        {
+            get { return geboorteDatum; }
+        }
+
         //Constructors
+        // dit wordt de nieuwe constructor van persoon
+        public Persoon(string voornaam, string tussenVoegsel, string achternaam, string straat, string huisNr, string woonplaats, string gebruikersnaam, string wachtwoord, string email)
+        {
+            this.voornaam = voornaam;
+            this.tussenVoegsel = tussenVoegsel;
+            this.achternaam = achternaam;
+            this.straat = straat;
+            this.huisNr = huisNr;
+            this.woonplaats = woonplaats;
+        }
+        
         public Persoon(string gebruikersnaam, string wachtwoord, DateTime geboorteDatum, string naam, string achternaam)
         {
             this.gebruikersnaam = gebruikersnaam;
             this.wachtwoord = wachtwoord;
-            this.geboorteDatum = geboorteDatum;
             this.naam = naam;
             this.achternaam = achternaam;
             RfidGenerator();

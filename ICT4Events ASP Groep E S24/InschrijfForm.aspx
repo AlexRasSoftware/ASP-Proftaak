@@ -13,8 +13,8 @@
         }
         .Plaatsen {
             position: relative;
-            top: 20px;
-            left: 0px;
+            top: 18px;
+            left: 3px;
             width: 451px;
         }
         .auto-style1 {
@@ -27,8 +27,8 @@
         }
         .EindInschrijf {
             position: relative;
-            top: 47px;
-            left: 2px;
+            top: 46px;
+            left: 3px;
             width: 450px;
         }
         #form1 {
@@ -38,39 +38,47 @@
             position: absolute;
             right: 10px;
             top: 10px;
-            height: 982px;
-            width: 1221px;
+            height: 895px;
+            width: 867px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <h1>Inschrijf Formulier</h1>
-    <div style="height: 254px; width: 319px;" id="Persoonsinfo">
+    <div style="height: 405px; width: 319px;" id="Persoonsinfo">
     
         <asp:Label ID="Label2" runat="server" Text="Voornaam:"></asp:Label>
-        <asp:TextBox ID="tbVoornaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbVoornaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 62px; left: 155px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label3" runat="server" Text="Tussenvoegsel:"></asp:Label>
-        <asp:TextBox ID="tbTussenvoegsel" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbTussenvoegsel" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 101px; left: 155px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label4" runat="server" Text="Achternaam:"></asp:Label>
-        <asp:TextBox ID="tbAchternaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbAchternaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 141px; left: 155px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label5" runat="server" Text="Straat: "></asp:Label>
-        <asp:TextBox ID="tbStraat" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbStraat" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 181px; left: 154px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label6" runat="server" Text="Huisnr: "></asp:Label>
-        <asp:TextBox ID="tbHuisnr" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbHuisnr" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 220px; left: 154px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label7" runat="server" Text="Woonplaats:"></asp:Label>
-        <asp:TextBox ID="tbWoonplaats" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbWoonplaats" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 260px; left: 154px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label8" runat="server" Text="Banknr:"></asp:Label>
-        <asp:TextBox ID="tbBanknr" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbBanknr" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 300px; left: 154px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label9" runat="server" Text="Gebruikersnaam:"></asp:Label>
-        <asp:TextBox ID="tbGebruikersnaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px"></asp:TextBox>
+        <asp:TextBox ID="tbGebruikersnaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 341px; left: 154px;"></asp:TextBox>
+        <br />
         <br />
         <asp:Label ID="Label10" runat="server" Text="Email:"></asp:Label>
         <asp:TextBox ID="tbEmail" runat="server" CssClass="InschrijfForm"></asp:TextBox>
@@ -92,8 +100,8 @@
             <asp:ListItem>Henkie</asp:ListItem>
         </asp:DropDownList>
         <br />
-        <asp:Button ID="Button1" runat="server" Height="40px" style="margin-top: 15px" Text="Voeg Plaats Toe" />
-        <asp:Button ID="Button2" runat="server" Height="40px" style="margin-left: 84px" Text="Verwijder Plaats" />
+        <asp:Button ID="Button1" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" />
+        <asp:Button ID="Button2" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" />
         <br />
         <asp:ListBox ID="ListBox1" runat="server" CssClass="auto-style1" Height="133px"></asp:ListBox>
         <br />
@@ -105,13 +113,13 @@
     <div class="EindInschrijf" id="Eindinschrijf">
 
         <asp:CheckBox ID="chbMeederePersonen" runat="server" Text="Meerdere Personen" />
-        <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 22px" Width="118px">
+        <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 0px" Width="118px">
         </asp:DropDownList>
         <br />
         <br />
         <asp:Button ID="btnBevestig" runat="server" Text="Bevestig" />
-        <asp:Button ID="btnMateriaalHuren" runat="server" style="margin-left: 24px" Text="Materiaal Huren" />
-        <asp:Button ID="btnAnnuleren" runat="server" style="margin-left: 31px" Text="Annuleren" Width="126px" />
+        <asp:Button ID="btnMateriaalHuren" runat="server" style="margin-left: 0px" Text="Materiaal Huren" />
+        <asp:Button ID="btnAnnuleren" runat="server" style="margin-left: 0px" Text="Annuleren" Width="126px" />
 
     </div>
         <br />

@@ -32,6 +32,13 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Constructors
+        // de nieuwe constructor voor bezoeker
+        public Bezoeker(string voornaam, string tussenvoegsel, string achternaam, string straat, string huisnr, string woonplaats, string gebruikernaam, string wachtwoord, string email, Hoofdboeker hoofdboeker)
+            :base(voornaam, tussenvoegsel, achternaam, straat, huisnr, woonplaats, gebruikernaam, wachtwoord, email)
+        {
+            this.hoofdboeker = hoofdboeker;
+        }
+        
         public Bezoeker(string gebruikersnaam, string wachtwoord, DateTime geboortedatum, string naam, string achternaam, string rfidcode, bool aanwezig)
             : base(gebruikersnaam, wachtwoord, geboortedatum,naam, achternaam, rfidcode)
         {
