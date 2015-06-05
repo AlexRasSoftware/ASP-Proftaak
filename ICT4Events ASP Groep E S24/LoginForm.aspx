@@ -11,6 +11,7 @@
             position: absolute;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body style="height: 298px">
     <form id="form1" runat="server">

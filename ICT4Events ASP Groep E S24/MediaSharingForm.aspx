@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>MediaSharing</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -22,7 +23,7 @@
         <asp:ListBox ID="ListBox1" runat="server" Height="158px" Width="286px"></asp:ListBox>
         <br />
         <asp:Button ID="Button3" runat="server" Text="Like" />
-        <asp:Button ID="Button4" runat="server" Text="Reageer en meer" />
+        <asp:Button ID="Button4" runat="server" Text="Reageer en meer" style="margin-left: 26px" />
         <br />
         <p>
             Nieuwe post</p>

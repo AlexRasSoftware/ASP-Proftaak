@@ -79,6 +79,7 @@
     <Content Include="Plaatjes\Camping_ReeënDal %281%29.png" />
     <Content Include="PostForm.aspx" />
     <Content Include="PostFormImage.aspx" />
+    <Content Include="stylesheet.css" />
     <Content Include="SysteemkiezerForm.aspx" />
     <Content Include="ToegangscontroleForm.aspx" />
     <Content Include="Web.config" />
