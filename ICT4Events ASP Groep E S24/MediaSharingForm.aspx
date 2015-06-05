@@ -9,33 +9,31 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
+        Media Sharing<br />
+        <asp:RadioButtonList ID="RadioButtonList1" runat="server">
+            <asp:ListItem>Alles</asp:ListItem>
+            <asp:ListItem>Berichten</asp:ListItem>
+            <asp:ListItem>Foto&#39;s</asp:ListItem>
+            <asp:ListItem>Video&#39;s</asp:ListItem>
+            <asp:ListItem>Muziek</asp:ListItem>
+        </asp:RadioButtonList>
         <br />
         <br />
-        <asp:RadioButton ID="RadioButton1" runat="server" OnCheckedChanged="RadioButton1_CheckedChanged" Text="Alles" />
-        <asp:RadioButton ID="RadioButton2" runat="server" Text="Berichten" />
-        <asp:RadioButton ID="RadioButton3" runat="server" Text="Foto's" />
-        <asp:RadioButton ID="RadioButton4" runat="server" Text="Video" />
-        <asp:RadioButton ID="RadioButton5" runat="server" Text="Muziek" />
-    
-    </div>
-        <asp:ListBox ID="ListBox1" runat="server" Height="158px" Width="286px"></asp:ListBox>
+        <asp:ListBox ID="ListBox1" runat="server" Height="162px" Width="331px"></asp:ListBox>
         <br />
-        <asp:Button ID="Button3" runat="server" Text="Like" />
-        <asp:Button ID="Button4" runat="server" Text="Reageer en meer" style="margin-left: 26px" />
+        <asp:Button ID="Button2" runat="server" Text="Like" />
+        <asp:Button ID="Button3" runat="server" Text="Reageer en meer" />
         <br />
-        <p>
-            Nieuwe post</p>
-        <p>
-            <asp:TextBox ID="TextBox1" runat="server" Width="208px"></asp:TextBox>
-        </p>
-        <asp:Button ID="Button1" runat="server" Text="Upload Bestand" />
-        <asp:Button ID="Button2" runat="server" Text="Plaats post" />
+        Nieuwe post<br />
+        <asp:TextBox ID="TextBox1" runat="server" Height="52px" Width="176px"></asp:TextBox>
         <br />
+        <br />
+        <asp:Button ID="Button6" runat="server" Text="Upload bestand" />
+        <asp:Button ID="Button5" runat="server" Text="Plaats post" />
         <br />
         Zoeken<br />
         <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+        <br />
     </form>
 </body>
 </html>
