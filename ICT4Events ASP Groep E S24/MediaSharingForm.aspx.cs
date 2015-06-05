@@ -11,7 +11,7 @@ namespace ICT4Events_ASP_Groep_E_S24
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            GeefMessage("Test");
         }
 
         protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -22,6 +22,18 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void RadioButton1_CheckedChanged1(object sender, EventArgs e)
         {
 
+        }
+
+        public void GeefMessage(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("<script type = 'text/javascript'>");
+            sb.Append("window.onload=function(){");
+            sb.Append("alert('");
+            sb.Append(message);
+            sb.Append("')};");
+            sb.Append("</script>");
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
     }
 }
