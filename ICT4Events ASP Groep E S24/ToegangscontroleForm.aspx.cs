@@ -16,6 +16,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             TextBoxCheckIn.Focus();
             administratie = new Administratie();
             database = new DatabaseKoppeling();
+            RefreshData("SME de Valkenhof 2014");
         }
 
         protected void ButtonCheckInUit_Click(object sender, EventArgs e)
@@ -23,13 +24,13 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         }
 
-        private void RefreshData(Event e)
+        private void RefreshData(string eventnaam)
         {
             int aantalaanwezig = 0;
             int aantalafwezig = 0;
             ListBoxAanwezig.Items.Clear();
             ListBoxAfwezig.Items.Clear();
-            foreach (Persoon p in database.HaalPersonenOp(e.Naam))
+            foreach (Persoon p in database.HaalPersonenOp(eventnaam))
             {
                 if (p is Bezoeker && !(p is Hoofdboeker))
                 {
