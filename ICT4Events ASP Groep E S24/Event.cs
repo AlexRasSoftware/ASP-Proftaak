@@ -88,6 +88,14 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Constructor
+        public Event(string naam, DateTime datumStart, DateTime datumEinde, string plaats)
+        {
+            this.naam = naam;
+            this.beginDatum = datumStart;
+            this.eindDatum = datumEinde;
+            this.plaats = plaats;
+        }
+        
         public Event(string naam, DateTime beginDatum, DateTime eindDatum, string plaats, string adres)
         {
             this.naam = naam;

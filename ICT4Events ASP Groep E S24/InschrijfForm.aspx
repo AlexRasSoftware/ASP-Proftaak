@@ -37,7 +37,7 @@
         .Plaatje {
             position: absolute;
             right: 10px;
-            top: 10px;
+            top: -4px;
             height: 895px;
             width: 867px;
         }
@@ -103,7 +103,7 @@
         <asp:Button ID="Button1" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" />
         <asp:Button ID="Button2" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" />
         <br />
-        <asp:ListBox ID="ListBox1" runat="server" CssClass="auto-style1" Height="133px"></asp:ListBox>
+        <asp:ListBox ID="lbPlaatsen" runat="server" CssClass="auto-style1" Height="133px"></asp:ListBox>
         <br />
 
         <br />

@@ -225,17 +225,15 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT * FROM Event";
+                string query = "SELECT * FROM EVENT";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
                     string naam = Convert.ToString(dataReader["NAAM"]);
-                    DateTime beginDatum = Convert.ToDateTime(dataReader["BEGINDATUM"]);
-                    DateTime eindDatum = Convert.ToDateTime(dataReader["EINDDATUM"]);
-                    string plaats = Convert.ToString(dataReader["PLAATS"]);
-                    string adres = Convert.ToString(dataReader["ADRES"]);
-                    tempEvent.Add(new Event(naam, beginDatum, eindDatum, plaats, adres));
+                    DateTime beginDatum = Convert.ToDateTime(dataReader["DATUMSTART"]);
+                    DateTime eindDatum = Convert.ToDateTime(dataReader["DATUMEINDE"]);
+                    tempEvent.Add(new Event(naam, beginDatum, eindDatum, "Veghel"));
                 }
                 return tempEvent;
             }

@@ -23,6 +23,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnMaakBezoeker_Click(object sender, EventArgs e)
         {
             //inschrijvers.Add()
+            foreach(Event ev in dbKoppeling.HaalAlleEvenementen())
+            {
+                lbPlaatsen.Items.Add(ev.Naam);
+            }
+            
         }
 
         public void GeefMessage(string message)
