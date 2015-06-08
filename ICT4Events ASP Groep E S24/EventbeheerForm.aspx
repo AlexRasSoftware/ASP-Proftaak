@@ -22,10 +22,10 @@
         <asp:Label ID="nav1" runat="server" Text="Event"></asp:Label>
         <br />
         <br />
-        Event&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEvent" runat="server">
+        Event&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEvent" runat="server" OnSelectedIndexChanged="ddlEvent_SelectedIndexChanged">
         </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="ddlEventPasAan" runat="server" Text="Pas Aan" OnClick="ddlEventPasAan_Click" />
+        <asp:Button ID="btnEventPasAan" runat="server" Text="Pas Aan" OnClick="ddlEventPasAan_Click" />
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnEventVerwijder" runat="server" Text="Verwijderen" OnClick="btnEventVerwijder_Click" />
         <br />
