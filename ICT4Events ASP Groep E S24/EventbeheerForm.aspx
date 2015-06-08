@@ -10,10 +10,11 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Label ID="Label1" runat="server" Text="Navigeren"></asp:Label>
+        <asp:Label ID="lblNav1" runat="server" Text="Navigeren"></asp:Label>
     
     </div>
         <asp:Button ID="btnToEvent1" runat="server" OnClick="btnToEvent1_Click" Text="Event" />
+        <script type=""
         <asp:Button ID="btnToGebruiker1" runat="server" OnClick="btnToGebruiker1_Click" Text="Gebruikers Verwijderen" />
         <asp:Button ID="btnToMateriaal1" runat="server" OnClick="btnToMateriaal1_Click" Text="Materiaal Toevoegen" />
         <asp:Button ID="btnToPlaats1" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
@@ -57,7 +58,7 @@
         <asp:Button ID="btnDatabaseConnectie" runat="server" Text="Database Connectie" OnClick="btnDatabaseConnectie_Click" />
         <br />
         <br />
-        <asp:Label ID="Label3" runat="server" Text="Navigeren"></asp:Label>
+        <asp:Label ID="lblNav2" runat="server" Text="Navigeren"></asp:Label>
         <br />
         <asp:Button ID="btnToEvent2" runat="server" OnClick="btnToEvent2_Click" Text="Event" />
         <asp:Button ID="btnToGebruiker2" runat="server" OnClick="btnToGebruiker2_Click" Text="Gebruikers Verwijderen" />
@@ -77,7 +78,7 @@
         <br />
         <br />
         <br />
-        <asp:Label ID="Label4" runat="server" Text="Navigeren"></asp:Label>
+        <asp:Label ID="lblNav3" runat="server" Text="Navigeren"></asp:Label>
         <br />
         <asp:Button ID="btnToEvent3" runat="server" OnClick="btnToEvent3_Click" Text="Event" />
         <asp:Button ID="btnToGebruiker3" runat="server" OnClick="btnToGebruiker3_Click" Text="Gebruikers Verwijderen" />
@@ -102,7 +103,7 @@
         <br />
         <br />
         <br />
-        <asp:Label ID="Label7" runat="server" Text="Navigeren"></asp:Label>
+        <asp:Label ID="lblNav4" runat="server" Text="Navigeren"></asp:Label>
         <br />
         <asp:Button ID="btnToEvent4" runat="server" OnClick="btnToEvent4_Click" Text="Event" />
         <asp:Button ID="btnToGebruiker4" runat="server" OnClick="btnToGebruiker4_Click" Text="Gebruikers Verwijderen" />

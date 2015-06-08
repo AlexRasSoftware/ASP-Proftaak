@@ -22,13 +22,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Label1 control.
+        /// lblNav1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblNav1;
         
         /// <summary>
         /// btnToEvent1 control.
@@ -211,13 +211,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnDatabaseConnectie;
         
         /// <summary>
-        /// Label3 control.
+        /// lblNav2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblNav2;
         
         /// <summary>
         /// btnToEvent2 control.
@@ -301,13 +301,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.ListBox lbGebruiker;
         
         /// <summary>
-        /// Label4 control.
+        /// lblNav3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblNav3;
         
         /// <summary>
         /// btnToEvent3 control.
@@ -400,13 +400,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.ListBox lbMateriaal;
         
         /// <summary>
-        /// Label7 control.
+        /// lblNav4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
+        protected global::System.Web.UI.WebControls.Label lblNav4;
         
         /// <summary>
         /// btnToEvent4 control.

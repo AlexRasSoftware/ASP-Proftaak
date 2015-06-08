@@ -39,6 +39,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         private void ToEvent()
         {
 
+            Page.RegisterClientScriptBlock("MyScript",
+   "<script language=javascript src='MyJavaScriptFile.js'>");
+            //document.getElementByName('label2').focus();
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "MyScript",
+                "<script language=javascript src='MyJavaScriptFile.js'>", true);
         }       
         #region ToGebruiker
         protected void btnToGebruiker1_Click(object sender, EventArgs e)
