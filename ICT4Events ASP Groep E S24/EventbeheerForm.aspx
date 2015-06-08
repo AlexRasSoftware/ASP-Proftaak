@@ -14,12 +14,12 @@
     
     </div>
         <asp:Button ID="btnToEvent1" runat="server" OnClick="btnToEvent1_Click" Text="Event" />
-        <script type=""
+        
         <asp:Button ID="btnToGebruiker1" runat="server" OnClick="btnToGebruiker1_Click" Text="Gebruikers Verwijderen" />
         <asp:Button ID="btnToMateriaal1" runat="server" OnClick="btnToMateriaal1_Click" Text="Materiaal Toevoegen" />
         <asp:Button ID="btnToPlaats1" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
         <br />
-        <asp:Label ID="Label2" runat="server" Text="Event"></asp:Label>
+        <asp:Label ID="nav1" runat="server" Text="Event"></asp:Label>
         <br />
         <br />
         Event&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEvent" runat="server">
@@ -65,7 +65,7 @@
         <asp:Button ID="btnToMateriaal2" runat="server" OnClick="btnToMateriaal2_Click" Text="Materiaal Toevoegen" />
         <asp:Button ID="btnToPlaats2" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
         <br />
-        <asp:Label ID="Label5" runat="server" Text="Gebruikers Verwijderen"></asp:Label>
+        <asp:Label ID="nav2" runat="server" Text="Gebruikers Verwijderen"></asp:Label>
         <br />
         <br />
         <asp:Button ID="btnGebruikerVerwijder" runat="server" Text="Verwijder Gebruiker" OnClick="btnGebruikerVerwijder_Click" />
@@ -85,7 +85,7 @@
         <asp:Button ID="btnToMateriaal3" runat="server" OnClick="btnToMateriaal3_Click" Text="Materiaal Toevoegen" />
         <asp:Button ID="btnToPlaats3" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
         <br />
-        <asp:Label ID="Label6" runat="server" Text="Materiaal Toevoegen"></asp:Label>
+        <asp:Label ID="nav3" runat="server" Text="Materiaal Toevoegen"></asp:Label>
         <br />
         <br />
         <br />
@@ -110,7 +110,7 @@
         <asp:Button ID="btnToMateriaal4" runat="server" OnClick="btnToMateriaal4_Click" Text="Materiaal Toevoegen" />
         <asp:Button ID="btnToPlaats4" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
         <br />
-        <asp:Label ID="Label8" runat="server" Text="Plaats Toevoegen"></asp:Label>
+        <asp:Label ID="nav4" runat="server" Text="Plaats Toevoegen"></asp:Label>
         <br />
         <br />
         prijs&nbsp;&nbsp;&nbsp; € <asp:TextBox ID="tbPlaatsPrijs" runat="server"></asp:TextBox>

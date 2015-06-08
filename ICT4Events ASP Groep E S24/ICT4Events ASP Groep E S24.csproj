@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EventbeheerForm.aspx" />
+    <Content Include="ICT4Events.js" />
     <Content Include="InschrijfForm.aspx" />
     <Content Include="InschrijfFormBezoeker.aspx" />
     <Content Include="LoginForm.aspx" />

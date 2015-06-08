@@ -38,12 +38,9 @@ namespace ICT4Events_ASP_Groep_E_S24
         #endregion
         private void ToEvent()
         {
-
-            Page.RegisterClientScriptBlock("MyScript",
-   "<script language=javascript src='MyJavaScriptFile.js'>");
-            //document.getElementByName('label2').focus();
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "MyScript",
-                "<script language=javascript src='MyJavaScriptFile.js'>", true);
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "scrollTo(nav1)",
+                "<script language=javascript src='ICT4Events.js'>", true);
+            
         }       
         #region ToGebruiker
         protected void btnToGebruiker1_Click(object sender, EventArgs e)
@@ -68,7 +65,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         #endregion
         private void ToGebruiker()
         {
-
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "scrollTo(nav2)",
+                "<script language=javascript src='ICT4Events.js'>", true);
         }
         #region ToMateriaal
         protected void btnToMateriaal1_Click(object sender, EventArgs e)
@@ -93,7 +91,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         #endregion
         private void ToMateriaal()
         {
-
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "scrollTo(nav3)",
+                "<script language=javascript src='ICT4Events.js'>", true);
         }       
         #region ToPlaats
         protected void Button4_Click(object sender, EventArgs e)
@@ -103,7 +102,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         #endregion
         private void ToPlaats()
         {
-
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "scrollTo(nav4)",
+                "<script language=javascript src='ICT4Events.js'>", true);
         }
         
         #region Event

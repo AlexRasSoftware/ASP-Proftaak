@@ -67,13 +67,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnToPlaats1;
         
         /// <summary>
-        /// Label2 control.
+        /// nav1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label nav1;
         
         /// <summary>
         /// ddlEvent control.
@@ -256,13 +256,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnToPlaats2;
         
         /// <summary>
-        /// Label5 control.
+        /// nav2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.Label nav2;
         
         /// <summary>
         /// btnGebruikerVerwijder control.
@@ -346,13 +346,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnToPlaats3;
         
         /// <summary>
-        /// Label6 control.
+        /// nav3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::System.Web.UI.WebControls.Label nav3;
         
         /// <summary>
         /// ddlMateriaalSoort control.
@@ -445,13 +445,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnToPlaats4;
         
         /// <summary>
-        /// Label8 control.
+        /// nav4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.Label nav4;
         
         /// <summary>
         /// tbPlaatsPrijs control.
