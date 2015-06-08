@@ -24,8 +24,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             btnGebruikerNee.Enabled = false;
             timer.Tick += timer_Tick;
         }
-
-        
+        //navigate
         #region ToEvent
         
 
@@ -48,13 +47,18 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             ToEvent();
         }
-        #endregion
         private void ToEvent()
         {
             this.ClientScript.RegisterStartupScript(this.GetType(),
                 "navigate", "document.getElementById('nav1').scrollIntoView();", true);
-        }       
+        }  
+        #endregion
         #region ToGebruiker
+        private void ToGebruiker()
+        {
+            this.ClientScript.RegisterStartupScript(this.GetType(),
+                "navigate", "document.getElementById('nav2').scrollIntoView();", true);
+        }
         protected void btnToGebruiker1_Click(object sender, EventArgs e)
         {
             ToGebruiker();
@@ -75,12 +79,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             ToGebruiker();
         }
         #endregion
-        private void ToGebruiker()
+        #region ToMateriaal
+        private void ToMateriaal()
         {
             this.ClientScript.RegisterStartupScript(this.GetType(),
-                "navigate", "document.getElementById('nav2').scrollIntoView();", true);
-        }
-        #region ToMateriaal
+                "navigate", "document.getElementById('nav3').scrollIntoView();", true);
+        }  
         protected void btnToMateriaal1_Click(object sender, EventArgs e)
         {
             ToMateriaal();
@@ -101,26 +105,29 @@ namespace ICT4Events_ASP_Groep_E_S24
             ToMateriaal();
         }
         #endregion
-        private void ToMateriaal()
-        {
-            this.ClientScript.RegisterStartupScript(this.GetType(),
-                "navigate", "document.getElementById('nav3').scrollIntoView();", true);
-        }       
         #region ToPlaats
-        protected void Button4_Click(object sender, EventArgs e)
-        {
-            ToPlaats();
-        }
-        #endregion
         private void ToPlaats()
         {
             this.ClientScript.RegisterStartupScript(this.GetType(),
                 "navigate", "document.getElementById('nav4').scrollIntoView();", true);
         }
-        
-        
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            ToPlaats();
+        }
+        #endregion
 
+        /*  ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", 
+            "alert(\"[message]\");", true);
+        */
+
+        //under the hood things
         #region Event
+        protected void ddlEvent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateEventTab();
+        }
+
         private void refreshCbEvents()
         {
             ddlEvent.Items.Clear();
@@ -133,27 +140,111 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnEventPasAan_Click(object sender, EventArgs e)
         {
+            foreach (Event ev in administratie.Events)
+            {
+                if (ev == administratie.GeefEvent(ddlEvent.Text))
+                {
+                    ev.Naam = tbEventNaam.Text;
 
+                    try{ ev.BeginDatum = Convert.ToDateTime(tbEventStartdatum.Text);}
+                    catch { ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript",
+                            "alert(\"Woops, dat is geen Datum.\");", true); }
+
+                    try { ev.EindDatum = Convert.ToDateTime(tbEventEinddatum.Text); }
+                    catch { ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript",
+                            "alert(\"Woops, dat is geen Datum.\");", true); }
+                    ev.Plaats = tbEventPlaats.Text;
+                    ev.Adres = tbEventAdres.Text;
+                    break;
+                }
+            }
+            refreshCbEvents();
+            updateEventTab();
         }//event aanpassen
 
         protected void btnEventVerwijder_Click(object sender, EventArgs e)
         {
-
+            if (ddlEvent.Items.Count == 1)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Dit is het laatste event!\");", true); 
+                //MessageBox.Show("Dit is het laatste event!");
+            }
+            else
+            {
+                foreach (Event ev in administratie.Events)
+                {
+                    if (ev == administratie.GeefEvent(ddlEvent.Text))
+                    {
+                        if (!database.DeleteEvent(ev.Naam))
+                            ScriptManager.RegisterStartupScript(this, GetType(), 
+                                "ServerControlScript", "alert(\"Database opslag mislukt.\");", true); 
+                            //MessageBox.Show("Database opslag mislukt;");
+                        else administratie.Events.Remove(ev);
+                        break;
+                    }
+                }
+                refreshCbEvents();
+                updateEventTab();
+            }
         }
-
+        
         protected void btnEventPlaatsenVerwijder_Click(object sender, EventArgs e)
         {
-
+            foreach (Plaats p in administratie.GeefEvent(ddlEvent.Text).Plaatsen)
+            {
+                if (p.PlaatsNummer.ToString() == ddlEventPlaatsen.Text)
+                {
+                    if (!database.DeletePlaats(p.PlaatsNummer)) 
+                        ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"DatabaseKoppeling ging fout.\");", true);
+                        //MessageBox.Show("DatabaseKoppeling ging fout.");
+                    else administratie.GeefEvent(ddlEvent.Text).Plaatsen.Remove(p);
+                    break;
+                }
+            }
+            updateEventTab();
         }
 
         protected void btnEventMateriaalVerwijder_Click(object sender, EventArgs e)
         {
-
+            if (ddlEventMateriaal.Text != "")
+            {
+                string teverwijderen = ddlEventMateriaal.Text.Substring(0, ddlEventMateriaal.Text.IndexOf(","));
+                foreach (Huuritem h in administratie.GeefEvent(ddlEvent.Text).HuurMateriaal)
+                {
+                    if (h.Naam == teverwijderen)
+                    {
+                        if (!database.DeleteMateriaal(h.Naam)) 
+                            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"DatabaseKoppeling ging fout.\");", true);
+                            //MessageBox.Show("Database koppeling ging fout.");
+                        else administratie.GeefEvent(ddlEvent.Text).HuurMateriaal.Remove(h);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Er is geen materiaal om te verwijderen.\");", true);
+                //MessageBox.Show("Er is geen materiaal om te verwijderen.");
+            }
+            updateEventTab();
         }
 
         protected void btnEventAanmaken_Click(object sender, EventArgs e)
         {
-
+            DateTime einddatum = Convert.ToDateTime(tbEventEinddatum);
+            DateTime begindatum = Convert.ToDateTime(tbEventStartdatum);
+            if (administratie.VoegEventToe(tbEventNaam.Text, begindatum, einddatum, tbEventPlaats.Text, tbEventAdres.Text))
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Event succesvol toegevoegd.\");", true);
+                //MessageBox.Show("Event succesvol toegevoegd");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Er bestaat al een event met die naam.\");", true);
+                //MessageBox.Show("Er bestaat al een event met die naam.");
+            }
+            refreshCbEvents();
+            updateEventTab();
         }
 
         protected void btnDatabaseConnectie_Click(object sender, EventArgs e)
@@ -161,16 +252,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         }
         #endregion 
-
-        //timer voor zeker knop
-        private void timer_Tick(object sender, EventArgs e)
-        {
-
-            btnGebruikerZeker.Enabled = true;
-            timer.Enabled = false;
-
-        }
-
+        
         #region Gebruiker
         protected void btnGebruikerVerwijder_Click(object sender, EventArgs e)
         {
@@ -228,9 +310,30 @@ namespace ICT4Events_ASP_Groep_E_S24
         #region Plaats
         protected void btnPlaatsVoegToe_Click(object sender, EventArgs e)
         {
-
+            if (tbPlaatsPrijs.Text != "" && administratie.IsDigitsOnly(tbPlaatsPrijs.Text))
+            {
+                administratie.GeefEvent(ddlEvent.Text).Plaatsen.Add(new Plaats(Convert.ToInt32(tbPlaatsPrijs.Text), null, cbGeluidsoverlast.Checked, Convert.ToInt32(cbGeluidsoverlast.Checked), false, "0099"));
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript",
+            "alert(\"Voer a.u.b. een geldig getal in zonder decimalen.\");", true);
+                //MessageBox.Show("Voer a.u.b. een geldig getal in zonder decimalen");
+            }
+            updateEventTab();
         }
+
         #endregion
+
+        
+        
+        #region under the hood extra
+        //timer voor zeker knop
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            btnGebruikerZeker.Enabled = true;
+            timer.Enabled = false;
+        }
 
         private void updateEventTab()
         {
@@ -305,5 +408,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
             }
         }
+
+        #endregion
     }
 }
