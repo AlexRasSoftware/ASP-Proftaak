@@ -36,7 +36,8 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
-        public List<Plaats> HaalPlaatsenOp(string eventNaam)
+        // in het tweede gedeelte doen we niets met eventnaam
+        public List<Plaats> HaalPlaatsenOp(string eventnaam)
         {
             List<Plaats> plaatsen = new List<Plaats>();
             try
@@ -44,7 +45,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 conn.Open();
                 // query van alle plaatsen met de eventueel bijbehorende
                 // hoofdboekers
-                string query = "SELECT * FROM PLAATS pl LEFT JOIN RESERVERING r ON pl.Reservering_ID = r.ID WHERE Event_ID IN (SELECT Event_ID FROM EVENT WHERE naam = '" + eventNaam + "')";
+                string query = "SELECT p.nummer, p.capaciteit, p.gehuurd, l.naam FROM PLEK p, LOCATIE l WHERE l.ID = p.locatie_id";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 // dataReader gaat record voor record omlaag totdat 
@@ -52,38 +53,20 @@ namespace ICT4Events_ASP_Groep_E_S24
                 while (dataReader.Read())
                 {
                     // getal tussen haakjes is de gewenste kolom :D
-                    int prijs = Convert.ToInt32(dataReader["Prijs"]);
-                    int aantalPersonen = Convert.ToInt32(dataReader["Aantalpersonen"]);
-                    int geluidsOverlast = Convert.ToInt32(dataReader["Geluidsoverlast"]);
-                    string hbRFID = Convert.ToString(dataReader["Hoofdboeker_RFID"]);
-                    string locatienummer = Convert.ToString(dataReader["Locatienummer"]);
-                    bool overlast = false;
-                    if (geluidsOverlast == 0)
+                    string plaatsnummer = Convert.ToString(dataReader["NUMMER"]);
+                    int capaciteit = Convert.ToInt32(dataReader["CAPACITEIT"]);
+                    int gehuurd = Convert.ToInt32(dataReader["GEHUURD"]);
+                    string lnaam = Convert.ToString(dataReader["NAAM"]);
+                    bool isGehuurd;
+                    if(gehuurd == 1)
                     {
-                        overlast = false;
+                        isGehuurd = true;
                     }
                     else
                     {
-                        overlast = true;
+                        isGehuurd = false;
                     }
-                    bool verhuurd;
-                    if (Convert.ToInt32(dataReader["Verhuurd"]) == 0)
-                    {
-                        verhuurd = false;
-                    }
-                    else
-                    {
-                        verhuurd = true;
-                    }
-                    // als een plaats nog niet in een reservering zit 
-                    // dan moet er bij beheerder niets worden meegegeven
-                    // anders moet er een nieuwe beheerder worden aangemaakt
-                    // om mee te geven aan de plaats
-                    // hier is dus een hoofdboeker
-                    // andere query schrijven voor de informatie van deze hoofdboeker 
-
-                    // hoofdboeker wordt hier nog niet aan toegevoegd!
-                    Plaats p = new Plaats(prijs, null, overlast, aantalPersonen, verhuurd, locatienummer);
+                    Plaats p = new Plaats(plaatsnummer, lnaam, capaciteit, isGehuurd);
                     plaatsen.Add(p);
                 }
                 return plaatsen;

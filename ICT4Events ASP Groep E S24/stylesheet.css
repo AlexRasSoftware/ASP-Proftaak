@@ -59,8 +59,9 @@ input[type="text"] {
   font-size: 14px;
   line-height: 20px;
   padding: 6px 12px;
-    top: 381px;
+    top: 382px;
     left: 154px;
+    margin-left: 0px;
 }
 label {
   display: block;

@@ -9,20 +9,36 @@ namespace ICT4Events_ASP_Groep_E_S24
     public class Plaats
     {
         // Fields
-        private static int plaatsNummerTeller = 0;
-        private string plaatsNummer;
+        private static int plaatsNummerTeller = 0;       
         private int prijs;
         private Hoofdboeker huurder;
         private bool geluidsOverlast;
-        private int aantalPersonen;
+        private int aantalPersonen;       
+
+        // fields voor nieuwe database
+        private string plaatsNummer;
+        private string locatieNaam; // de naam van de locatie
+        private int capaciteit;
         private bool bezet;
 
-        //Properties
+        // Nieuwe Properties
         public string PlaatsNummer
         {
             get { return plaatsNummer; }
         }
 
+        public string LocatieNaam
+        {
+            get { return locatieNaam; }
+        }
+
+        public int Capaciteit
+        {
+            get { return capaciteit; }
+        }
+
+
+        //Properties
         public int AantalPersonen
         {
             get { return aantalPersonen; }
@@ -44,6 +60,15 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return prijs; }
         }
 
+
+        public Plaats(string plaatsNummer, string locatieNaam, int capaciteit, bool gehuurd)
+        {
+            this.plaatsNummer = plaatsNummer;
+            this.locatieNaam = locatieNaam;
+            this.capaciteit = capaciteit;
+            this.bezet = gehuurd;
+        }
+        
         //Constructor
         // huurder wordt hier even niet meer gebruikt dus een huurder van een plaats kun
         // je dus ook niet meer opvragen
@@ -60,9 +85,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         //Methodes
         public override string ToString()
         {
-            string geluidsOV = "nee";
-            if (this.geluidsOverlast) geluidsOV = "ja";
-            return "PlaatsNr: " + this.plaatsNummer + ", " + "Aantal Personen " + this.aantalPersonen + ", geluidsoverlast: " + geluidsOV + ", € " + prijs.ToString();
+
+            return "PlaatsNr: " + this.plaatsNummer + ", " + "Aantal Personen " + this.capaciteit;
         }
 
         //Deze methode genereert een plaatsnummer wordt niet meer gebruikt

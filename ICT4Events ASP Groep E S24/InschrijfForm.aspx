@@ -46,14 +46,14 @@
 <body>
     <form id="form1" runat="server">
         <h1>Inschrijf Formulier</h1>
-    <div style="height: 405px; width: 319px;" id="Persoonsinfo">
+    <div style="height: 468px; width: 319px;" id="Persoonsinfo">
     
         <asp:Label ID="Label2" runat="server" Text="Voornaam:"></asp:Label>
         <asp:TextBox ID="tbVoornaam" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 62px; left: 155px;"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="Label3" runat="server" Text="Tussenvoegsel:"></asp:Label>
-        <asp:TextBox ID="tbTussenvoegsel" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 101px; left: 155px;"></asp:TextBox>
+        <asp:TextBox ID="tbTussenvoegsel" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 100px; left: 155px;"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="Label4" runat="server" Text="Achternaam:"></asp:Label>
@@ -81,7 +81,12 @@
         <br />
         <br />
         <asp:Label ID="Label10" runat="server" Text="Email:"></asp:Label>
-        <asp:TextBox ID="tbEmail" runat="server" CssClass="InschrijfForm"></asp:TextBox>
+        <asp:TextBox ID="tbEmail" runat="server" CssClass="InschrijfForm" style="margin-left: 0px; top: 380px; left: 154px;"></asp:TextBox>
+        <br />
+        <br />
+        <asp:Label ID="Label12" runat="server" Text="Wachtwoord: "></asp:Label>
+        <asp:TextBox ID="tbWachtwoord" runat="server" style="margin-left: 0px; top: 420px; left: 154px;" CssClass="InschrijfForm"></asp:TextBox>
+        <br />
         <br />
         <br />
         
@@ -100,15 +105,14 @@
             <asp:ListItem>Henkie</asp:ListItem>
         </asp:DropDownList>
         <br />
-        <asp:Button ID="Button1" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" />
-        <asp:Button ID="Button2" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" />
+        <asp:Button ID="btnVoegPlaatsToe" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" OnClick="Button1_Click" />
+        <asp:Button ID="btnVerwijderPlaats" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" />
         <br />
         <asp:ListBox ID="lbPlaatsen" runat="server" CssClass="auto-style1" Height="133px"></asp:ListBox>
         <br />
 
         <br />
         <br />
-        <asp:Label ID="lblPrijs" runat="server" Text="Geld!"></asp:Label>
     </div>
     <div class="EindInschrijf" id="Eindinschrijf">
 
