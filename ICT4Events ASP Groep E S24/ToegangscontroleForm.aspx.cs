@@ -16,47 +16,48 @@ namespace ICT4Events_ASP_Groep_E_S24
             TextBoxCheckIn.Focus();
             administratie = new Administratie();
             database = new DatabaseKoppeling();
-            //RefreshData();
+            RefreshData();
         }
 
         protected void ButtonCheckInUit_Click(object sender, EventArgs e)
         {
             if (database.CheckInOut(TextBoxCheckIn.Text))
             {
-                //alert dat het gelukt is
+                GeefMessage("In/Uitchecken is gelukt.");
             }
             else
             {
-                //alert dat het niet gelukt is
+                GeefMessage("In/Uitchecken is niet gelukt.");
             }
-            //RefreshData();
+            RefreshData();
         }
 
-        private void RefreshData(string eventnaam)
+        private void RefreshData()
         {
-            int aantalaanwezig = 0;
-            int aantalafwezig = 0;
             ListBoxAanwezig.Items.Clear();
             ListBoxAfwezig.Items.Clear();
-            foreach (Persoon p in database.HaalPersonenOp(eventnaam))
+            foreach (string s in database.HaalAanwezigenOp())
             {
-                if (p is Bezoeker && !(p is Hoofdboeker))
-                {
-                    Bezoeker b = p as Bezoeker;
-                    if (b.Aanwezig)
-                    {
-                        ListBoxAanwezig.Items.Add(b.ToString());
-                        aantalaanwezig++;
-                    }
-                    else
-                    {
-                        ListBoxAfwezig.Items.Add(b.ToString());
-                        aantalafwezig++;
-                    }
-                }
-                LabelAanwezigen.Text = aantalaanwezig.ToString();
-                LabelAfwezig.Text = aantalafwezig.ToString();
+                ListBoxAanwezig.Items.Add(s);
             }
+            foreach (string s in database.HaalAfwezigenOp())
+            {
+                ListBoxAfwezig.Items.Add(s);
+            }
+
+            LabelAanwezigen.Text = ListBoxAanwezig.Items.Count.ToString();
+            LabelAfwezig.Text = ListBoxAfwezig.Items.Count.ToString();
+        }
+        public void GeefMessage(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("<script type = 'text/javascript'>");
+            sb.Append("window.onload=function(){");
+            sb.Append("alert('");
+            sb.Append(message);
+            sb.Append("')};");
+            sb.Append("</script>");
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
     }
 }

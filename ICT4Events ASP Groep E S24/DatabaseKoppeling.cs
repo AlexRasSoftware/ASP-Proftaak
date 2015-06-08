@@ -254,7 +254,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT \"AANWEZIG\" FROM RESERVERING_POLSBANDJE WHERE \"POLSBANDJE_ID\" = (SELECT \"ID\" FROM POLSBANDJE WHERE \"BARCODE\" = " + barcode + ")";
+                string query = "SELECT AANWEZIG FROM RESERVERING_POLSBANDJE WHERE POLSBANDJE_ID = (SELECT ID FROM POLSBANDJE WHERE BARCODE = " + barcode + ")";
                 command = new OracleCommand(query, conn);
                 OracleDataReader datareader = command.ExecuteReader();
                 while (datareader.Read())
@@ -814,6 +814,65 @@ namespace ICT4Events_ASP_Groep_E_S24
                 rfidCode = "0" + rfidCode;
             }
             return rfidCode;
+        }
+
+        public List<string> HaalAanwezigenOp()
+        {
+            List<string> aanwezigen = new List<string>();
+
+            try
+            {
+                conn.Open();
+                string query = "SELECT a.GEBRUIKERSNAAM, p.BARCODE FROM ACCOUNT a, POLSBANDJE p, RESERVERING_POLSBANDJE r WHERE p.ID = r.POLSBANDJE_ID AND r.ACCOUNT_ID = a.ID AND a.ACCOUNTTYPE NOT IN('admin','controleur') AND r.AANWEZIG = 1";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string naam = Convert.ToString(datareader["GEBRUIKERSNAAM"]);
+                    string barcode = Convert.ToString(datareader["BARCODE"]);
+                    string resultaat = naam + ", " + barcode;
+                    aanwezigen.Add(resultaat);
+                }
+                return aanwezigen;
+            }
+            catch(Exception ex)
+            {
+                return null;
+                //alert van fout
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public List<string> HaalAfwezigenOp()
+        {
+            List<string> afwezigen = new List<string>();
+
+            try
+            {
+                conn.Open();
+                string query = "SELECT a.GEBRUIKERSNAAM, p.BARCODE FROM ACCOUNT a, POLSBANDJE p, RESERVERING_POLSBANDJE r WHERE p.ID = r.POLSBANDJE_ID AND r.ACCOUNT_ID = a.ID AND a.ACCOUNTTYPE NOT IN('admin','controleur') AND r.AANWEZIG = 0";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string naam = Convert.ToString(datareader["GEBRUIKERSNAAM"]);
+                    string barcode = Convert.ToString(datareader["BARCODE"]);
+                    string resultaat = naam + ", " + barcode;
+                    afwezigen.Add(resultaat);
+                }
+                return afwezigen;
+            }
+            catch (Exception ex)
+            {
+                return null;
+                //alert van fout
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }
