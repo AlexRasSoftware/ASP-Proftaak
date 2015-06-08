@@ -16,12 +16,20 @@ namespace ICT4Events_ASP_Groep_E_S24
             TextBoxCheckIn.Focus();
             administratie = new Administratie();
             database = new DatabaseKoppeling();
-            //RefreshData(administratie.HuidigEvent.Naam);
+            //RefreshData();
         }
 
         protected void ButtonCheckInUit_Click(object sender, EventArgs e)
         {
-            administratie.CheckInUit(TextBoxCheckIn.Text, administratie.HuidigEvent);
+            if (database.CheckInOut(TextBoxCheckIn.Text))
+            {
+                //alert dat het gelukt is
+            }
+            else
+            {
+                //alert dat het niet gelukt is
+            }
+            //RefreshData();
         }
 
         private void RefreshData(string eventnaam)

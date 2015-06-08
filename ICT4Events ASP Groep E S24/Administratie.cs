@@ -74,34 +74,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
-        //Met deze methode kun je een bezoeker in- en uitchecken
-        public bool CheckInUit(string rfid, Event e)
-        {
-            List<Persoon> personen = e.Personen;
-
-            foreach (Persoon persoon in databaseKoppeling.HaalPersonenOp(HuidigEvent.Naam))
-            {
-                if (persoon is Bezoeker)
-                {
-                    Bezoeker b = persoon as Bezoeker;
-                    if (b.RfidCode == rfid)
-                    {
-                        if (!b.Aanwezig)
-                        {
-                            b.Aanwezig = true;
-                            return true;
-                        }
-                        else
-                        {
-                            b.Aanwezig = false;
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
         //Met deze methode worden gebruikers opgevraagd uit een event
         public Persoon CheckGebruikersInEvent(string inv)
         {

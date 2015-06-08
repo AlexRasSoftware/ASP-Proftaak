@@ -248,57 +248,44 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
-        public bool CheckInOut(string rfid)
+        public bool CheckInOut(string barcode)
         {
-            foreach (Persoon p in HaalPersonenOp(administratie.HuidigEvent.Naam))
+            int aanwezig = 0;
+            try
             {
-                if (p is Bezoeker)
+                conn.Open();
+                string query = "SELECT \"AANWEZIG\" FROM RESERVERING_POLSBANDJE WHERE \"POLSBANDJE_ID\" = (SELECT \"ID\" FROM POLSBANDJE WHERE \"BARCODE\" = " + barcode + ")";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
                 {
-                    Bezoeker b = p as Bezoeker;
-                    if (b.Aanwezig && b.RfidCode == rfid)
-                    {
-                        try
-                        {
-                            conn.Open();
-                            string query = "UPDATE BEZOEKER SET AANWEZIG = 0 WHERE RFID = " + rfid;
-                            command = new OracleCommand(query, conn);
-                            command.ExecuteNonQuery();
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            //MessageBox.Show(ex.Message);
-                            return false;
-                        }
-                        finally
-                        {
-                            conn.Close();
-                        }
-                    }
-                    else if (b.RfidCode == rfid)
-                    {
-                        try
-                        {
-                            conn.Open();
-                            string query = "UPDATE BEZOEKER SET AANWEZIG = 1 WHERE RFID = " + rfid;
-                            command = new OracleCommand(query, conn);
-                            command.ExecuteNonQuery();
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            //MessageBox.Show(ex.Message);
-                            return false;
-                        }
-                        finally
-                        {
-                            conn.Close();
-                        }
+                    aanwezig = Convert.ToInt32(datareader["AANWEZIG"]);
+                }
 
-                    }
+                if (aanwezig == 0)
+                {
+                    query = "UPDATE RESERVERING_POLSBANDJE SET \"AANWEZIG\" = 1 WHERE \"POLSBANDJE_ID\" = (SELECT \"ID\" FROM POLSBANDJE WHERE \"BARCODE\" = " + barcode + ")";
+                    command = new OracleCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+                else
+                {
+                    query = "UPDATE RESERVERING_POLSBANDJE SET \"AANWEZIG\" = 0 WHERE \"POLSBANDJE_ID\" = (SELECT \"ID\" FROM POLSBANDJE WHERE \"BARCODE\" = " + barcode + ")";
+                    command = new OracleCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    return true;
                 }
             }
-            return false;
+            catch (Exception ex)
+            {
+                //alert van fout
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         public List<Bericht> VraagBerichtenOpVanEvent(string eventNaam)
