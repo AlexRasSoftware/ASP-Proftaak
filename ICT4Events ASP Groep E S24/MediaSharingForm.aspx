@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         Media Sharing<br />
-        <asp:RadioButtonList ID="RadioButtonList1" runat="server">
+        <asp:RadioButtonList ID="rbKiesFilter" runat="server" OnSelectedIndexChanged="Unnamed1_SelectedIndexChanged">
             <asp:ListItem>Alles</asp:ListItem>
             <asp:ListItem>Berichten</asp:ListItem>
             <asp:ListItem>Foto&#39;s</asp:ListItem>
@@ -19,20 +19,20 @@
         </asp:RadioButtonList>
         <br />
         <br />
-        <asp:ListBox ID="ListBox1" runat="server" Height="162px" Width="331px"></asp:ListBox>
+        <asp:ListBox ID="lbPosts" runat="server" Height="162px" Width="331px"></asp:ListBox>
         <br />
-        <asp:Button ID="Button2" runat="server" Text="Like" />
-        <asp:Button ID="Button3" runat="server" Text="Reageer en meer" />
+        <asp:Button ID="btnLike" runat="server" Text="Like" />
+        <asp:Button ID="btnReageerMeer" runat="server" Text="Reageer en meer" />
         <br />
         Nieuwe post<br />
-        <asp:TextBox ID="TextBox1" runat="server" Height="52px" Width="176px"></asp:TextBox>
+        <asp:TextBox ID="tbBericht" runat="server" Height="52px" Width="176px"></asp:TextBox>
         <br />
         <br />
-        <asp:Button ID="Button6" runat="server" Text="Upload bestand" />
-        <asp:Button ID="Button5" runat="server" Text="Plaats post" />
+        <asp:Button ID="btUploadBestand" runat="server" Text="Upload bestand" />
+        <asp:Button ID="btnPost" runat="server" Text="Plaats post" />
         <br />
         Zoeken<br />
-        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+        <asp:TextBox ID="tbZoeken" runat="server"></asp:TextBox>
         <br />
     </form>
 </body>
