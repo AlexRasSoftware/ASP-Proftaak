@@ -26,6 +26,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     {
                         GeefMessage("Succesvol");
                         Doorverwijzen(tempAccount.Accounttype);
+                        administratie.NuIngelogdeAccount = tempAccount;
                     }
                 }
             }

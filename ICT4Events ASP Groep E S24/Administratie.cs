@@ -11,6 +11,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         // Fields
         private static List<Event> events = new List<Event>();
         private static Persoon nuIngelogd = null;
+        private static Account nuIngelogdeAccount = null;
         private static Event huidigEvent = null;
         private static Bericht tempBericht = null;
         private static int countGemaakt = 0;
@@ -28,6 +29,12 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             get { return nuIngelogd; }
             set { nuIngelogd = value; }
+        }
+
+        public Account NuIngelogdeAccount
+        {
+            get { return nuIngelogdeAccount; }
+            set { nuIngelogdeAccount = value; }
         }
 
         public Bericht TempBericht
