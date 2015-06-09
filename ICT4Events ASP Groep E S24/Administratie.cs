@@ -54,7 +54,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
 
             }
-            countGemaakt++;
+            countGemaakt++; 
             //databaseKoppeling = new DatabaseKoppeling();
         }
 

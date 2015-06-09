@@ -22,6 +22,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             refreshCbEvents();
             btnGebruikerZeker.Enabled = false;
             btnGebruikerNee.Enabled = false;
+            timer = new Timer();
             timer.Tick += timer_Tick;
         }
         //navigate
@@ -138,7 +139,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlEvent.SelectedIndex = 0;
         }
 
-        protected void btnEventPasAan_Click(object sender, EventArgs e)
+        protected void ddlEventPasAan_Click(object sender, EventArgs e)
         {
             foreach (Event ev in administratie.Events)
             {
