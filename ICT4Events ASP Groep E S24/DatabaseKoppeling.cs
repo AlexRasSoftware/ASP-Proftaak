@@ -913,5 +913,50 @@ namespace ICT4Events_ASP_Groep_E_S24
                 conn.Close();
             }
         }
+
+        public List<Account> HaalAlleAccountsOp()
+        {
+            List<Account> tempAccounts = new List<Account>();
+
+            try
+            {
+                conn.Open();
+                string query = "SELECT * FROM account";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string gebruikersnaam = Convert.ToString(datareader["GEBRUIKERSNAAM"]);
+                    string email = Convert.ToString(datareader["EMAIL"]);
+                    string activatiehash = Convert.ToString(datareader["ACTIVATIEHASH"]);
+                    bool geactiveerd = ConvertIntToBool(Convert.ToInt32(datareader["GEACTIVEERD"]));
+                    string wachtwoord = Convert.ToString(datareader["WACHTWOORD"]);
+                    string accounttype = Convert.ToString(datareader["ACCOUNTTYPE"]);
+                    tempAccounts.Add(new Account(gebruikersnaam, email, activatiehash, geactiveerd, wachtwoord, accounttype));
+                }
+                return tempAccounts;
+            }
+            catch (Exception ex)
+            {
+                return null;
+                //alert van fout
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool ConvertIntToBool(int number)
+        {
+            if (number == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

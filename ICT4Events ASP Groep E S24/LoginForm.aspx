@@ -18,9 +18,6 @@
     <div>
     
         Inloggen</div>
-        <asp:DropDownList ID="ddlEvent" runat="server" Height="20px" Width="180px">
-        </asp:DropDownList>
-        <br />
         <br />
         <asp:Label ID="lblGebruikersnaam" runat="server" Text="Gebruikersnaam / RFID"></asp:Label>
         <br />
@@ -31,7 +28,7 @@
         <asp:TextBox ID="tbWachtwoord" runat="server" Width="170px"></asp:TextBox>
         <br />
         <br />
-        <asp:Button ID="btnInloggen" runat="server" Text="Inloggen" Width="180px" />
+        <asp:Button ID="btnInloggen" runat="server" Text="Inloggen" Width="180px" OnClick="btnInloggen_Click" />
         <br />
         <br />
         <asp:Button ID="btnInschrijven" runat="server" Text="Inschrijven" Width="180px" />

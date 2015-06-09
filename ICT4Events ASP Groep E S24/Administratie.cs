@@ -15,6 +15,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static Bericht tempBericht = null;
         private static int countGemaakt = 0;
         private static DatabaseKoppeling databaseKoppeling = new DatabaseKoppeling();
+        private static List<Account> accounts = new List<Account>();
         protected static int lastRfidCode = 0;
 
         //Properties
@@ -197,6 +198,25 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         public Hoofdboeker MaakHoofdboeker()
         {
+            return null;
+        }
+
+        //nieuw sinds asp
+
+        public void HaalAlleAccountsOp()
+        {
+            accounts = databaseKoppeling.HaalAlleAccountsOp();
+        }
+
+        public Account CheckGebruikersnaam(string inv)
+        {
+            foreach (Account a in accounts)
+            {
+                if (inv == a.Gebruikersnaam)
+                {
+                    return a;
+                }
+            }
             return null;
         }
     }

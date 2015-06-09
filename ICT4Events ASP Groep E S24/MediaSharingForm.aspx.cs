@@ -41,5 +41,10 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
 
         }
+
+        protected void btnLike_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
