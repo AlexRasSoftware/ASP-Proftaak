@@ -28,6 +28,7 @@
         <br />
         <br />
         Wanneer de barcodescanner niet werkt, kunt u altijd nog handmatig inchecken!<br />
+        <asp:CheckBox ID="CheckBox1" runat="server" Text="Handmatig inchecken" />
         <br />
         Barcode:<br />
         <asp:TextBox ID="TextBoxCheckIn" runat="server" Width="300px"></asp:TextBox>
