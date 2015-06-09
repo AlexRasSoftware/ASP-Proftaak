@@ -15,7 +15,7 @@
         <br />
         <asp:Label ID="Label1" runat="server" Text="Type Huuritem"></asp:Label>
         <br />
-        <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px">
+        <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px" OnSelectedIndexChanged="ddlHuurItemType_SelectedIndexChanged">
         </asp:DropDownList>
         <br />
         <br />
@@ -23,7 +23,7 @@
         <br />
         <asp:DropDownList ID="ddlHuurItems" runat="server" Width="136px">
         </asp:DropDownList>
-        <asp:Button ID="btnKiesHuurItem" runat="server" Height="28px" style="margin-left: 52px" Text="Kies" Width="59px" />
+        <asp:Button ID="btnKiesHuurItem" runat="server" Height="38px" style="margin-left: 0px" Text="Kies" Width="85px" />
         <br />
         <br />
         <asp:Label ID="Label3" runat="server" Text="Gekozen Items"></asp:Label>
