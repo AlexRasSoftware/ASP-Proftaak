@@ -24,6 +24,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected string huisNr;
         protected string woonplaats;
 
+
         //Properties
         public string RfidCode
         {
@@ -58,6 +59,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             get { return geboorteDatum; }
         }
+
+
 
         //Constructors
         // dit wordt de nieuwe constructor van persoon

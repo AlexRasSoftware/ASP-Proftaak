@@ -10,26 +10,24 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class MateriaalverhuurForm : System.Web.UI.Page
     {
         DatabaseKoppeling databasekoppeling = new DatabaseKoppeling();
-
+        Administratie administratie = new Administratie();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // je gaat ieder item (iedere string) in de list van materiaalsoorten af
             // en je stopt ze stuk voor stuk in de items van ddlHuuritem
-            foreach (string s in databasekoppeling.VraagMateriaalSoortOp())
+            if(!Page.IsPostBack)
             {
-                ddlHuurItemType.Items.Add(s);
-            }
+                foreach (string s in databasekoppeling.VraagMateriaalSoortOp())
+                {
+                    ddlHuurItemType.Items.Add(s);
+                }
 
-            foreach (string h in databasekoppeling.VraagHuuritemsOp(Convert.ToString(ddlHuurItemType.SelectedItem)))
-            {
-                ddlHuurItems.Items.Add(h);
-            }
-        }
-
-        protected void ddlHuurItemType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GeefMessage("Hij doet het");
+                foreach (Huuritem h in databasekoppeling.VraagHuuritemsOp(Convert.ToString(ddlHuurItemType.SelectedItem)))
+                {
+                    ddlHuurItems.Items.Add(h.Merk);
+                }
+            }         
         }
 
         public void GeefMessage(string message)
@@ -42,6 +40,15 @@ namespace ICT4Events_ASP_Groep_E_S24
             sb.Append("')};");
             sb.Append("</script>");
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
+        }
+
+        protected void ddlHuurItemType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlHuurItems.Items.Clear();
+            foreach (Huuritem h in databasekoppeling.VraagHuuritemsOp(Convert.ToString(ddlHuurItemType.SelectedItem)))
+            {
+                ddlHuurItems.Items.Add(h.Merk);
+            }
         }
     }
 }

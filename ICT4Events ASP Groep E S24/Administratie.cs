@@ -16,11 +16,48 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static int countGemaakt = 0;
         private static DatabaseKoppeling databaseKoppeling = new DatabaseKoppeling();
         protected static int lastRfidCode = 0;
+        private static List<Bezoeker> inschrijvers = new List<Bezoeker>();
+        private static Hoofdboeker huidigeHoofdboeker = null;
+        private static Bezoeker huidigeHuurder = null;
+        private static Account nuIngelogdeAccount = null;
+        private static List<Account> accounts = new List<Account>();
+        private static List<Plaats> plaatsen = databaseKoppeling.HaalPlaatsenOp("dummy");
+        private static List<Huuritem> huurMateriaal = databaseKoppeling.HaalHuuritemsOp("dummy");
 
         //Properties
         public List<Event> Events
         {
             get { return events; }
+        }
+
+        public List<Plaats> Plaatsen
+        {
+            get { return plaatsen; }
+            set { plaatsen = value; }
+        }
+
+        public Account NuIngelogdeAccount
+        {
+            get { return nuIngelogdeAccount; }
+            set { nuIngelogdeAccount = value; }
+        }
+
+        public List<Huuritem> HuurMateriaal
+        {
+            get { return huurMateriaal; }
+            set { huurMateriaal = value; }
+        }
+
+        public Hoofdboeker HuidigeHoofdboeker
+        {
+            get { return huidigeHoofdboeker; }
+            set { huidigeHoofdboeker = value; }
+        }
+
+        public Bezoeker HuidigeHuurder
+        {
+            get { return huidigeHuurder; }
+            set { huidigeHuurder = value; }
         }
 
         public Persoon NuIngelogd
@@ -47,6 +84,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             set { databaseKoppeling = value; }
         }
 
+        public List<Bezoeker> Inschrijvers
+        {
+            get { return inschrijvers; }
+            set { inschrijvers = value; }
+        }
         // Constructor
         public Administratie()
         {
@@ -170,6 +212,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        public void HaalAlleAccountsOp()
+        {
+            accounts = databaseKoppeling.HaalAlleAccountsOp();
+        }
+
         public void VraagAlleBerichtenOp(string eventNaam)
         {
             huidigEvent.Berichten.Clear();
@@ -193,6 +240,31 @@ namespace ICT4Events_ASP_Groep_E_S24
         public bool DeleteGebruiker(string naam)
         {
             return databaseKoppeling.DeleteGebruiker(naam);
+        }
+
+        public Account CheckGebruikersnaam(string inv)
+        {
+            foreach (Account a in accounts)
+            {
+                if (inv == a.Gebruikersnaam)
+                {
+                    return a;
+                }
+            }
+            return null;
+        }
+
+
+        public Plaats GeefPlaats(string plaatsNummer)
+        {
+            foreach (Plaats p in Plaatsen)
+            {
+                if (p.PlaatsNummer == plaatsNummer)
+                {
+                    return p;
+                }
+            }
+            return null;
         }
     }
 }

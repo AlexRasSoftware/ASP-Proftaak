@@ -11,6 +11,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         //Fields
         private string rekeningNummer;
         private string adres;
+        private List<Plaats> gekozenPlaatsen;
 
         public string RekeningNummer
         {
@@ -24,15 +25,13 @@ namespace ICT4Events_ASP_Groep_E_S24
             set { adres = value; }
         }
 
-        //Constructor
-        public Hoofdboeker(string gebruikersnaam, string wachtwoord, DateTime geboorteDatum, string rekeningNummer, string adres, string naam, string achternaam,string rfidcode, bool aanwezig)
-            : base(gebruikersnaam, wachtwoord, geboorteDatum, naam, achternaam, rfidcode, aanwezig)
+        public List<Plaats> GekozenPlaatsen
         {
-            this.rekeningNummer = rekeningNummer;
-            this.adres = adres;
+            get { return gekozenPlaatsen; }
+            set { gekozenPlaatsen = value; }
         }
 
-        
+        //Constructor        
         public Hoofdboeker(string gebruikersnaam, string wachtwoord, DateTime geboorteDatum, string rekeningNummer, string adres, string naam, string achternaam, bool aanwezig, string rfid)
             : base(gebruikersnaam, wachtwoord, geboorteDatum, naam, achternaam, aanwezig, rfid)
         {
@@ -45,6 +44,45 @@ namespace ICT4Events_ASP_Groep_E_S24
             : base(voornaam, tussenvoegsel, achternaam, straat, huisNr, woonplaats, gebruikersnaam, wachtwoord, email, hoofdboeker)
         {
             this.rekeningNummer = bankNr;
+            gekozenPlaatsen = new List<Plaats>();
+        }
+
+        public bool VoegPlaatsToe(Plaats plaats)
+        {
+            // als de plaats al een keer is gekozen kan deze niet toegevoegd worden
+            foreach(Plaats p in gekozenPlaatsen)
+            {
+                if(p.PlaatsNummer == plaats.PlaatsNummer)
+                {
+                    return false;
+                }
+            }
+            gekozenPlaatsen.Add(plaats);
+            return true;
+        
+        }
+
+        public bool VerwijderPlaats(Plaats plaats)
+        {
+            foreach(Plaats p in gekozenPlaatsen)
+            {
+                if(p.PlaatsNummer == plaats.PlaatsNummer)
+                {
+                    gekozenPlaatsen.Remove(plaats);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int AantalPersonen()
+        {
+            int totaal = 0;
+            foreach(Plaats p in gekozenPlaatsen)
+            {
+                totaal += p.Capaciteit;
+            }
+            return totaal;
         }
 
         //Methods

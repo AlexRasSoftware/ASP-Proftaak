@@ -106,7 +106,7 @@
         </asp:DropDownList>
         <br />
         <asp:Button ID="btnVoegPlaatsToe" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" OnClick="btnVoegPlaatsToe_Click" />
-        <asp:Button ID="btnVerwijderPlaats" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" />
+        <asp:Button ID="btnVerwijderPlaats" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" OnClick="btnVerwijderPlaats_Click" />
         <br />
         <asp:ListBox ID="lbPlaatsen" runat="server" CssClass="auto-style1" Height="133px"></asp:ListBox>
         <br />
@@ -122,7 +122,7 @@
         <br />
         <br />
         <asp:Button ID="btnBevestig" runat="server" Text="Bevestig" />
-        <asp:Button ID="btnMateriaalHuren" runat="server" style="margin-left: 0px" Text="Materiaal Huren" />
+        <asp:Button ID="btnMateriaalHuren" runat="server" style="margin-left: 0px" Text="Materiaal Huren" OnClick="btnMateriaalHuren_Click" OnClientClick="aspnetForm.target ='_blank';"/>
         <asp:Button ID="btnAnnuleren" runat="server" style="margin-left: 0px" Text="Annuleren" Width="126px" />
 
     </div>
