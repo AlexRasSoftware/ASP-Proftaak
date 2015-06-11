@@ -30,8 +30,10 @@
         Wanneer de barcodescanner niet werkt, kunt u altijd nog handmatig inchecken!<br />
         <br />
         Barcode:<br />
-        <asp:TextBox ID="TextBoxCheckIn" runat="server" Width="300px"></asp:TextBox>
+        <asp:TextBox ID="TextBoxCheckIn" runat="server" Width="300px" OnTextChanged="TextBoxCheckIn_TextChanged"></asp:TextBox>
         <asp:Button ID="ButtonCheckInUit" runat="server" style="margin-left: 0px" Text="Check In/Uit" OnClick="ButtonCheckInUit_Click" />
+        <br />
+        <asp:Button ID="ButtonTerug" runat="server" OnClick="ButtonTerug_Click" Text="Terug" />
     </form>
 </body>
 </html>

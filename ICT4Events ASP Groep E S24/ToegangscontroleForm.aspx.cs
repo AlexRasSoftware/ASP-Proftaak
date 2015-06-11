@@ -59,5 +59,24 @@ namespace ICT4Events_ASP_Groep_E_S24
             sb.Append("</script>");
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
+
+        protected void TextBoxCheckIn_TextChanged(object sender, EventArgs e)
+        {
+            if (database.CheckInOut(TextBoxCheckIn.Text))
+            {
+                GeefMessage("In/Uitchecken is gelukt.");
+            }
+            else
+            {
+                GeefMessage("In/Uitchecken is niet gelukt.");
+            }
+            RefreshData();
+            TextBoxCheckIn.Text = "";
+        }
+
+        protected void ButtonTerug_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("SysteemkiezerForm.aspx");
+        }
     }
 }

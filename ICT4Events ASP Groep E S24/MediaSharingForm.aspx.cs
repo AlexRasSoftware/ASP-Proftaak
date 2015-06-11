@@ -11,7 +11,8 @@ namespace ICT4Events_ASP_Groep_E_S24
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            Administratie administratie = new Administratie();
+            //administratie.NuIngelogd = new Persoon();
         }
 
         protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -37,6 +38,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         protected void Unnamed1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnLike_Click(object sender, EventArgs e)
         {
 
         }

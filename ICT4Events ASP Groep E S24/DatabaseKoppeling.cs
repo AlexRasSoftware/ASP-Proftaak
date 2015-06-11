@@ -233,7 +233,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         public bool CheckInOut(string barcode)
         {
-            int aanwezig = 0;
+            string aanwezig = null;
             try
             {
                 conn.Open();
@@ -242,22 +242,26 @@ namespace ICT4Events_ASP_Groep_E_S24
                 OracleDataReader datareader = command.ExecuteReader();
                 while (datareader.Read())
                 {
-                    aanwezig = Convert.ToInt32(datareader["AANWEZIG"]);
+                    aanwezig = Convert.ToString(datareader["AANWEZIG"]);
                 }
 
-                if (aanwezig == 0)
+                if (aanwezig == "0")
                 {
                     query = "UPDATE RESERVERING_POLSBANDJE SET \"AANWEZIG\" = 1 WHERE \"POLSBANDJE_ID\" = (SELECT \"ID\" FROM POLSBANDJE WHERE \"BARCODE\" = " + barcode + ")";
                     command = new OracleCommand(query, conn);
                     command.ExecuteNonQuery();
                     return true;
                 }
-                else
+                else if(aanwezig == "1")
                 {
                     query = "UPDATE RESERVERING_POLSBANDJE SET \"AANWEZIG\" = 0 WHERE \"POLSBANDJE_ID\" = (SELECT \"ID\" FROM POLSBANDJE WHERE \"BARCODE\" = " + barcode + ")";
                     command = new OracleCommand(query, conn);
                     command.ExecuteNonQuery();
                     return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -855,6 +859,107 @@ namespace ICT4Events_ASP_Groep_E_S24
             finally
             {
                 conn.Close();
+            }
+        }
+
+        //Deze methode vraagt alle materiaalsoorten op, waar de PRODUCTCAT_ID null is.
+        public List<string> VraagMateriaalSoortOp()
+        {
+            List<string> categorienamen = new List<string>();
+            try
+            {
+                conn.Open();
+                string query = "SELECT NAAM FROM PRODUCTCAT WHERE PRODUCTCAT_ID IS NULL";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string naam = Convert.ToString(datareader["NAAM"]);
+                    categorienamen.Add(naam);
+                }
+                return categorienamen;
+            }
+            catch (Exception ex)
+            {
+                return null;
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public List<string> VraagHuuritemsOp(string categorienaam)
+        {
+            List<string> huuritems = new List<string>();
+            try
+            {
+                conn.Open();
+                string query = "SELECT p.MERK, p.SERIE, p.TYPENUMMER FROM PRODUCT p, PRODUCTCAT c WHERE p.PRODUCTCAT_ID = c.ID AND c.NAAM = :categorienaam";                
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("categorienaam", categorienaam));
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string naam = Convert.ToString(datareader["MERK"]);
+                    huuritems.Add(naam);
+                }
+                return huuritems;
+            }
+            catch (Exception ex)
+            {
+                return null;
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public List<Account> HaalAlleAccountsOp()
+        {
+            List<Account> tempAccounts = new List<Account>();
+
+            try
+            {
+                conn.Open();
+                string query = "SELECT * FROM account";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string gebruikersnaam = Convert.ToString(datareader["GEBRUIKERSNAAM"]);
+                    string email = Convert.ToString(datareader["EMAIL"]);
+                    string activatiehash = Convert.ToString(datareader["ACTIVATIEHASH"]);
+                    bool geactiveerd = ConvertIntToBool(Convert.ToInt32(datareader["GEACTIVEERD"]));
+                    string wachtwoord = Convert.ToString(datareader["WACHTWOORD"]);
+                    string accounttype = Convert.ToString(datareader["ACCOUNTTYPE"]);
+                    tempAccounts.Add(new Account(gebruikersnaam, email, activatiehash, geactiveerd, wachtwoord, accounttype));
+                }
+                return tempAccounts;
+            }
+            catch (Exception ex)
+            {
+                return null;
+                //alert van fout
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool ConvertIntToBool(int number)
+        {
+            if (number == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }
