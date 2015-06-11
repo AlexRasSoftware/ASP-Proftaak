@@ -105,7 +105,7 @@
             <asp:ListItem>Henkie</asp:ListItem>
         </asp:DropDownList>
         <br />
-        <asp:Button ID="btnVoegPlaatsToe" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" OnClick="Button1_Click" />
+        <asp:Button ID="btnVoegPlaatsToe" runat="server" Height="56px" style="margin-top: 15px" Text="Voeg Plaats Toe" OnClick="btnVoegPlaatsToe_Click" />
         <asp:Button ID="btnVerwijderPlaats" runat="server" Height="47px" style="margin-left: 0px; margin-right: 0px;" Text="Verwijder Plaats" Width="189px" />
         <br />
         <asp:ListBox ID="lbPlaatsen" runat="server" CssClass="auto-style1" Height="133px"></asp:ListBox>

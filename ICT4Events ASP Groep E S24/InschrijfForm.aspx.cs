@@ -13,16 +13,22 @@ namespace ICT4Events_ASP_Groep_E_S24
         Administratie administratie = new Administratie();
         List<Bezoeker> inschrijvers = new List<Bezoeker>();
         List<Plaats> tempPlaatsen = new List<Plaats>();
+        List<string> plaatsNummers = new List<string>();
         Hoofdboeker hBoeker;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             tempPlaatsen = dbKoppeling.HaalPlaatsenOp("dummy");
-            VulPlaatsen();
-            if(hBoeker != null)
+            if (Page.IsPostBack == false)
             {
-                LaatHboekerZien();
+                VulPlaatsen(); 
             }
+            
+            this.Session["ddlPlSelItem"] = ddlPlaatsen.SelectedItem;
+            //if(hBoeker != null)
+            //{
+            //    LaatHboekerZien();
+            //}
         }
 
         protected void btnMaakBezoeker_Click(object sender, EventArgs e)
@@ -113,11 +119,17 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         // voeg plaats toe
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnVoegPlaatsToe_Click(object sender, EventArgs e)
         {
-
-        }
-
-        
+            // als de nieuwe plaats nog niet in het lijstje van plaatsen voorkomt, voeg deze dan toe.
+            string plaats = Session["ddlPlSelItem"].ToString();
+            // lees startpositie van deze plaats uit daarom ook - 10
+            plaatsNummers.Add(plaats.Substring(10, plaats.IndexOf(",", 10) - 10));
+            lbPlaatsen.Items.Clear();
+            foreach(string nummer in plaatsNummers)
+            {
+                lbPlaatsen.Items.Add(nummer);
+            }
+        }       
     }
 }
