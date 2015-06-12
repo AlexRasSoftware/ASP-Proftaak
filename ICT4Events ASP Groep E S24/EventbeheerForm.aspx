@@ -21,8 +21,13 @@
         Naam&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbEventNaam" runat="server"></asp:TextBox>
         <br />
         Startdatum&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbEventStartdatum" runat="server"></asp:TextBox>
+        <asp:ImageButton ID="ibtnStartdatum" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="ibtnStartdatum_Click" Width="24px" />
+        <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged" Visible="False"></asp:Calendar>
         <br />
         Einddatum&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbEventEinddatum" runat="server"></asp:TextBox>
+        <asp:ImageButton ID="ibtnBegindatum" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="ibtnBegindatum_Click" Width="24px" />
+        <br />
+        <asp:Calendar ID="Calendar2" runat="server" OnSelectionChanged="Calendar2_SelectionChanged" Visible="False"></asp:Calendar>
         <br />
         Plaats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbEventPlaats" runat="server"></asp:TextBox>
         <br />

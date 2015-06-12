@@ -348,5 +348,29 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         #endregion
+
+        protected void ibtnStartdatum_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Calendar1.Visible) Calendar1.Visible = false;
+            else Calendar1.Visible = true;
+        }
+
+        protected void ibtnBegindatum_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Calendar2.Visible) Calendar2.Visible = false;
+            else Calendar2.Visible = true;
+        }
+
+        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+            tbEventStartdatum.Text = Calendar1.SelectedDate.ToString();
+            Calendar1.Visible = false;
+        }
+
+        protected void Calendar2_SelectionChanged(object sender, EventArgs e)
+        {
+            tbEventEinddatum.Text = Calendar2.SelectedDate.ToString();
+            Calendar2.Visible = false;
+        }
     }
 }
