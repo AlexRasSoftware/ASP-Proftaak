@@ -8,21 +8,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-        <asp:Label ID="lblNav1" runat="server" Text="Navigeren"></asp:Label>
-    
-    </div>
-        <asp:Button ID="btnToEvent1" runat="server" OnClick="btnToEvent1_Click" Text="Event" />
-        
-        <asp:Button ID="btnToGebruiker1" runat="server" OnClick="btnToGebruiker1_Click" Text="Gebruikers Verwijderen" />
-        <asp:Button ID="btnToMateriaal1" runat="server" OnClick="btnToMateriaal1_Click" Text="Materiaal Toevoegen" />
-        <asp:Button ID="btnToPlaats1" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
-        <br />
         <asp:Label ID="nav1" runat="server" Text="Event"></asp:Label>
         <br />
         <br />
-        Event&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEvent" runat="server" OnSelectedIndexChanged="ddlEvent_SelectedIndexChanged">
+        Event&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEvent" runat="server" OnSelectedIndexChanged="ddlEvent_SelectedIndexChanged" AutoPostBack="True">
         </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnEventPasAan" runat="server" Text="Pas Aan" OnClick="ddlEventPasAan_Click" />
@@ -39,16 +28,16 @@
         <br />
         Adres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbEventAdres" runat="server"></asp:TextBox>
         <br />
-        Deelnemers&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEventDeelnemers" runat="server">
+        Deelnemers&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEventDeelnemers" runat="server" AutoPostBack="True">
         </asp:DropDownList>
         <br />
-        Plaatsen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEventPlaatsen" runat="server">
+        Plaatsen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlEventPlaatsen" runat="server" AutoPostBack="True">
         </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnEventPlaatsenVerwijder" runat="server" Text="Verwijder" OnClick="btnEventPlaatsenVerwijder_Click" />
         <br />
         Materiaal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:DropDownList ID="ddlEventMateriaal" runat="server">
+        <asp:DropDownList ID="ddlEventMateriaal" runat="server" AutoPostBack="True">
         </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnEventMateriaalVerwijder" runat="server" Text="Verwijder" OnClick="btnEventMateriaalVerwijder_Click" />
@@ -57,13 +46,6 @@
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnDatabaseConnectie" runat="server" Text="Database Connectie" OnClick="btnDatabaseConnectie_Click" />
         <br />
-        <br />
-        <asp:Label ID="lblNav2" runat="server" Text="Navigeren"></asp:Label>
-        <br />
-        <asp:Button ID="btnToEvent2" runat="server" OnClick="btnToEvent2_Click" Text="Event" />
-        <asp:Button ID="btnToGebruiker2" runat="server" OnClick="btnToGebruiker2_Click" Text="Gebruikers Verwijderen" />
-        <asp:Button ID="btnToMateriaal2" runat="server" OnClick="btnToMateriaal2_Click" Text="Materiaal Toevoegen" />
-        <asp:Button ID="btnToPlaats2" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
         <br />
         <asp:Label ID="nav2" runat="server" Text="Gebruikers Verwijderen"></asp:Label>
         <br />
@@ -77,19 +59,11 @@
         <asp:ListBox ID="lbGebruiker" runat="server" Height="204px" Width="610px"></asp:ListBox>
         <br />
         <br />
-        <br />
-        <asp:Label ID="lblNav3" runat="server" Text="Navigeren"></asp:Label>
-        <br />
-        <asp:Button ID="btnToEvent3" runat="server" OnClick="btnToEvent3_Click" Text="Event" />
-        <asp:Button ID="btnToGebruiker3" runat="server" OnClick="btnToGebruiker3_Click" Text="Gebruikers Verwijderen" />
-        <asp:Button ID="btnToMateriaal3" runat="server" OnClick="btnToMateriaal3_Click" Text="Materiaal Toevoegen" />
-        <asp:Button ID="btnToPlaats3" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
-        <br />
         <asp:Label ID="nav3" runat="server" Text="Materiaal Toevoegen"></asp:Label>
         <br />
         <br />
         <br />
-        Soort&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlMateriaalSoort" runat="server">
+        Soort&nbsp;&nbsp;&nbsp; <asp:DropDownList ID="ddlMateriaalSoort" runat="server" AutoPostBack="True">
         </asp:DropDownList>
         <br />
         Naam&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbMateriaalNaam" runat="server"></asp:TextBox>
@@ -102,14 +76,6 @@
         <asp:ListBox ID="lbMateriaal" runat="server" Height="175px" Width="610px"></asp:ListBox>
         <br />
         <br />
-        <br />
-        <asp:Label ID="lblNav4" runat="server" Text="Navigeren"></asp:Label>
-        <br />
-        <asp:Button ID="btnToEvent4" runat="server" OnClick="btnToEvent4_Click" Text="Event" />
-        <asp:Button ID="btnToGebruiker4" runat="server" OnClick="btnToGebruiker4_Click" Text="Gebruikers Verwijderen" />
-        <asp:Button ID="btnToMateriaal4" runat="server" OnClick="btnToMateriaal4_Click" Text="Materiaal Toevoegen" />
-        <asp:Button ID="btnToPlaats4" runat="server" OnClick="Button4_Click" Text="Plaats Toevoegen" />
-        <br />
         <asp:Label ID="nav4" runat="server" Text="Plaats Toevoegen"></asp:Label>
         <br />
         <br />
@@ -118,7 +84,7 @@
         Veel geluidsoverlast&nbsp;&nbsp;&nbsp; <asp:CheckBox ID="cbGeluidsoverlast" runat="server" />
         <br />
         Aantal Personen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:DropDownList ID="ddlPlaatsAantalPersonen" runat="server">
+        <asp:DropDownList ID="ddlPlaatsAantalPersonen" runat="server" AutoPostBack="True">
         </asp:DropDownList>
         <br />
         <br />

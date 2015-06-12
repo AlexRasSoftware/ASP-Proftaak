@@ -19,105 +19,14 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             administratie = new Administratie();
             database = new DatabaseKoppeling();
-            refreshCbEvents();
             btnGebruikerZeker.Enabled = false;
             btnGebruikerNee.Enabled = false;
+            refreshCbEvents();
+            updateEventTab();
             timer = new Timer();
             timer.Tick += timer_Tick;
         }
-        //navigate
-        #region ToEvent
         
-
-        protected void btnToEvent4_Click(object sender, EventArgs e)
-        {
-            ToEvent();
-        }
-
-        protected void btnToEvent3_Click(object sender, EventArgs e)
-        {
-            ToEvent();
-        }
-
-        protected void btnToEvent2_Click(object sender, EventArgs e)
-        {
-            ToEvent();
-        }
-
-        protected void btnToEvent1_Click(object sender, EventArgs e)
-        {
-            ToEvent();
-        }
-        private void ToEvent()
-        {
-            this.ClientScript.RegisterStartupScript(this.GetType(),
-                "navigate", "document.getElementById('nav1').scrollIntoView();", true);
-        }  
-        #endregion
-        #region ToGebruiker
-        private void ToGebruiker()
-        {
-            this.ClientScript.RegisterStartupScript(this.GetType(),
-                "navigate", "document.getElementById('nav2').scrollIntoView();", true);
-        }
-        protected void btnToGebruiker1_Click(object sender, EventArgs e)
-        {
-            ToGebruiker();
-        }
-
-        protected void btnToGebruiker2_Click(object sender, EventArgs e)
-        {
-            ToGebruiker();
-        }
-
-        protected void btnToGebruiker3_Click(object sender, EventArgs e)
-        {
-            ToGebruiker();
-        }
-
-        protected void btnToGebruiker4_Click(object sender, EventArgs e)
-        {
-            ToGebruiker();
-        }
-        #endregion
-        #region ToMateriaal
-        private void ToMateriaal()
-        {
-            this.ClientScript.RegisterStartupScript(this.GetType(),
-                "navigate", "document.getElementById('nav3').scrollIntoView();", true);
-        }  
-        protected void btnToMateriaal1_Click(object sender, EventArgs e)
-        {
-            ToMateriaal();
-        }
-
-        protected void btnToMateriaal2_Click(object sender, EventArgs e)
-        {
-            ToMateriaal();
-        }
-
-        protected void btnToMateriaal3_Click(object sender, EventArgs e)
-        {
-            ToMateriaal();
-        }
-
-        protected void btnToMateriaal4_Click(object sender, EventArgs e)
-        {
-            ToMateriaal();
-        }
-        #endregion
-        #region ToPlaats
-        private void ToPlaats()
-        {
-            this.ClientScript.RegisterStartupScript(this.GetType(),
-                "navigate", "document.getElementById('nav4').scrollIntoView();", true);
-        }
-        protected void Button4_Click(object sender, EventArgs e)
-        {
-            ToPlaats();
-        }
-        #endregion
-
         /*  ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", 
             "alert(\"[message]\");", true);
         */
@@ -148,11 +57,13 @@ namespace ICT4Events_ASP_Groep_E_S24
                     ev.Naam = tbEventNaam.Text;
 
                     try{ ev.BeginDatum = Convert.ToDateTime(tbEventStartdatum.Text);}
-                    catch { ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript",
+                    catch { ScriptManager.RegisterStartupScript(this, GetType(), 
+                        "ServerControlScript",
                             "alert(\"Woops, dat is geen Datum.\");", true); }
 
                     try { ev.EindDatum = Convert.ToDateTime(tbEventEinddatum.Text); }
-                    catch { ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript",
+                    catch { ScriptManager.RegisterStartupScript(this, GetType(), 
+                        "ServerControlScript",
                             "alert(\"Woops, dat is geen Datum.\");", true); }
                     ev.Plaats = tbEventPlaats.Text;
                     ev.Adres = tbEventAdres.Text;
@@ -167,7 +78,9 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (ddlEvent.Items.Count == 1)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Dit is het laatste event!\");", true); 
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript", "alert(\"Dit is het laatste event!\");",
+                    true); 
                 //MessageBox.Show("Dit is het laatste event!");
             }
             else
@@ -178,7 +91,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                     {
                         if (!database.DeleteEvent(ev.Naam))
                             ScriptManager.RegisterStartupScript(this, GetType(), 
-                                "ServerControlScript", "alert(\"Database opslag mislukt.\");", true); 
+                                "ServerControlScript",
+                                "alert(\"Database opslag mislukt.\");", true); 
                             //MessageBox.Show("Database opslag mislukt;");
                         else administratie.Events.Remove(ev);
                         break;
@@ -196,7 +110,9 @@ namespace ICT4Events_ASP_Groep_E_S24
                 if (p.PlaatsNummer.ToString() == ddlEventPlaatsen.Text)
                 {
                     if (!database.DeletePlaats(p.PlaatsNummer)) 
-                        ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"DatabaseKoppeling ging fout.\");", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), 
+                            "ServerControlScript", 
+                            "alert(\"DatabaseKoppeling ging fout.\");", true);
                         //MessageBox.Show("DatabaseKoppeling ging fout.");
                     else administratie.GeefEvent(ddlEvent.Text).Plaatsen.Remove(p);
                     break;
@@ -209,13 +125,17 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (ddlEventMateriaal.Text != "")
             {
-                string teverwijderen = ddlEventMateriaal.Text.Substring(0, ddlEventMateriaal.Text.IndexOf(","));
-                foreach (Huuritem h in administratie.GeefEvent(ddlEvent.Text).HuurMateriaal)
+                string teverwijderen = ddlEventMateriaal.Text.Substring(0,
+                    ddlEventMateriaal.Text.IndexOf(","));
+                foreach (Huuritem h in 
+                    administratie.GeefEvent(ddlEvent.Text).HuurMateriaal)
                 {
                     if (h.Naam == teverwijderen)
                     {
                         if (!database.DeleteMateriaal(h.Naam)) 
-                            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"DatabaseKoppeling ging fout.\");", true);
+                            ScriptManager.RegisterStartupScript(this, GetType(),
+                                "ServerControlScript",
+                                "alert(\"DatabaseKoppeling ging fout.\");", true);
                             //MessageBox.Show("Database koppeling ging fout.");
                         else administratie.GeefEvent(ddlEvent.Text).HuurMateriaal.Remove(h);
                         break;
@@ -224,7 +144,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Er is geen materiaal om te verwijderen.\");", true);
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript", 
+                    "alert(\"Er is geen materiaal om te verwijderen.\");", true);
                 //MessageBox.Show("Er is geen materiaal om te verwijderen.");
             }
             updateEventTab();
@@ -234,14 +156,19 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             DateTime einddatum = Convert.ToDateTime(tbEventEinddatum);
             DateTime begindatum = Convert.ToDateTime(tbEventStartdatum);
-            if (administratie.VoegEventToe(tbEventNaam.Text, begindatum, einddatum, tbEventPlaats.Text, tbEventAdres.Text))
+            if (administratie.VoegEventToe(tbEventNaam.Text, begindatum, 
+                einddatum, tbEventPlaats.Text, tbEventAdres.Text))
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Event succesvol toegevoegd.\");", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), 
+                    "ServerControlScript", "alert(\"Event succesvol toegevoegd.\");",
+                    true);
                 //MessageBox.Show("Event succesvol toegevoegd");
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", "alert(\"Er bestaat al een event met die naam.\");", true);
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript", 
+                    "alert(\"Er bestaat al een event met die naam.\");", true);
                 //MessageBox.Show("Er bestaat al een event met die naam.");
             }
             refreshCbEvents();
@@ -304,7 +231,17 @@ namespace ICT4Events_ASP_Groep_E_S24
         #region Materiaal
         protected void btnMateriaalVoegToe_Click(object sender, EventArgs e)
         {
-
+            if (ddlMateriaalSoort.Text != "" && tbMateriaalNaam.Text != "" && administratie.IsDigitsOnly(tbMateriaalPrijs.Text))
+            {
+                administratie.GeefEvent(ddlEvent.Text).HuurMateriaal.Add(new Huuritem(tbMateriaalNaam.Text, ddlMateriaalSoort.Text, Convert.ToInt32(tbMateriaalPrijs.Text), false));
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript",
+            "alert(\"Geef a.u.b. een soort en naam.\");", true);
+                //MessageBox.Show("Geef a.u.b. een soort en naam");
+            }
+            updateEventTab();
         }
         #endregion
 
