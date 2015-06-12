@@ -11,13 +11,18 @@ namespace ICT4Events_ASP_Groep_E_S24
         // Fields
         private static List<Event> events = new List<Event>();
         private static Persoon nuIngelogd = null;
-        private static Account nuIngelogdeAccount = null;
         private static Event huidigEvent = null;
         private static Bericht tempBericht = null;
         private static int countGemaakt = 0;
         private static DatabaseKoppeling databaseKoppeling = new DatabaseKoppeling();
-        private static List<Account> accounts = new List<Account>();
         protected static int lastRfidCode = 0;
+        private static List<Bezoeker> inschrijvers = new List<Bezoeker>();
+        private static Hoofdboeker huidigeHoofdboeker = null;
+        private static Bezoeker huidigeHuurder = null;
+        private static Account nuIngelogdeAccount = null;
+        private static List<Account> accounts = new List<Account>();
+        private static List<Plaats> plaatsen = databaseKoppeling.HaalPlaatsenOp("dummy");
+        private static List<Huuritem> huurMateriaal = databaseKoppeling.HaalHuuritemsOp("dummy");
 
         //Properties
         public List<Event> Events
@@ -25,16 +30,40 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return events; }
         }
 
-        public Persoon NuIngelogd
+        public List<Plaats> Plaatsen
         {
-            get { return nuIngelogd; }
-            set { nuIngelogd = value; }
+            get { return plaatsen; }
+            set { plaatsen = value; }
         }
 
         public Account NuIngelogdeAccount
         {
             get { return nuIngelogdeAccount; }
             set { nuIngelogdeAccount = value; }
+        }
+
+        public List<Huuritem> HuurMateriaal
+        {
+            get { return huurMateriaal; }
+            set { huurMateriaal = value; }
+        }
+
+        public Hoofdboeker HuidigeHoofdboeker
+        {
+            get { return huidigeHoofdboeker; }
+            set { huidigeHoofdboeker = value; }
+        }
+
+        public Bezoeker HuidigeHuurder
+        {
+            get { return huidigeHuurder; }
+            set { huidigeHuurder = value; }
+        }
+
+        public Persoon NuIngelogd
+        {
+            get { return nuIngelogd; }
+            set { nuIngelogd = value; }
         }
 
         public Bericht TempBericht
@@ -55,6 +84,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             set { databaseKoppeling = value; }
         }
 
+        public List<Bezoeker> Inschrijvers
+        {
+            get { return inschrijvers; }
+            set { inschrijvers = value; }
+        }
         // Constructor
         public Administratie()
         {
@@ -178,6 +212,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        public void HaalAlleAccountsOp()
+        {
+            accounts = databaseKoppeling.HaalAlleAccountsOp();
+        }
+
         public void VraagAlleBerichtenOp(string eventNaam)
         {
             huidigEvent.Berichten.Clear();
@@ -203,18 +242,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             return databaseKoppeling.DeleteGebruiker(naam);
         }
 
-        public Hoofdboeker MaakHoofdboeker()
-        {
-            return null;
-        }
-
-        //nieuw sinds asp
-
-        public void HaalAlleAccountsOp()
-        {
-            accounts = databaseKoppeling.HaalAlleAccountsOp();
-        }
-
         public Account CheckGebruikersnaam(string inv)
         {
             foreach (Account a in accounts)
@@ -222,6 +249,19 @@ namespace ICT4Events_ASP_Groep_E_S24
                 if (inv == a.Gebruikersnaam)
                 {
                     return a;
+                }
+            }
+            return null;
+        }
+
+
+        public Plaats GeefPlaats(string plaatsNummer)
+        {
+            foreach (Plaats p in Plaatsen)
+            {
+                if (p.PlaatsNummer == plaatsNummer)
+                {
+                    return p;
                 }
             }
             return null;

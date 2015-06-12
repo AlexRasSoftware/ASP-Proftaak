@@ -12,6 +12,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected bool aanwezig = false;
         private Hoofdboeker hoofdboeker;
         private List<Huuritem> huurMateriaal;
+        private Administratie administratie = new Administratie();
 
         //Properties
         public bool Aanwezig
@@ -37,6 +38,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             :base(voornaam, tussenvoegsel, achternaam, straat, huisnr, woonplaats, gebruikernaam, wachtwoord, email)
         {
             this.hoofdboeker = hoofdboeker;
+            huurMateriaal = new List<Huuritem>();
         }
         
         public Bezoeker(string gebruikersnaam, string wachtwoord, DateTime geboortedatum, string naam, string achternaam, string rfidcode, bool aanwezig)
@@ -64,13 +66,29 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Methodes
-        public void LeegMateriaal(Bezoeker b)
+
+        public bool VoegMateriaalToe(Huuritem huurItem)
         {
-            foreach(Huuritem h in huurMateriaal)
+            foreach(Huuritem h in administratie.HuurMateriaal)
             {
-                h.IsGehuurd = false;
+                if(huurItem.Naam == h.Naam)
+                {
+                    if(h.IsGehuurd == true)
+                    {
+                        return false;
+                    }
+                }
             }
-            b.huurMateriaal.Clear();
+            huurMateriaal.Add(huurItem);
+            return true;
+        }
+        
+        public void LeegMateriaal()
+        {
+            foreach (Huuritem h in huurMateriaal)
+            {
+                
+            }
         }
 
         public override string ToString()

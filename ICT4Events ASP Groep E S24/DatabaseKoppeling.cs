@@ -890,20 +890,22 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
-        public List<string> VraagHuuritemsOp(string categorienaam)
+        public List<Huuritem> VraagHuuritemsOp(string categorienaam)
         {
-            List<string> huuritems = new List<string>();
+            List<Huuritem> huuritems = new List<Huuritem>();
             try
             {
                 conn.Open();
-                string query = "SELECT p.MERK, p.SERIE, p.TYPENUMMER FROM PRODUCT p, PRODUCTCAT c WHERE p.PRODUCTCAT_ID = c.ID AND c.NAAM = :categorienaam";                
+                string query = "SELECT p.MERK, p.SERIE, p.TYPENUMMER, pe.VOLGNUMMER FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND c.NAAM = :categorienaam";                
                 command = new OracleCommand(query, conn);
                 command.Parameters.Add(new OracleParameter("categorienaam", categorienaam));
                 OracleDataReader datareader = command.ExecuteReader();
                 while (datareader.Read())
                 {
-                    string naam = Convert.ToString(datareader["MERK"]);
-                    huuritems.Add(naam);
+                    string merk = Convert.ToString(datareader["MERK"]);
+                    string serie = Convert.ToString(datareader["SERIE"]);
+                    int volgnummer = Convert.ToInt32(datareader["VOLGNUMMER"]);
+                    huuritems.Add(new Huuritem(merk, serie, volgnummer));                   
                 }
                 return huuritems;
             }

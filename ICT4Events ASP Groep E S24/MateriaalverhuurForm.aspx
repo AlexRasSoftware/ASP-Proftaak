@@ -15,7 +15,7 @@
         <br />
         <asp:Label ID="Label1" runat="server" Text="Type Huuritem"></asp:Label>
         <br />
-        <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px" OnSelectedIndexChanged="ddlHuurItemType_SelectedIndexChanged">
+        <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px" AutoPostBack="True" OnSelectedIndexChanged="ddlHuurItemType_SelectedIndexChanged" >
         </asp:DropDownList>
         <asp:Button ID="btnKiesCategorie" runat="server" OnClick="btnKiesCategorie_Click" Text="Kies deze categorie" />
         <br />
