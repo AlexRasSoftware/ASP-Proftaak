@@ -88,6 +88,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Constructor
+        // de nieuwe constructor van een event
         public Event(string naam, DateTime datumStart, DateTime datumEinde, string plaats)
         {
             this.naam = naam;

@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EventbeheerForm.aspx" />
+    <Content Include="EventBeheerForm2.aspx" />
     <Content Include="ICT4Events.js" />
     <Content Include="InschrijfForm.aspx" />
     <Content Include="InschrijfFormBezoeker.aspx" />
@@ -104,6 +105,13 @@
     </Compile>
     <Compile Include="EventbeheerForm.aspx.designer.cs">
       <DependentUpon>EventbeheerForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventBeheerForm2.aspx.cs">
+      <DependentUpon>EventBeheerForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventBeheerForm2.aspx.designer.cs">
+      <DependentUpon>EventBeheerForm2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hoofdboeker.cs" />
     <Compile Include="Huuritem.cs" />
