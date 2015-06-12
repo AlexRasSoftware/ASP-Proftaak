@@ -10,26 +10,38 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class MateriaalverhuurForm : System.Web.UI.Page
     {
         DatabaseKoppeling databasekoppeling = new DatabaseKoppeling();
-
+        List<string> gekozenItems = new List<string>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // je gaat ieder item (iedere string) in de list van materiaalsoorten af
             // en je stopt ze stuk voor stuk in de items van ddlHuuritem
-            foreach (string s in databasekoppeling.VraagMateriaalSoortOp())
+            if (Page.IsPostBack == false)
             {
-                ddlHuurItemType.Items.Add(s);
+                foreach (string s in databasekoppeling.VraagMateriaalSoortOp())
+                {
+                    ddlHuurItemType.Items.Add(s);
+                }
             }
+            this.Session["selectedcategorie"] = ddlHuurItemType.SelectedItem;
+            this.Session["gekozenitems"] = ddlHuurItems.SelectedItem;
 
-            foreach (string h in databasekoppeling.VraagHuuritemsOp(Convert.ToString(ddlHuurItemType.SelectedItem)))
+            ddlHuurItems.Items.Clear();
+            foreach (string h in databasekoppeling.VraagHuuritemsOp(Session["selectedcategorie"].ToString()))
             {
                 ddlHuurItems.Items.Add(h);
+            }
+
+            lbGekozenItems.Items.Clear();
+            foreach (string g in gekozenItems)
+            {
+                lbGekozenItems.Items.Add(g);
             }
         }
 
         protected void ddlHuurItemType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GeefMessage("Hij doet het");
+            
         }
 
         public void GeefMessage(string message)
@@ -42,6 +54,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             sb.Append("')};");
             sb.Append("</script>");
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
+        }
+
+        protected void btnKiesCategorie_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnKiesHuurItem_Click(object sender, EventArgs e)
+        {
+            gekozenItems.Add(Session["gekozenitems"].ToString());
         }
     }
 }
