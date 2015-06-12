@@ -27,9 +27,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             this.Session["gekozenitems"] = ddlHuurItems.SelectedItem;
 
             ddlHuurItems.Items.Clear();
-            foreach (string h in databasekoppeling.VraagHuuritemsOp(Session["selectedcategorie"].ToString()))
+            foreach (Huuritem h in databasekoppeling.VraagHuuritemsOp(Session["selectedcategorie"].ToString()))
             {
-                ddlHuurItems.Items.Add(h);
+                ddlHuurItems.Items.Add(h.Naam);
             }
 
             lbGekozenItems.Items.Clear();
