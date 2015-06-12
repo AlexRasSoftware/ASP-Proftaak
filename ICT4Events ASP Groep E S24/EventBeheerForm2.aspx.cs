@@ -28,12 +28,14 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void calStart_SelectionChanged(object sender, EventArgs e)
         {
-            tbEvDatStart.Text = calStart.SelectedDate.ToString();
+            tbEvDatStart.Text = calStart.SelectedDate.ToShortDateString();
+            calStart.Visible = false;
         }
 
         protected void calEind_SelectionChanged(object sender, EventArgs e)
         {
-            tbEvDaEind.Text = calEind.SelectedDate.ToString();
+            tbEvDaEind.Text = calEind.SelectedDate.ToShortDateString();
+            calEind.Visible = false;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return prijs; }
         }
 
-
+        // dit is de nieuwe constructor 
         public Plaats(string plaatsNummer, string locatieNaam, int capaciteit, bool gehuurd)
         {
             this.plaatsNummer = plaatsNummer;
