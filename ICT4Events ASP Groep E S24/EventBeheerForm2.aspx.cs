@@ -13,5 +13,27 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
 
         }
+
+        protected void imbtnCalendarStart_Click(object sender, ImageClickEventArgs e)
+        {
+            if (calStart.Visible) calStart.Visible = false;
+            else calStart.Visible = true;
+        }
+
+        protected void imbtnCalendarEind_Click(object sender, ImageClickEventArgs e)
+        {
+            if (calEind.Visible) calEind.Visible = false;
+            else calEind.Visible = true;
+        }
+
+        protected void calStart_SelectionChanged(object sender, EventArgs e)
+        {
+            tbEvDatStart.Text = calStart.SelectedDate.ToString();
+        }
+
+        protected void calEind_SelectionChanged(object sender, EventArgs e)
+        {
+            tbEvDaEind.Text = calEind.SelectedDate.ToString();
+        }
     }
 }

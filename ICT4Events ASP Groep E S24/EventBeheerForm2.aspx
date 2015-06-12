@@ -16,9 +16,13 @@
         <asp:TextBox ID="tbEvNaam" runat="server"></asp:TextBox>
         <br />
         Datum Start: <asp:TextBox ID="tbEvDatStart" runat="server"></asp:TextBox>
+        <asp:ImageButton ID="imbtnCalendarStart" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarStart_Click" Width="24px" />
+        <asp:Calendar ID="calStart" runat="server" OnSelectionChanged="calStart_SelectionChanged" Visible="False"></asp:Calendar>
         <br />
         Datum Eind:
         <asp:TextBox ID="tbEvDaEind" runat="server"></asp:TextBox>
+        <asp:ImageButton ID="imbtnCalendarEind" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarEind_Click" Width="24px" />
+        <asp:Calendar ID="calEind" runat="server" OnSelectionChanged="calEind_SelectionChanged" Visible="False"></asp:Calendar>
         <br />
         Locatie:
         <asp:TextBox ID="tbEvLocatie" runat="server"></asp:TextBox>
