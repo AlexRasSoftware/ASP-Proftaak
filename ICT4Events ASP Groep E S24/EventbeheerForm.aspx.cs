@@ -275,11 +275,11 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         private void updateEventTab()
         {
-            tbEventStartdatum.Text = administratie.GeefEvent(ddlEvent.SelectedValue).BeginDatum.ToString();
-            tbEventEinddatum.Text = administratie.GeefEvent(ddlEvent.SelectedValue).EindDatum.ToString();
-            tbEventNaam.Text = administratie.GeefEvent(ddlEvent.SelectedValue).Naam;
-            tbEventPlaats.Text = administratie.GeefEvent(ddlEvent.SelectedValue).Plaats;
-            tbEventAdres.Text = administratie.GeefEvent(ddlEvent.SelectedValue).Adres;
+            tbEventStartdatum.Text = database.HaalEvent().BeginDatum.ToString();
+            tbEventEinddatum.Text = database.HaalEvent().EindDatum.ToString();
+            tbEventNaam.Text = database.HaalEvent().Naam.ToString();
+            tbEventPlaats.Text = database.HaalEvent().Plaats.ToString();
+            tbEventAdres.Text = database.HaalEvent().Adres.ToString();
             ddlEventDeelnemers.Items.Clear();
             ddlEventPlaatsen.Items.Clear();
             ddlEventMateriaal.Items.Clear();
@@ -287,7 +287,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             lbMateriaal.Items.Clear();
             ddlMateriaalSoort.SelectedIndex = 0;
             lbPlaatsHuidig.Items.Clear();
-            foreach (Persoon p in administratie.GeefEvent(ddlEvent.Text).Personen)
+            foreach (Persoon p in database.HaalEvent().Personen)
             {
                 if (p is Bezoeker)
                 {
@@ -295,18 +295,18 @@ namespace ICT4Events_ASP_Groep_E_S24
                     ddlEventDeelnemers.SelectedIndex = 0;
                 }
             }
-            foreach (Plaats p in database.HaalPlaatsenOp(administratie.HuidigEvent.Naam))
+            foreach (Plaats p in database.HaalPlaatsenOp(database.HaalEvent().Naam))
             {
                 ddlEventPlaatsen.Items.Add(p.PlaatsNummer);
                 ddlEventPlaatsen.SelectedIndex = 0;
             }
-            foreach (Huuritem h in database.HaalHuuritemsOp(administratie.HuidigEvent.Naam))
+            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
             {
                 ddlEventMateriaal.Items.Add(h.Naam + ", " + h.Type);
                 ddlEventMateriaal.SelectedIndex = 0;
             }
 
-            foreach (Persoon p in administratie.GeefEvent(ddlEvent.Text).Personen)
+            foreach (Persoon p in database.HaalEvent().Personen)
             {
                 if (p is Bezoeker)
                 {
@@ -316,7 +316,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
                 }
             }
-            foreach (Huuritem h in database.HaalHuuritemsOp(administratie.HuidigEvent.Naam))
+            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
             {
                 string status;
                 if (h.IsGehuurd)
@@ -331,7 +331,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 string toevoegen = h.Naam + ", " + h.Type + ", " + status + "\n";
                 lbMateriaal.Items.Add(toevoegen);
             }
-            foreach (Plaats p in database.HaalPlaatsenOp(administratie.HuidigEvent.Naam))
+            foreach (Plaats p in database.HaalPlaatsenOp(database.HaalEvent().Naam))
             {
                 if (p.Huurder != null)
                 {

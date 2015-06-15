@@ -203,17 +203,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             return true;
         }
 
-        public void HaalAlleEventsOp()
-        {
-            events.Clear();
-            List<Event> tempEvent = new List<Event>();
-            tempEvent = databaseKoppeling.HaalAlleEvenementen();
-            foreach (Event e in tempEvent)
-            {
-                events.Add(e);
-            }
-        }
-
         public void VoegAlleGebruikersToeAanEvent(string eventNaam)
         {
             foreach (Event e in events)

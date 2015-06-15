@@ -262,9 +262,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
-        public List<Event> HaalAlleEvenementen()
+        public Event HaalEvent()
         {
-            List<Event> tempEvent = new List<Event>();
+            Event tempEvent = null;
             try
             {
                 conn.Open();
@@ -276,7 +276,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     string naam = Convert.ToString(dataReader["NAAM"]);
                     DateTime beginDatum = Convert.ToDateTime(dataReader["DATUMSTART"]);
                     DateTime eindDatum = Convert.ToDateTime(dataReader["DATUMEINDE"]);
-                    tempEvent.Add(new Event(naam, beginDatum, eindDatum, "Veghel"));
+                    tempEvent = (new Event(naam, beginDatum, eindDatum, "Veghel", "Rachelsmolen 1"));
                 }
                 return tempEvent;
             }
