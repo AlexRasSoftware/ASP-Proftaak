@@ -12,26 +12,41 @@ namespace ICT4Events_ASP_Groep_E_S24
         private Plaats selectedPlaats;
         private Event selectedEvent;
         private Administratie administartie;
+        private DatabaseKoppeling database;
         protected void Page_Load(object sender, EventArgs e)
         {
             administartie = new Administratie();
+            database = new DatabaseKoppeling();
             refreshPlaatsbeheerddl();
             refreshEventBeheerddl();
+            refreshGebruikerlb();
         }
 
         protected void refreshGebruikerlb()
         {
             lbGebruikers.Items.Clear();
-            foreach (Bezoeker b in administartie.Inschrijvers)
+            List<string> bezoekers = new List<string>();
+
+            foreach (string s in database.HaalAanwezigenOp())
             {
-                lbGebruikers.Items.Add(b.Gebruikersnaam);
+               bezoekers.Add(s);
+            }
+
+            foreach (string e in database.HaalAfwezigenOp())
+            {
+                bezoekers.Add(e);
+            }
+
+            foreach (string x in bezoekers)
+            {
+                lbGebruikers.Items.Add(x);
             }
         }
 
         protected void refreshPlaatsbeheerddl()
         {
             ddlPlaNaam.Items.Clear();
-            foreach (Plaats p in administartie.Plaatsen)
+            foreach (Plaats p in database.HaalPlaatsenOp("Event"))
             {
                 ddlPlaNaam.Items.Add(p.LocatieNaam);
             }
@@ -51,8 +66,8 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 ddlEvents.SelectedIndex = 0;
             }
-
         }
+
         #region calendars
         protected void imbtnCalendarStart_Click(object sender, ImageClickEventArgs e)
         {
