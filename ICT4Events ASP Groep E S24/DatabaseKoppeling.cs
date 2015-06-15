@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
+using System.Data;
 
 namespace ICT4Events_ASP_Groep_E_S24
 {
@@ -1010,5 +1011,84 @@ namespace ICT4Events_ASP_Groep_E_S24
                 return true;
             }
         }
+
+        #region reserveringssysteem
+        public bool MaakGebruiker(string voornaam, string achternaam,
+            string geslacht, string mailadres, string gebruikersnaam,
+            string wachtwoord, int budget, out string error)
+        {
+            try
+            {
+                command = new OracleCommand("MAAKGEBRUIKER", conn);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("P_VOORNAAM", OracleDbType.Varchar2).Value = voornaam;
+                command.Parameters.Add("P_ACHTERNAAM", OracleDbType.Varchar2).Value = achternaam;
+                command.Parameters.Add("P_GESLACHT", OracleDbType.Varchar2).Value = geslacht;
+                command.Parameters.Add("P_MAILADRES", OracleDbType.Varchar2).Value = mailadres;
+                command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersnaam;
+                command.Parameters.Add("P_WACHTWOORD", OracleDbType.Varchar2).Value = wachtwoord;
+                command.Parameters.Add("P_BUDGET", OracleDbType.Int32).Value = budget;
+
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                error = "";
+                return true;
+            }
+            catch (Exception)
+            {
+                error = "Gebruikersnaam bestaat al";
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool NieuweGebruiker(string voornaam, string tussenvoegsel, string achternaam,
+            string straat, string huisnr, string woonplaats, string banknr,
+            string gebruikersnaam, string email, string activehash, int geactiveerd,
+            string wachtwoord, string accounttype, out string error)
+        {
+            error = "";
+            try
+            {
+                command = new OracleCommand("NIEUWEGEBRUIKER", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                // voor de persoon tabel
+                command.Parameters.Add("P_VOORNAAM", OracleDbType.Varchar2).Value = voornaam;
+                command.Parameters.Add("P_TUSSENVOEGSEL", OracleDbType.Varchar2).Value = tussenvoegsel;
+                command.Parameters.Add("P_ACHTERNAAM", OracleDbType.Varchar2).Value = achternaam;
+                command.Parameters.Add("P_STRAAT", OracleDbType.Varchar2).Value = straat;
+                command.Parameters.Add("P_HUISNR", OracleDbType.Varchar2).Value = huisnr;
+                command.Parameters.Add("P_WOONPLAATS", OracleDbType.Varchar2).Value = woonplaats;
+                command.Parameters.Add("P_BANKNR", OracleDbType.Varchar2).Value = banknr;
+                // voor de account tabel
+                command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersnaam;
+                command.Parameters.Add("P_EMAIL", OracleDbType.Varchar2).Value = email;
+                command.Parameters.Add("P_ACTIVATIEHASH", OracleDbType.Varchar2).Value = null;
+                command.Parameters.Add("P_GEACTIVEERD", OracleDbType.Int32).Value = 0;
+                command.Parameters.Add("P_WACHTWOORD", OracleDbType.Varchar2).Value = wachtwoord;
+                command.Parameters.Add("P_ACCOUNTTYPE", OracleDbType.Varchar2).Value = "gebruiker";
+
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                error = ex.ToString();
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        #endregion
     }
 }

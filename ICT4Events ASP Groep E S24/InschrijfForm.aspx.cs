@@ -16,17 +16,21 @@ namespace ICT4Events_ASP_Groep_E_S24
         List<Bezoeker> inschrijvers = new List<Bezoeker>();
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
+        {            
             if (!Page.IsPostBack)
             {
-                VulPlaatsen(); 
+                VulPlaatsen();
+                
+                // geef alle categorieën
+                ddlHuurItemType.Items.Clear();
+                foreach (string huurItem in administratie.DatabaseKoppeling.VraagMateriaalSoortOp())
+                {
+                    ddlHuurItemType.Items.Add(huurItem);
+                }
             }
            
-            //if(hBoeker != null)
-            //{
-            //    LaatHboekerZien();
-            //}
+            // hier wordt een nieuwe reservering aangemaakt in de database
+
         }
 
         protected void btnMaakBezoeker_Click(object sender, EventArgs e)
@@ -46,12 +50,13 @@ namespace ICT4Events_ASP_Groep_E_S24
                     // tussenvoegsel leeg laten
                     administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, "", tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);                        
                 }
-                GeefMessage("Hoofdboeker Aangemaakt");
-                // de huidige hoofdboeker wordt aan de inschrijvers toegevoegd dalijk nodig voor het huurmateriaal
-                inschrijvers.Add(administratie.HuidigeHoofdboeker);
-                administratie.HuidigeHuurder = administratie.HuidigeHoofdboeker;
-                // vanaf nu af aan kan de hoofdboeker ook huren. 
-                // zodra er een nieuwe bezoeker wordt aangemaakt verandert dit weer.
+                // maak hier nu ook een hoofdboeker aan in de database
+                string error = "";
+                if(!dbKoppeling.NieuweGebruiker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
+                    tbBanknr.Text, tbGebruikersnaam.Text, tbEmail.Text, null, 0, tbWachtwoord.Text, "gebruiker", out error))
+                {
+                    GeefMessage(error);
+                }
             }
             else
             {
@@ -79,7 +84,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             foreach (Plaats p in administratie.Plaatsen)
             {
                 // als een plaats niet bezet is dan mag deze toegevoegd worden.
-                if (!p.Bezet)
+                if(!p.Bezet)
                 {
                     ddlPlaatsen.Items.Add(p.ToString());
                 }
@@ -116,8 +121,6 @@ namespace ICT4Events_ASP_Groep_E_S24
                 GeefMessage("Maak eerst een hoofdboeker");
             }          
         }       
-
-        // deze staat hier niet zo netjes
 
 
         protected void btnVerwijderPlaats_Click(object sender, EventArgs e)
@@ -164,6 +167,92 @@ namespace ICT4Events_ASP_Groep_E_S24
             Response.Write("<script>");
             Response.Write("window.open('MateriaalVerhuurForm.aspx','_blank')");
             Response.Write("</script>");
+        }
+
+        protected void ddlHuurItemType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VulMerken();
+        }
+
+        private void VulMerken()
+        {
+            ddlMerken.Items.Clear();
+            if (ddlHuurItemType.SelectedItem != null)
+            {
+                foreach (Huuritem h in administratie.GeefMerken(ddlHuurItemType.SelectedItem.ToString()))
+                {
+                    ddlMerken.Items.Add(h.Merk);
+                }
+                VulVolgnummers();
+            }
+        }
+
+        private void Ververs()
+        {
+            lbGekozenItems.Items.Clear();
+            {
+                foreach (Huuritem h in administratie.HuidigeHuurder.HuurMateriaal)
+                {
+                    lbGekozenItems.Items.Add(h.ToString());
+                }
+            }
+        }
+
+        private void VulVolgnummers()
+        {
+            ddlVolgnummers.Items.Clear();
+            if (ddlMerken.SelectedItem != null && ddlHuurItemType.SelectedItem != null)
+            {
+                foreach (Huuritem h in administratie.GeefProducten(ddlMerken.SelectedItem.ToString(), ddlHuurItemType.SelectedItem.ToString()))
+                {
+                    if (!h.IsGehuurd)
+                    {
+                        ddlVolgnummers.Items.Add(h.VolgNummer.ToString());
+                    }
+                }
+            }
+        }
+
+        protected void ddlMerken_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // vul alle mogelijke volgnummers die ze kunnen kiezen
+            VulVolgnummers();
+        }
+
+        protected void btnKiesHuurItem_Click(object sender, EventArgs e)
+        {
+            foreach(Huuritem h in administratie.HuurMateriaal)
+            {
+                if (ddlHuurItemType.SelectedItem.ToString() == h.Categorie)
+                {
+                    if (ddlMerken.SelectedItem.ToString() == h.Merk)
+                    {
+                        if (Convert.ToInt32(ddlVolgnummers.SelectedItem.ToString()) == h.VolgNummer)
+                        {
+                            if(!h.IsGehuurd)
+                            {
+                                lbGekozenItems.Items.Add(h.ToString());
+                                h.IsGehuurd = true;
+                                // koppel hier het huuritem aan de bezoeker
+                            }
+                            else
+                            {
+                                GeefMessage("item is al gehuurd");
+                            }
+                        }
+                    }
+                }                
+            }
+        }
+
+        protected void btnVerwijderItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnBevestig_Click(object sender, EventArgs e)
+        {
+
         }
 
             

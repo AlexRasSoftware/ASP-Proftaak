@@ -23,6 +23,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     ddlHuurItemType.Items.Add(huurItem);
                 }
+                // en alle merken daarbij + volgnummers
+                VulMerken();
             }
             
         }
@@ -31,7 +33,6 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
            // de merken moeten op dat moment geladen worden
             VulMerken();
-
         }
 
         public void GeefMessage(string message)
