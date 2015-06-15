@@ -40,15 +40,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.DropDownList ddlHuurItemType;
         
         /// <summary>
-        /// btnKiesCategorie control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnKiesCategorie;
-        
-        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
@@ -58,13 +49,22 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// ddlHuurItems control.
+        /// ddlMerken control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlHuurItems;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMerken;
+        
+        /// <summary>
+        /// ddlVolgnummers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlVolgnummers;
         
         /// <summary>
         /// btnKiesHuurItem control.
@@ -110,14 +110,5 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBevestig;
-        
-        /// <summary>
-        /// btnAnnuleer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAnnuleer;
     }
 }
