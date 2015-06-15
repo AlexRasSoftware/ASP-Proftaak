@@ -184,6 +184,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.DropDownList ddlMateriaalVolgnr;
         
         /// <summary>
+        /// tbMaType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbMaType;
+        
+        /// <summary>
         /// tbMaMerk control.
         /// </summary>
         /// <remarks>
@@ -193,22 +202,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.TextBox tbMaMerk;
         
         /// <summary>
-        /// tbMaSerie control.
+        /// tbMaVolgnummer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbMaSerie;
-        
-        /// <summary>
-        /// tbMaTypenummer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbMaTypenummer;
+        protected global::System.Web.UI.WebControls.TextBox tbMaVolgnummer;
         
         /// <summary>
         /// tbMaPrijs control.

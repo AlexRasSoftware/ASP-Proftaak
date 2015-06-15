@@ -169,13 +169,50 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             ddlMateriaalMerk.Items.Clear();
             ddlMateriaalVolgnr.Items.Clear();
-            List<string> merken = new List<string>();
-            List<int> volgnrs = new List<int>();
             tbMaMerk.Text = "";
-            foreach (Huuritem h in administartie.HuurMateriaal)
+            tbMaPrijs.Text = "";
+            tbMaVolgnummer.Text = "";
+            tbMaType.Text = ddlMateriaalType.SelectedValue;
+            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
             {
-                if(h.){
+                if (h.Type == ddlMateriaalType.SelectedValue)
+                {
+                    ddlMateriaalMerk.Items.Add(h.Merk);
+                }
+            }
+        }
 
+        protected void ddlMateriaalMerk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlMateriaalVolgnr.Items.Clear();
+            tbMaMerk.Text = ddlMateriaalMerk.SelectedValue;
+            tbMaPrijs.Text = "";
+            tbMaVolgnummer.Text = "";
+            tbMaType.Text = ddlMateriaalType.SelectedValue;
+            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
+            {
+                if (h.Type == ddlMateriaalType.SelectedValue && h.Merk==ddlMateriaalMerk.SelectedValue)
+                {
+                    ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
+                }
+            }
+        }
+
+        protected void ddlMateriaalVolgnr_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlMateriaalVolgnr.Items.Clear();
+            tbMaMerk.Text = ddlMateriaalMerk.SelectedValue;
+            tbMaPrijs.Text = "";
+            tbMaVolgnummer.Text = ddlMateriaalVolgnr.SelectedValue;
+            tbMaType.Text = ddlMateriaalType.SelectedValue;
+            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
+            {
+                if (h.Type == ddlMateriaalType.SelectedValue && 
+                    h.Merk == ddlMateriaalMerk.SelectedValue &&
+                    h.VolgNummer.ToString() == ddlMateriaalVolgnr.SelectedValue)
+                {
+                    ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
+                    tbMaPrijs.Text = h.Prijs.ToString();
                 }
             }
         }

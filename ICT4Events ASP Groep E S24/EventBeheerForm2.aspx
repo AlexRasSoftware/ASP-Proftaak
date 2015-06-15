@@ -77,18 +77,18 @@
         <asp:DropDownList ID="ddlMateriaalType" runat="server" Height="24px" Width="180px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
         </asp:DropDownList>
         &nbsp;Merk:
-        <asp:DropDownList ID="ddlMateriaalMerk" runat="server">
+        <asp:DropDownList ID="ddlMateriaalMerk" runat="server" OnSelectedIndexChanged="ddlMateriaalMerk_SelectedIndexChanged">
         </asp:DropDownList>
 &nbsp;Volgnummer:
-        <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server">
+        <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server" OnSelectedIndexChanged="ddlMateriaalVolgnr_SelectedIndexChanged">
         </asp:DropDownList>
         <br />
+        <br />
+        Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbMaType" runat="server"></asp:TextBox>
         <br />
         Merk:<asp:TextBox ID="tbMaMerk" runat="server" CssClass="newStyle3"></asp:TextBox>
         <br />
-        Serie:<asp:TextBox ID="tbMaSerie" runat="server" CssClass="newStyle3"></asp:TextBox>
-        <br />
-        Typenummer:<asp:TextBox ID="tbMaTypenummer" runat="server" CssClass="newStyle3"></asp:TextBox>
+        Volgnummer:<asp:TextBox ID="tbMaVolgnummer" runat="server" CssClass="newStyle3"></asp:TextBox>
         <br />
         Prijs:<asp:TextBox ID="tbMaPrijs" runat="server" CssClass="newStyle3"></asp:TextBox>
         <br />
