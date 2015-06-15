@@ -39,23 +39,27 @@ namespace ICT4Events_ASP_Groep_E_S24
             
         // als er al een hoofdboeker is gemaakt en er wordt op maakbezoeker geklikt dan wordt de oude vervangen. 
             if (tbVoornaam.Text != "")
-            {
-                if (tbTussenvoegsel.Text != "")
-                {
-                    // er is een nieuwe hoofdboeker 
-                    administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);                      
-                }
-                else
-                {
-                    // tussenvoegsel leeg laten
-                    administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, "", tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);                        
-                }
+            {                
                 // maak hier nu ook een hoofdboeker aan in de database
                 string error = "";
                 if(!dbKoppeling.NieuweBezoeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
                     tbBanknr.Text, tbGebruikersnaam.Text, tbEmail.Text, null, 0, tbWachtwoord.Text, "gebruiker", out error))
                 {
                     GeefMessage(error);
+                }
+                else
+                {
+                    GeefMessage("Bezoeker Aangemaakt");
+                    if (tbTussenvoegsel.Text != "")
+                    {
+                        // er is een nieuwe hoofdboeker 
+                        administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
+                    }
+                    else
+                    {
+                        // tussenvoegsel leeg laten
+                        administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, "", tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
+                    }
                 }
             }
             else
@@ -132,13 +136,13 @@ namespace ICT4Events_ASP_Groep_E_S24
                 string plaats = lbPlaatsen.SelectedItem.ToString();
                 // lees startpositie van deze plaats uit daarom ook - 10
                 string plaatsNummer = plaats.Substring(10, plaats.IndexOf(",", 10) - 10);
-                if (!administratie.HuidigeHoofdboeker.VerwijderPlaats(administratie.GeefPlaats(plaatsNummer)))
+                if (!administratie.HuidigeHoofdboeker.VerwijderPlaats(administratie.GeefPlaats(plaatsNummer), tbGebruikersnaam.Text))
                 {
                     GeefMessage("Plaats is niet gevonden");
                 }
                 else
                 {
-                    // plaats wordt hier verwijderd
+                    // plaats wordt hier verwijderd dus ook uit de database
                     lbPlaatsen.Items.Clear();
                     foreach (Plaats p in administratie.HuidigeHoofdboeker.GekozenPlaatsen)
                     {

@@ -61,7 +61,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
             }
             // daarna moet de plek aan de database worden toegevoegd
-            if(!WijsPlekAanReservering(plaats.PlaatsNummer, gebruikersnaam))
+            if(!dbKoppeling.PlekAanReservering(plaats.PlaatsNummer, gebruikersNaam))
             {
                 return false;
             }
@@ -70,16 +70,21 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         }
 
-        public bool VerwijderPlaats(Plaats plaats)
+        public bool VerwijderPlaats(Plaats plaats, string gebruikersNaam)
         {
             foreach (Plaats p in gekozenPlaatsen)
             {
                 if (p.PlaatsNummer == plaats.PlaatsNummer)
                 {
+                    if (!dbKoppeling.PlekUitReservering(plaats.PlaatsNummer, gebruikersNaam))
+                    {
+                        return false;
+                    }
                     gekozenPlaatsen.Remove(plaats);
                     return true;
                 }
             }
+            // hierbij moeten de gegevens ook uit de database worden verwijderd
             return false;
         }
 
@@ -91,18 +96,6 @@ namespace ICT4Events_ASP_Groep_E_S24
                 totaal += p.Capaciteit;
             }
             return totaal;
-        }
-
-        public bool WijsPlekAanReservering(string plekNummer, string gebruikersNaam)
-        {
-            if(dbKoppeling.PlekAanReservering(plekNummer, gebruikersNaam))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
         
         public override string ToString()
