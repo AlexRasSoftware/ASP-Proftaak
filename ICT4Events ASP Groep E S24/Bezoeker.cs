@@ -13,6 +13,9 @@ namespace ICT4Events_ASP_Groep_E_S24
         private Hoofdboeker hoofdboeker;
         private List<Huuritem> huurMateriaal;
         private Administratie administratie = new Administratie();
+        private List<Plaats> gekozenPlaatsen;
+        private DatabaseKoppeling dbKoppeling = new DatabaseKoppeling();
+
 
         //Properties
         public bool Aanwezig
@@ -24,6 +27,12 @@ namespace ICT4Events_ASP_Groep_E_S24
         public Hoofdboeker Hoofdboeker
         {
             get { return hoofdboeker; }
+        }
+
+        public List<Plaats> GekozenPlaatsen
+        {
+            get { return gekozenPlaatsen; }
+            set { gekozenPlaatsen = value; }
         }
 
         public List<Huuritem> HuurMateriaal
@@ -39,6 +48,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             this.hoofdboeker = hoofdboeker;
             huurMateriaal = new List<Huuritem>();
+            gekozenPlaatsen = new List<Plaats>();
         }
         
         public Bezoeker(string gebruikersnaam, string wachtwoord, DateTime geboortedatum, string naam, string achternaam, string rfidcode, bool aanwezig)
@@ -67,28 +77,76 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         //Methodes
 
-        public bool VoegMateriaalToe(Huuritem huurItem)
+        public bool VoegProductToe(Huuritem huurItem, string gebrNaam)
         {
-            foreach(Huuritem h in administratie.HuurMateriaal)
+            if(!dbKoppeling.HuurProduct(huurItem.Categorie, huurItem.Merk, huurItem.VolgNummer, gebrNaam))
             {
-                if(huurItem.Naam == h.Naam)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool VerwijderProduct(Huuritem huurItem, string gebrNaam)
+        {
+            if (!dbKoppeling.VerwijderProduct(huurItem.Categorie, huurItem.Merk, huurItem.VolgNummer, gebrNaam))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //Methods
+        public bool VoegPlaatsToe(Plaats plaats, string gebruikersNaam)
+        {
+            // als de plaats al een keer is gekozen kan deze niet toegevoegd worden
+            foreach (Plaats p in gekozenPlaatsen)
+            {
+                if (p.PlaatsNummer == plaats.PlaatsNummer)
                 {
-                    if(h.IsGehuurd == true)
+                    return false;
+                }
+            }
+            // daarna moet de plek aan de database worden toegevoegd
+            if (!dbKoppeling.PlekAanReservering(plaats.PlaatsNummer, gebruikersNaam))
+            {
+                return false;
+            }
+            gekozenPlaatsen.Add(plaats);
+            return true;
+        }
+
+        public bool VerwijderPlaats(Plaats plaats, string gebruikersNaam)
+        {
+            foreach (Plaats p in gekozenPlaatsen)
+            {
+                if (p.PlaatsNummer == plaats.PlaatsNummer)
+                {
+                    if (!dbKoppeling.PlekUitReservering(plaats.PlaatsNummer, gebruikersNaam))
                     {
                         return false;
                     }
+                    gekozenPlaatsen.Remove(plaats);
+                    return true;
                 }
             }
-            huurMateriaal.Add(huurItem);
-            return true;
+            // hierbij moeten de gegevens ook uit de database worden verwijderd
+            return false;
         }
-        
-        public void LeegMateriaal()
+
+        public int AantalPersonen()
         {
-            foreach (Huuritem h in huurMateriaal)
+            int totaal = 0;
+            foreach (Plaats p in gekozenPlaatsen)
             {
-                
+                totaal += p.Capaciteit;
             }
+            return totaal;
         }
 
         public override string ToString()

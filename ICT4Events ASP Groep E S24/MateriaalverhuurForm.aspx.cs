@@ -52,25 +52,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             // wijs het product aan de huidige huurder
             // selecteer deze huurder op zijn gebruikersnaam en voeg aan die huurder het item toe
             // zet ook het huuritem op isgehuurd
-            foreach(Bezoeker b in administratie.Inschrijvers)
-            {
-                if(administratie.HuidigeHuurder.Gebruikersnaam == b.Gebruikersnaam)
-                {
-                    foreach(Huuritem h in administratie.HuurMateriaal)
-                    {
-                        if(ddlHuurItemType.SelectedItem.ToString() == h.Categorie)
-                        {
-                            if(ddlMerken.SelectedItem.ToString() == h.Merk)
-                            {
-                                if(Convert.ToInt32(ddlVolgnummers.SelectedItem.ToString()) == h.VolgNummer)
-                                {
-                                    b.VoegMateriaalToe(h);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+
             Ververs();
         }
 
@@ -112,7 +94,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             lbGekozenItems.Items.Clear();
             {
-                foreach(Huuritem h in administratie.HuidigeHuurder.HuurMateriaal)
+                foreach(Huuritem h in administratie.HuidigeBezoeker.HuurMateriaal)
                 {
                     lbGekozenItems.Items.Add(h.ToString());
                 }

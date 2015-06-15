@@ -11,14 +11,18 @@ namespace ICT4Events_ASP_Groep_E_S24
     // als de inschrijving wordt afgerond voeg dan dmv PLSQL alles aan de database
     public partial class InschrijfForm : System.Web.UI.Page
     {
-        DatabaseKoppeling dbKoppeling = new DatabaseKoppeling();
-        Administratie administratie = new Administratie();
-        List<Bezoeker> inschrijvers = new List<Bezoeker>();
+        static DatabaseKoppeling dbKoppeling;
+        static Administratie administratie;
+        static List<Bezoeker> inschrijvers;
+        private static string gebruikersNaam;
 
         protected void Page_Load(object sender, EventArgs e)
         {            
             if (!Page.IsPostBack)
             {
+                administratie = new Administratie();
+                dbKoppeling = new DatabaseKoppeling();
+                inschrijvers = new List<Bezoeker>();
                 VulPlaatsen();
                 
                 // geef alle categorieën
@@ -27,6 +31,9 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     ddlHuurItemType.Items.Add(huurItem);
                 }
+                VulMerken();
+                VulVolgnummers();
+
             }
            
             // hier wordt een nieuwe reservering aangemaakt in de database
@@ -38,6 +45,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         // het idee van alle inschrijvers maken is dat het pas definitief wordt op het einde van de inschrijving. Dan gaat alles pas naar de database 
             
         // als er al een hoofdboeker is gemaakt en er wordt op maakbezoeker geklikt dan wordt de oude vervangen. 
+            gebruikersNaam = tbGebruikersnaam.Text;
             if (tbVoornaam.Text != "")
             {                
                 // maak hier nu ook een hoofdboeker aan in de database
@@ -53,12 +61,12 @@ namespace ICT4Events_ASP_Groep_E_S24
                     if (tbTussenvoegsel.Text != "")
                     {
                         // er is een nieuwe hoofdboeker 
-                        administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
+                        administratie.HuidigeBezoeker = new Hoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
                     }
                     else
                     {
                         // tussenvoegsel leeg laten
-                        administratie.HuidigeHoofdboeker = new Hoofdboeker(tbVoornaam.Text, "", tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
+                        administratie.HuidigeBezoeker = new Hoofdboeker(tbVoornaam.Text, "", tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
                     }
                 }
             }
@@ -99,21 +107,21 @@ namespace ICT4Events_ASP_Groep_E_S24
         // voeg plaats toe
         protected void btnVoegPlaatsToe_Click(object sender, EventArgs e)
         {
-            if(administratie.HuidigeHoofdboeker != null)
+            if(administratie.HuidigeBezoeker != null)
             {
                 // als de nieuwe plaats nog niet in het lijstje van plaatsen voorkomt, voeg deze dan toe
                 string plaats = ddlPlaatsen.SelectedItem.ToString();
                 // lees startpositie van deze plaats uit daarom ook - 10
                 string plaatsNummer = plaats.Substring(10, plaats.IndexOf(",", 10) - 10);
                 // kijk eerst of een plaats nog niet bestaat voeg m toe als dit niet zo is
-                if (!administratie.HuidigeHoofdboeker.VoegPlaatsToe(administratie.GeefPlaats(plaatsNummer), tbGebruikersnaam.Text)) 
+                if (!administratie.HuidigeBezoeker.VoegPlaatsToe(administratie.GeefPlaats(plaatsNummer), gebruikersNaam)) 
                 {
                     GeefMessage("Plaats is al toegevoegd");
                 }
                 else
                 {
                     lbPlaatsen.Items.Clear();
-                    foreach (Plaats p in administratie.HuidigeHoofdboeker.GekozenPlaatsen)
+                    foreach (Plaats p in administratie.HuidigeBezoeker.GekozenPlaatsen)
                     {
                         lbPlaatsen.Items.Add(p.ToString());
                     }
@@ -136,7 +144,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 string plaats = lbPlaatsen.SelectedItem.ToString();
                 // lees startpositie van deze plaats uit daarom ook - 10
                 string plaatsNummer = plaats.Substring(10, plaats.IndexOf(",", 10) - 10);
-                if (!administratie.HuidigeHoofdboeker.VerwijderPlaats(administratie.GeefPlaats(plaatsNummer), tbGebruikersnaam.Text))
+                if (!administratie.HuidigeBezoeker.VerwijderPlaats(administratie.GeefPlaats(plaatsNummer), gebruikersNaam))
                 {
                     GeefMessage("Plaats is niet gevonden");
                 }
@@ -144,7 +152,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     // plaats wordt hier verwijderd dus ook uit de database
                     lbPlaatsen.Items.Clear();
-                    foreach (Plaats p in administratie.HuidigeHoofdboeker.GekozenPlaatsen)
+                    foreach (Plaats p in administratie.HuidigeBezoeker.GekozenPlaatsen)
                     {
                         lbPlaatsen.Items.Add(p.ToString());
                     }
@@ -161,7 +169,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             // als er iets met de plaatsen veranderd dan moet deze methode worden aangeroepen
             ddlMeerderePersonen.Items.Clear();
-            for(int i = 1; i<administratie.HuidigeHoofdboeker.AantalPersonen(); i++)
+            for(int i = 1; i<administratie.HuidigeBezoeker.AantalPersonen(); i++)
             {
                 ddlMeerderePersonen.Items.Add(Convert.ToString(i));
             }
@@ -196,7 +204,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             lbGekozenItems.Items.Clear();
             {
-                foreach (Huuritem h in administratie.HuidigeHuurder.HuurMateriaal)
+                foreach (Huuritem h in administratie.HuidigeBezoeker.HuurMateriaal)
                 {
                     lbGekozenItems.Items.Add(h.ToString());
                 }
@@ -226,33 +234,38 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnKiesHuurItem_Click(object sender, EventArgs e)
         {
-            foreach(Huuritem h in administratie.HuurMateriaal)
+            string categorie = ddlHuurItemType.SelectedItem.ToString();
+            string merk = ddlMerken.SelectedItem.ToString();
+            int volgnummer = Convert.ToInt32(ddlVolgnummers.SelectedItem.ToString());
+            Huuritem h = administratie.GeefProductExemplaar(categorie, merk, volgnummer);
+            if(administratie.HuidigeBezoeker != null)
             {
-                if (ddlHuurItemType.SelectedItem.ToString() == h.Categorie)
+                if (!administratie.HuidigeBezoeker.VoegProductToe(h, gebruikersNaam))
                 {
-                    if (ddlMerken.SelectedItem.ToString() == h.Merk)
-                    {
-                        if (Convert.ToInt32(ddlVolgnummers.SelectedItem.ToString()) == h.VolgNummer)
-                        {
-                            if(!h.IsGehuurd)
-                            {
-                                lbGekozenItems.Items.Add(h.ToString());
-                                h.IsGehuurd = true;
-                                // koppel hier het huuritem aan de bezoeker
-                            }
-                            else
-                            {
-                                GeefMessage("item is al gehuurd");
-                            }
-                        }
-                    }
-                }                
+                    GeefMessage("huuritem is al gehuurd");
+                }
+                else
+                {
+                    lbGekozenItems.Items.Add(h.ToString());
+                }
             }
+
         }
 
         protected void btnVerwijderItem_Click(object sender, EventArgs e)
         {
-
+            Huuritem h = administratie.GeefProductExemplaar(lbGekozenItems.SelectedItem.ToString());
+            if (administratie.HuidigeBezoeker != null)
+            {
+                if (!administratie.HuidigeBezoeker.VerwijderProduct(h, gebruikersNaam))
+                {
+                    GeefMessage("verwijderen niet gelukt");
+                }
+                else
+                {
+                    lbGekozenItems.Items.Remove(h.ToString());
+                }
+            }
         }
 
         protected void btnBevestig_Click(object sender, EventArgs e)

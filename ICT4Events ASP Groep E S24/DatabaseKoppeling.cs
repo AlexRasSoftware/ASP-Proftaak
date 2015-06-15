@@ -1013,6 +1013,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         #region reserveringssysteem
+        
         // hier wordt een stored procedure aangeroepen waarbij ook een reservering en een polsbandje aan een persoon wordt gekoppeld
         public bool NieuweBezoeker(string voornaam, string tussenvoegsel, string achternaam,
             string straat, string huisnr, string woonplaats, string banknr,
@@ -1056,6 +1057,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        // methode voegt een plek aan een reservering toe in de database via een SP
         public bool PlekAanReservering(string plekNummer, string gebruikersNaam)
         {
             try
@@ -1080,6 +1082,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        // deze methode verwijderd een plek uit een reservering dmv een SP
         public bool PlekUitReservering(string plekNummer, string gebruikersNaam)
         {
             try
@@ -1087,6 +1090,60 @@ namespace ICT4Events_ASP_Groep_E_S24
                 command = new OracleCommand("PLEKUITRESERVERING", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_PLEKNUMMER", OracleDbType.Varchar2).Value = plekNummer;
+                command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersNaam;
+
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        // deze methode huurt een product in de database dmv een SP
+        public bool HuurProduct(string categorie, string merk, int volgnummer, string gebruikersNaam)
+        {
+            try
+            {
+                command = new OracleCommand("HUURPRODUCT", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_CATEGORIE", OracleDbType.Varchar2).Value = categorie;
+                command.Parameters.Add("P_MERK", OracleDbType.Varchar2).Value = merk;
+                command.Parameters.Add("P_VOLGNUMMER", OracleDbType.Int32).Value = volgnummer;
+                command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersNaam;
+
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        // deze methode verwijdert een 'verhuring' dmv een SP
+        public bool VerwijderProduct(string categorie, string merk, int volgnummer, string gebruikersNaam)
+        {
+            try
+            {
+                command = new OracleCommand("VERWIJDERPRODUCT", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_CATEGORIE", OracleDbType.Varchar2).Value = categorie;
+                command.Parameters.Add("P_MERK", OracleDbType.Varchar2).Value = merk;
+                command.Parameters.Add("P_VOLGNUMMER", OracleDbType.Int32).Value = volgnummer;
                 command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersNaam;
 
                 conn.Open();

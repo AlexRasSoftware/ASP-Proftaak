@@ -18,8 +18,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static DatabaseKoppeling databaseKoppeling = new DatabaseKoppeling();
         protected static int lastRfidCode = 0;
         private static List<Bezoeker> inschrijvers = new List<Bezoeker>();
-        private static Hoofdboeker huidigeHoofdboeker = null;
-        private static Bezoeker huidigeHuurder = null;
+        private static Bezoeker huidigeBezoeker = null;
         private static Account nuIngelogdeAccount = null;
         private static List<Account> accounts = new List<Account>();
         private static List<Plaats> plaatsen = databaseKoppeling.HaalPlaatsenOp("dummy");
@@ -49,16 +48,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             set { HuurMateriaal = value; }
         }
 
-        public Hoofdboeker HuidigeHoofdboeker
-        {
-            get { return huidigeHoofdboeker; }
-            set { huidigeHoofdboeker = value; }
-        }
 
-        public Bezoeker HuidigeHuurder
+        public Bezoeker HuidigeBezoeker
         {
-            get { return huidigeHuurder; }
-            set { huidigeHuurder = value; }
+            get { return huidigeBezoeker; }
+            set { huidigeBezoeker = value; }
         }
 
         public Persoon NuIngelogd
@@ -327,6 +321,30 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
             }
             return items;
+        }
+
+        public Huuritem GeefProductExemplaar(string productString)
+        {
+            foreach(Huuritem h in AlleHuurItems())
+            {
+                if(h.ToString() == productString)
+                {
+                    return h;
+                }
+            }
+            return null;
+        }
+
+        public Huuritem GeefProductExemplaar(string categorie, string merk, int volgnummer)
+        {
+            foreach (Huuritem h in AlleHuurItems())
+            {
+                if (h.Categorie == categorie && h.Merk == merk && h.VolgNummer == volgnummer)
+                {
+                    return h;
+                }
+            }
+            return null;
         }
     }
 }
