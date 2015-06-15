@@ -223,12 +223,10 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         public List<Bericht> VraagAlleBerichtenOp()
         {
-<<<<<<< HEAD
+
             return databaseKoppeling.VraagBerichtenOpVanEvent();
-=======
             huidigEvent.Berichten.Clear();
-            huidigEvent.VoegBerichtenToe(databaseKoppeling.VraagBerichtenOpVanEvent(eventNaam));           
->>>>>>> origin/master
+            huidigEvent.VoegBerichtenToe(databaseKoppeling.VraagBerichtenOpVanEvent());           
         }
 
         public string RfidGenerator()
@@ -273,7 +271,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
-<<<<<<< HEAD
+
         public Account GeefAccountDoorId(int id)
         {
             foreach (Account a in accounts)
@@ -285,7 +283,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return null;
         }
-=======
+
         public List<Huuritem> GeefMerken(string categorieNaam)
         {
             // geef de huuritems voor een bepaalde categorie
@@ -330,8 +328,5 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return items;
         }
-
-
->>>>>>> origin/master
     }
 }

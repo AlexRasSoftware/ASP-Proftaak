@@ -19,7 +19,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             refreshPlaatsbeheerddl();
             refreshEventBeheerddl();
             refreshGebruikerlb();
-            refreshMateriaalddl1()
+            refreshMateriaalddl1();
         }
 
         protected void refreshGebruikerlb()

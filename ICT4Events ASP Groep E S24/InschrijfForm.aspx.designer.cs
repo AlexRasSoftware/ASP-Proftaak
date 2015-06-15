@@ -364,15 +364,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.DropDownList ddlMeerderePersonen;
         
         /// <summary>
-        /// btnMateriaalHuren control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMateriaalHuren;
-        
-        /// <summary>
         /// btnAnnuleren control.
         /// </summary>
         /// <remarks>

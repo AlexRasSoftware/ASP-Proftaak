@@ -1013,41 +1013,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         #region reserveringssysteem
-        public bool MaakGebruiker(string voornaam, string achternaam,
-            string geslacht, string mailadres, string gebruikersnaam,
-            string wachtwoord, int budget, out string error)
-        {
-            try
-            {
-                command = new OracleCommand("MAAKGEBRUIKER", conn);
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.Add("P_VOORNAAM", OracleDbType.Varchar2).Value = voornaam;
-                command.Parameters.Add("P_ACHTERNAAM", OracleDbType.Varchar2).Value = achternaam;
-                command.Parameters.Add("P_GESLACHT", OracleDbType.Varchar2).Value = geslacht;
-                command.Parameters.Add("P_MAILADRES", OracleDbType.Varchar2).Value = mailadres;
-                command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersnaam;
-                command.Parameters.Add("P_WACHTWOORD", OracleDbType.Varchar2).Value = wachtwoord;
-                command.Parameters.Add("P_BUDGET", OracleDbType.Int32).Value = budget;
-
-                conn.Open();
-                OracleDataAdapter da = new OracleDataAdapter(command);
-                command.ExecuteNonQuery();
-                error = "";
-                return true;
-            }
-            catch (Exception)
-            {
-                error = "Gebruikersnaam bestaat al";
-                return false;
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-        public bool NieuweGebruiker(string voornaam, string tussenvoegsel, string achternaam,
+        // hier wordt een stored procedure aangeroepen waarbij ook een reservering en een polsbandje aan een persoon wordt gekoppeld
+        public bool NieuweBezoeker(string voornaam, string tussenvoegsel, string achternaam,
             string straat, string huisnr, string woonplaats, string banknr,
             string gebruikersnaam, string email, string activehash, int geactiveerd,
             string wachtwoord, string accounttype, out string error)
@@ -1055,7 +1022,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             error = "";
             try
             {
-                command = new OracleCommand("NIEUWEGEBRUIKER", conn);
+                command = new OracleCommand("NIEUWEBEZOEKER", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 // voor de persoon tabel
                 command.Parameters.Add("P_VOORNAAM", OracleDbType.Varchar2).Value = voornaam;

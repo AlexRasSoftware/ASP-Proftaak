@@ -52,7 +52,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
                 // maak hier nu ook een hoofdboeker aan in de database
                 string error = "";
-                if(!dbKoppeling.NieuweGebruiker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
+                if(!dbKoppeling.NieuweBezoeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
                     tbBanknr.Text, tbGebruikersnaam.Text, tbEmail.Text, null, 0, tbWachtwoord.Text, "gebruiker", out error))
                 {
                     GeefMessage(error);
