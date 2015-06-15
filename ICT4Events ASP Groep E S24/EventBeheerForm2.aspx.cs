@@ -19,6 +19,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             refreshPlaatsbeheerddl();
             refreshEventBeheerddl();
             refreshGebruikerlb();
+            refreshMateriaalddl1()
         }
 
         protected void refreshGebruikerlb()
@@ -213,7 +214,16 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
                     tbMaPrijs.Text = h.Prijs.ToString();
+                    break;
                 }
+            }
+        }
+        private void refreshMateriaalddl1()
+        {
+            ddlMateriaalType.Items.Clear();
+            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
+            {
+                ddlMateriaalType.Items.Add(h.Type);
             }
         }
     }
