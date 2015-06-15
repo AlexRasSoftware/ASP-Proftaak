@@ -10,7 +10,6 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class EventBeheerForm2 : System.Web.UI.Page
     {
         private Plaats selectedPlaats;
-        private Event selectedEvent;
         private Administratie administartie;
         private DatabaseKoppeling database;
         protected void Page_Load(object sender, EventArgs e)
@@ -57,15 +56,10 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
         protected void refreshEventBeheerddl()
         {
-            ddlEvents.Items.Clear();
-            foreach (Event ev in administartie.Events)
-            {
-                ddlEvents.Items.Add(ev.Naam);
-            }
-            if (ddlEvents.SelectedIndex >= 0)
-            {
-                ddlEvents.SelectedIndex = 0;
-            }
+            tbEvNaam.Text = database.HaalEvent().Naam;
+            tbEvDatStart.Text = database.HaalEvent().BeginDatum.ToShortDateString();
+            tbEvDaEind.Text = database.HaalEvent().EindDatum.ToShortDateString();
+            tbEvLocatie.Text = database.HaalEvent().Plaats;
         }
 
         #region calendars
@@ -119,21 +113,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
-        protected void ddlEvents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (Event ev in administartie.Events)
-            {
-                if (ev.Naam==ddlEvents.SelectedValue)
-                {
-                    selectedEvent = ev;
-                    tbEvNaam.Text = ev.Naam;
-                    tbEvDatStart.Text = ev.BeginDatum.ToShortDateString();
-                    tbEvDaEind.Text = ev.EindDatum.ToShortDateString();
-                    tbEvLocatie.Text = ev.Plaats;
-                    break;
-                }
-            }
-        }
+        
 
         protected void btnZoek_Click(object sender, EventArgs e)
         {
@@ -174,13 +154,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (lbGebruikers.SelectedValue != null)
             {
-                foreach (Bezoeker b in administartie.Inschrijvers)
-                {
-                    if (b.Gebruikersnaam == lbGebruikers.SelectedValue)
-                    {
-                        administartie.Inschrijvers.Remove(b);
-                    }
-                }
+                database.DeleteGebruiker(lbGebruikers.SelectedValue);
                 refreshGebruikerlb();
             }
             else
@@ -198,12 +172,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             List<string> merken = new List<string>();
             List<int> volgnrs = new List<int>();
             tbMaMerk.Text = "";
-            /*foreach (Huuritem h in administartie.HuurMateriaal)
+            foreach (Huuritem h in administartie.HuurMateriaal)
             {
                 if(h.){
 
                 }
-            }*/
+            }
         }
     }
 }

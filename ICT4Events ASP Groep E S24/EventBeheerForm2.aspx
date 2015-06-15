@@ -9,6 +9,7 @@
         .newStyle1 {
             position: absolute;
             left: 150px;
+            right: 412px;
         }
         .newStyle2 {
             position: absolute;
@@ -27,10 +28,6 @@
     
         <h3>Pas event aan</h3>
         <asp:Button ID="btnNavLogin" runat="server" OnClick="btnNavLogin_Click" Text="Terug Naar Login" />
-        <br />
-        Alle Events&nbsp;&nbsp;&nbsp;
-        <asp:DropDownList ID="ddlEvents" runat="server" CssClass="newStyle1" Width="131px" OnSelectedIndexChanged="ddlEvents_SelectedIndexChanged">
-        </asp:DropDownList>
         <br />
         Naam:
         <asp:TextBox ID="tbEvNaam" runat="server" CssClass="newStyle1"></asp:TextBox>
