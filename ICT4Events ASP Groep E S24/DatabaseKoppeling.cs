@@ -1056,6 +1056,30 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        public bool PlekAanReservering(string plekNummer, string gebruikersNaam)
+        {
+            try
+            {
+                command = new OracleCommand("PLEKAANRESERVERING", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_PLEKNUMMER", OracleDbType.Varchar2).Value = plekNummer;
+                command.Parameters.Add("P_GEBRUIKERSNAAM", OracleDbType.Varchar2).Value = gebruikersNaam;
+
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         #endregion
     }
 }

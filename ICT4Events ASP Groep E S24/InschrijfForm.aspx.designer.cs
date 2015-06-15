@@ -337,15 +337,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnVerwijderItem;
         
         /// <summary>
-        /// btnBevestig control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBevestig;
-        
-        /// <summary>
         /// chbMeederePersonen control.
         /// </summary>
         /// <remarks>
@@ -364,13 +355,13 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.DropDownList ddlMeerderePersonen;
         
         /// <summary>
-        /// btnAnnuleren control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAnnuleren;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// imgCamping control.

@@ -101,8 +101,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                 string plaats = ddlPlaatsen.SelectedItem.ToString();
                 // lees startpositie van deze plaats uit daarom ook - 10
                 string plaatsNummer = plaats.Substring(10, plaats.IndexOf(",", 10) - 10);
-
-                if (!administratie.HuidigeHoofdboeker.VoegPlaatsToe(administratie.GeefPlaats(plaatsNummer)))
+                // kijk eerst of een plaats nog niet bestaat voeg m toe als dit niet zo is
+                if (!administratie.HuidigeHoofdboeker.VoegPlaatsToe(administratie.GeefPlaats(plaatsNummer), tbGebruikersnaam.Text)) 
                 {
                     GeefMessage("Plaats is al toegevoegd");
                 }
@@ -114,7 +114,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                         lbPlaatsen.Items.Add(p.ToString());
                     }
                     VulPersonen();
-                }
+                    
+                }                               
             }
             else
             {

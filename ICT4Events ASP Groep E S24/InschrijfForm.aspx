@@ -31,6 +31,7 @@
             top: 3px;
             left: 1px;
             width: 450px;
+            height: 85px;
         }
         #form1 {
             height: 1416px;
@@ -142,7 +143,6 @@
         <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
         <br />
         <asp:Button ID="btnVerwijderItem" runat="server" Text="Verwijder Item" OnClick="btnVerwijderItem_Click" />
-        <asp:Button ID="btnBevestig" runat="server" Text="Bevestigen" OnClick="btnBevestig_Click" />
         <br />
         <br />
 
@@ -153,11 +153,11 @@
         <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 0px" Width="118px">
         </asp:DropDownList>
         <br />
-        <br />
-        <asp:Button ID="btnAnnuleren" runat="server" style="margin-left: 0px" Text="Annuleren" Width="126px" />
 
     </div>
         <br />
+
+        <asp:Button ID="Button1" runat="server" Text="Bevestig" />
 
         <br />
         <br />

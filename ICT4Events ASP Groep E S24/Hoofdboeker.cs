@@ -8,6 +8,8 @@ namespace ICT4Events_ASP_Groep_E_S24
 {
     public class Hoofdboeker : Bezoeker
     {
+        DatabaseKoppeling dbKoppeling = new DatabaseKoppeling();
+
         //Fields
         private string rekeningNummer;
         private string adres;
@@ -47,26 +49,32 @@ namespace ICT4Events_ASP_Groep_E_S24
             gekozenPlaatsen = new List<Plaats>();
         }
 
-        public bool VoegPlaatsToe(Plaats plaats)
+        //Methods
+        public bool VoegPlaatsToe(Plaats plaats, string gebruikersNaam)
         {
             // als de plaats al een keer is gekozen kan deze niet toegevoegd worden
-            foreach(Plaats p in gekozenPlaatsen)
+            foreach (Plaats p in gekozenPlaatsen)
             {
-                if(p.PlaatsNummer == plaats.PlaatsNummer)
+                if (p.PlaatsNummer == plaats.PlaatsNummer)
                 {
                     return false;
                 }
             }
+            // daarna moet de plek aan de database worden toegevoegd
+            if(!WijsPlekAanReservering(plaats.PlaatsNummer, gebruikersnaam))
+            {
+                return false;
+            }
             gekozenPlaatsen.Add(plaats);
             return true;
-        
+
         }
 
         public bool VerwijderPlaats(Plaats plaats)
         {
-            foreach(Plaats p in gekozenPlaatsen)
+            foreach (Plaats p in gekozenPlaatsen)
             {
-                if(p.PlaatsNummer == plaats.PlaatsNummer)
+                if (p.PlaatsNummer == plaats.PlaatsNummer)
                 {
                     gekozenPlaatsen.Remove(plaats);
                     return true;
@@ -78,14 +86,25 @@ namespace ICT4Events_ASP_Groep_E_S24
         public int AantalPersonen()
         {
             int totaal = 0;
-            foreach(Plaats p in gekozenPlaatsen)
+            foreach (Plaats p in gekozenPlaatsen)
             {
                 totaal += p.Capaciteit;
             }
             return totaal;
         }
 
-        //Methods
+        public bool WijsPlekAanReservering(string plekNummer, string gebruikersNaam)
+        {
+            if(dbKoppeling.PlekAanReservering(plekNummer, gebruikersNaam))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
         public override string ToString()
         {
             return base.ToString();
