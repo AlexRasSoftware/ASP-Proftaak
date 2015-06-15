@@ -13,6 +13,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static Persoon nuIngelogd = null;
         private static Event huidigEvent = null;
         private static Bericht tempBericht = null;
+        private static List<Bericht> berichten = new List<Bericht>();
         private static int countGemaakt = 0;
         private static DatabaseKoppeling databaseKoppeling = new DatabaseKoppeling();
         protected static int lastRfidCode = 0;
@@ -96,12 +97,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
 
             }
-            countGemaakt++; 
+            countGemaakt++;
             //databaseKoppeling = new DatabaseKoppeling();
         }
 
         //Methodes
-       
+
 
         //Deze methode zoekt naar bestaande events
         public Event GeefEvent(string eventNaam)
@@ -149,7 +150,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                             plaatsen = plaatsen + ", " + p.PlaatsNummer;
                         }
                     }
-                    
+
                 }
             }
 
@@ -165,7 +166,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             foreach (Event e in events)
             {
-                if(naam == e.Naam)
+                if (naam == e.Naam)
                 {
                     return false;
                 }
@@ -183,7 +184,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     return false;
                 }
-                    
+
             }
 
             return true;
@@ -217,12 +218,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             accounts = databaseKoppeling.HaalAlleAccountsOp();
         }
 
-        public void VraagAlleBerichtenOp(string eventNaam)
+        public List<Bericht> VraagAlleBerichtenOp()
         {
-            huidigEvent.Berichten.Clear();
-            huidigEvent.VoegBerichtenToe(databaseKoppeling.VraagBerichtenOpVanEvent(eventNaam));
-
-            
+            return databaseKoppeling.VraagBerichtenOpVanEvent();
         }
 
         public string RfidGenerator()
@@ -262,6 +260,18 @@ namespace ICT4Events_ASP_Groep_E_S24
                 if (p.PlaatsNummer == plaatsNummer)
                 {
                     return p;
+                }
+            }
+            return null;
+        }
+
+        public Account GeefAccountDoorId(int id)
+        {
+            foreach (Account a in accounts)
+            {
+                if (id == a.Id)
+                {
+                    return a;
                 }
             }
             return null;

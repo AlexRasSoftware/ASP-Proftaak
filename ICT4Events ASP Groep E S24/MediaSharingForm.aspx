@@ -19,13 +19,13 @@
         </asp:RadioButtonList>
         <br />
         <br />
-        <asp:ListBox ID="lbPosts" runat="server" Height="162px" Width="331px"></asp:ListBox>
+        <asp:ListBox ID="lbPosts" runat="server" Height="162px" Width="716px"></asp:ListBox>
         <br />
         <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="btnLike_Click" />
         <asp:Button ID="btnReageerMeer" runat="server" Text="Reageer en meer" />
         <br />
         Nieuwe post<br />
-        <asp:TextBox ID="tbBericht" runat="server" Height="52px" Width="176px"></asp:TextBox>
+        <asp:TextBox ID="tbBericht" runat="server" Height="52px" Width="176px" Rows="3"></asp:TextBox>
         <br />
         <br />
         <asp:Button ID="btUploadBestand" runat="server" Text="Upload bestand" />

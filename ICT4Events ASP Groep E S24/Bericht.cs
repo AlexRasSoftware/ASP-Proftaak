@@ -11,10 +11,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         //Fields
         private int id;
         private List<Like> likes;
+        private string titel;
         private List<Rapportage> rapportages;
         private string tekst;
         private List<Reactie> reacties;
-        private Persoon auteur;
+        private Account auteur;
         private DateTime datumGepost;
         private Bestand bestand;
         private BerichtSoort berichtSoort;
@@ -24,6 +25,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         public List<Like> Likes
         {
             get { return likes; }
+        }
+
+        public string Titel
+        {
+            get { return titel; }
         }
 
         public List<Rapportage> Rapportages
@@ -46,7 +52,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return reacties; }
         }
 
-        public Persoon Auteur
+        public Account Auteur
         {
             get { return auteur; }
         }
@@ -58,7 +64,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
 
-        public Bericht(string tekst, Persoon auteur)
+        public Bericht(string tekst, Account auteur)
         {
             this.tekst = tekst;
             this.auteur = auteur;
@@ -70,7 +76,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             id = -1;
         }
 
-        public Bericht(string tekst, Persoon auteur, Bestand bestand, int berichtSoort)
+        public Bericht(string tekst, Account auteur, Bestand bestand, int berichtSoort)
         {
             this.tekst = tekst;
             this.auteur = auteur;
@@ -83,7 +89,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             id = -1;
         }
 
-        public Bericht(string tekst, Persoon auteur, DateTime datumGepost, int berichtSoort, int id)
+        public Bericht(string tekst, Account auteur, DateTime datumGepost, int berichtSoort, int id)
         {
             this.tekst = tekst;
             this.auteur = auteur;
@@ -98,10 +104,20 @@ namespace ICT4Events_ASP_Groep_E_S24
             likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
         }
 
+        public Bericht(string tekst, Account auteur, DateTime datumGepost, int berichtSoort, int id, string titel)
+        {
+            this.tekst = tekst;
+            this.auteur = auteur;
+            this.datumGepost = datumGepost;
+            this.berichtSoort = (BerichtSoort)berichtSoort;
+            this.id = id;
+            this.titel = titel;
+        }
+
         //Methodes
         public override string ToString()
         {
-            return auteur.Gebruikersnaam + " " + datumGepost.ToString() + " : " + tekst;
+            return auteur.Gebruikersnaam + ": " + titel + " | " + datumGepost;
         }
 
         //Met deze persoon kun je een bericht liken

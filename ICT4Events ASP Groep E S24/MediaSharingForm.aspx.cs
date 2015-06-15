@@ -9,10 +9,15 @@ namespace ICT4Events_ASP_Groep_E_S24
 {
     public partial class MediaSharingForm : System.Web.UI.Page
     {
+        Administratie administratie = new Administratie();
         protected void Page_Load(object sender, EventArgs e)
         {
-            Administratie administratie = new Administratie();
+            administratie.HaalAlleAccountsOp();
             //administratie.NuIngelogd = new Persoon();
+            if (!IsPostBack)
+            {
+                HerlaadGegevens();
+            }
         }
 
         protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -35,6 +40,15 @@ namespace ICT4Events_ASP_Groep_E_S24
             sb.Append("')};");
             sb.Append("</script>");
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
+        }
+
+        public void HerlaadGegevens()
+        {
+            lbPosts.Items.Clear();
+            foreach (Bericht b in administratie.VraagAlleBerichtenOp())
+            {
+                lbPosts.Items.Add(b.ToString());
+            }
         }
 
         protected void Unnamed1_SelectedIndexChanged(object sender, EventArgs e)

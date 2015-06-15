@@ -9,6 +9,7 @@ namespace ICT4Events_ASP_Groep_E_S24
     public class Account
     {
         //Fields
+        private int id;
         private string gebruikersnaam;
         private string email;
         private string activatiehash;
@@ -17,6 +18,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         private string accounttype;
 
         //properties
+
+        public int Id
+        {
+            get { return id; }
+        }
         public string Gebruikersnaam
         {
             get { return gebruikersnaam; }
@@ -48,8 +54,9 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //constructor
-        public Account(string gebruikersnaam, string email, string activatiehash, bool geactiveerd, string wachtwoord, string accounttype)
+        public Account(int id, string gebruikersnaam, string email, string activatiehash, bool geactiveerd, string wachtwoord, string accounttype)
         {
+            this.id = id;
             this.gebruikersnaam = gebruikersnaam;
             this.email = email;
             this.activatiehash = activatiehash;

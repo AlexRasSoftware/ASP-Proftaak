@@ -275,23 +275,38 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
-        public List<Bericht> VraagBerichtenOpVanEvent(string eventNaam)
+        public List<Bericht> VraagBerichtenOpVanEvent()
         {
             List<Bericht> tempList = new List<Bericht>();
             try
             {
                 conn.Open();
-                string query = "SELECT * FROM bericht WHERE event_id = (SELECT id FROM event WHERE naam = '" + eventNaam + "')";
+                string query = "SELECT * FROM bijdrage bd, bericht br WHERE bd.id = br.BIJDRAGE_ID";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    string persoonRfid = Convert.ToString(dataReader["persoon_rfid"]);
-                    DateTime date = Convert.ToDateTime(dataReader["plaatsdatum"]);
-                    int id = Convert.ToInt32(dataReader["id"]);
-                    string tekst = Convert.ToString(dataReader["bericht"]);
-                    int berichtSoort = Convert.ToInt32(dataReader["berichtsoort"]);
-                    tempList.Add(new Bericht(tekst, administratie.HuidigEvent.CheckGebruikersNaamRfid(persoonRfid), date, berichtSoort, id));
+                    int id = Convert.ToInt32(dataReader["ID"]);
+                    int accountId = Convert.ToInt32(dataReader["ACCOUNT_ID"]);
+                    Account auteur = administratie.GeefAccountDoorId(accountId);
+                    DateTime datumGepost = Convert.ToDateTime(dataReader["DATUM"]);
+                    string berichtSoort = Convert.ToString(dataReader["SOORT"]);
+                    int soort = 0;
+                    if(berichtSoort == "foto")
+                    {
+                        soort = 1;
+                    }
+                    if (berichtSoort == "video")
+                    {
+                        soort = 2;
+                    }
+                    if (berichtSoort == "muziek")
+                    {
+                        soort = 3;
+                    }
+                    string titel = Convert.ToString(dataReader["TITEL"]);
+                    string inhoud = Convert.ToString(dataReader["INHOUD"]);
+                    tempList.Add(new Bericht(inhoud, auteur, datumGepost, soort, id, titel));
                 }
                 return tempList;
             }
@@ -932,13 +947,14 @@ namespace ICT4Events_ASP_Groep_E_S24
                 OracleDataReader datareader = command.ExecuteReader();
                 while (datareader.Read())
                 {
+                    int id = Convert.ToInt32(datareader["ID"]);
                     string gebruikersnaam = Convert.ToString(datareader["GEBRUIKERSNAAM"]);
                     string email = Convert.ToString(datareader["EMAIL"]);
                     string activatiehash = Convert.ToString(datareader["ACTIVATIEHASH"]);
                     bool geactiveerd = ConvertIntToBool(Convert.ToInt32(datareader["GEACTIVEERD"]));
                     string wachtwoord = Convert.ToString(datareader["WACHTWOORD"]);
                     string accounttype = Convert.ToString(datareader["ACCOUNTTYPE"]);
-                    tempAccounts.Add(new Account(gebruikersnaam, email, activatiehash, geactiveerd, wachtwoord, accounttype));
+                    tempAccounts.Add(new Account(id, gebruikersnaam, email, activatiehash, geactiveerd, wachtwoord, accounttype));
                 }
                 return tempAccounts;
             }
