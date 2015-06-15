@@ -71,12 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EventbeheerForm.aspx" />
+    <Content Include="EventBeheerForm2.aspx" />
     <Content Include="ICT4Events.js" />
     <Content Include="InschrijfForm.aspx" />
     <Content Include="InschrijfFormBezoeker.aspx" />
     <Content Include="LoginForm.aspx" />
     <Content Include="MateriaalverhuurForm.aspx" />
     <Content Include="MediaSharingForm.aspx" />
+    <Content Include="Plaatjes\CalendarImg.png" />
     <Content Include="Plaatjes\Camping_ReeënDal %281%29.png" />
     <Content Include="PostForm.aspx" />
     <Content Include="PostFormImage.aspx" />
@@ -103,6 +105,13 @@
     </Compile>
     <Compile Include="EventbeheerForm.aspx.designer.cs">
       <DependentUpon>EventbeheerForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventBeheerForm2.aspx.cs">
+      <DependentUpon>EventBeheerForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventBeheerForm2.aspx.designer.cs">
+      <DependentUpon>EventBeheerForm2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hoofdboeker.cs" />
     <Compile Include="Huuritem.cs" />

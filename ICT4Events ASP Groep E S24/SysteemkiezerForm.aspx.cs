@@ -13,5 +13,20 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
 
         }
+
+        protected void ButtonMedia_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MediaSharingForm.aspx");
+        }
+
+        protected void ButtonToegang_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ToegangscontroleForm.aspx");
+        }
+
+        protected void ButtonBeheer_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EventbeheerForm.aspx");
+        }
     }
 }

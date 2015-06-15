@@ -22,51 +22,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// lblNav1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNav1;
-        
-        /// <summary>
-        /// btnToEvent1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToEvent1;
-        
-        /// <summary>
-        /// btnToGebruiker1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToGebruiker1;
-        
-        /// <summary>
-        /// btnToMateriaal1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToMateriaal1;
-        
-        /// <summary>
-        /// btnToPlaats1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToPlaats1;
-        
-        /// <summary>
         /// nav1 control.
         /// </summary>
         /// <remarks>
@@ -121,6 +76,24 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.TextBox tbEventStartdatum;
         
         /// <summary>
+        /// ibtnStartdatum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnStartdatum;
+        
+        /// <summary>
+        /// Calendar1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        
+        /// <summary>
         /// tbEventEinddatum control.
         /// </summary>
         /// <remarks>
@@ -128,6 +101,24 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEventEinddatum;
+        
+        /// <summary>
+        /// ibtnBegindatum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnBegindatum;
+        
+        /// <summary>
+        /// Calendar2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calendar2;
         
         /// <summary>
         /// tbEventPlaats control.
@@ -211,51 +202,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnDatabaseConnectie;
         
         /// <summary>
-        /// lblNav2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNav2;
-        
-        /// <summary>
-        /// btnToEvent2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToEvent2;
-        
-        /// <summary>
-        /// btnToGebruiker2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToGebruiker2;
-        
-        /// <summary>
-        /// btnToMateriaal2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToMateriaal2;
-        
-        /// <summary>
-        /// btnToPlaats2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToPlaats2;
-        
-        /// <summary>
         /// nav2 control.
         /// </summary>
         /// <remarks>
@@ -299,51 +245,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox lbGebruiker;
-        
-        /// <summary>
-        /// lblNav3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNav3;
-        
-        /// <summary>
-        /// btnToEvent3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToEvent3;
-        
-        /// <summary>
-        /// btnToGebruiker3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToGebruiker3;
-        
-        /// <summary>
-        /// btnToMateriaal3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToMateriaal3;
-        
-        /// <summary>
-        /// btnToPlaats3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToPlaats3;
         
         /// <summary>
         /// nav3 control.
@@ -398,51 +299,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox lbMateriaal;
-        
-        /// <summary>
-        /// lblNav4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNav4;
-        
-        /// <summary>
-        /// btnToEvent4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToEvent4;
-        
-        /// <summary>
-        /// btnToGebruiker4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToGebruiker4;
-        
-        /// <summary>
-        /// btnToMateriaal4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToMateriaal4;
-        
-        /// <summary>
-        /// btnToPlaats4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToPlaats4;
         
         /// <summary>
         /// nav4 control.

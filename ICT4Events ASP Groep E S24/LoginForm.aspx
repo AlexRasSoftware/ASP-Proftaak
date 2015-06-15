@@ -25,7 +25,7 @@
         <br />
         <asp:Label ID="lblWachtwoord" runat="server" Text="Wachtwoord"></asp:Label>
         <br />
-        <asp:TextBox ID="tbWachtwoord" runat="server" Width="170px"></asp:TextBox>
+        <asp:TextBox ID="tbWachtwoord" runat="server" Width="170px" OnTextChanged="tbWachtwoord_TextChanged"></asp:TextBox>
         <br />
         <br />
         <asp:Button ID="btnInloggen" runat="server" Text="Inloggen" Width="180px" OnClick="btnInloggen_Click" />

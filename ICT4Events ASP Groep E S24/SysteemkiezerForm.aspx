@@ -11,7 +11,10 @@
     <form id="form1" runat="server">
     <div>
     
-    </div>
+        Kies een systeem.</div>
+        <asp:Button ID="ButtonMedia" runat="server" OnClick="ButtonMedia_Click" Text="Media Sharing" Width="150px" />
+        <asp:Button ID="ButtonToegang" runat="server" OnClick="ButtonToegang_Click" Text="Toegangscontrole" Width="150px" />
+        <asp:Button ID="ButtonBeheer" runat="server" OnClick="ButtonBeheer_Click" Text="Event beheren" Width="150px" />
     </form>
 </body>
 </html>

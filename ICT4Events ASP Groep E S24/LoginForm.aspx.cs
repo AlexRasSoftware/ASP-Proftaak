@@ -59,5 +59,10 @@ namespace ICT4Events_ASP_Groep_E_S24
             sb.Append("</script>");
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
+
+        protected void tbWachtwoord_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
