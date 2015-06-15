@@ -121,7 +121,6 @@
         </asp:DropDownList>
         <br />
         <br />
-        <asp:Button ID="btnBevestig" runat="server" Text="Bevestig" />
         <asp:Button ID="btnMateriaalHuren" runat="server" style="margin-left: 0px" Text="Materiaal Huren" OnClick="btnMateriaalHuren_Click" OnClientClick="aspnetForm.target ='_blank';"/>
         <asp:Button ID="btnAnnuleren" runat="server" style="margin-left: 0px" Text="Annuleren" Width="126px" />
 
