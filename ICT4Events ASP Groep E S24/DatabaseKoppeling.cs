@@ -9,7 +9,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 {
     public class DatabaseKoppeling
     {
-        Administratie administratie;
+        private static Administratie administratie = new Administratie();
         private OracleConnection conn;
         private OracleCommand command;
         string user = "dbi318713"; //Dit is de gebruikersnaam
@@ -17,7 +17,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         //private static Administratie administratie = new Administratie();
         public DatabaseKoppeling()
         {
-            administratie = new Administratie();
+            
             conn = new OracleConnection();
             command = conn.CreateCommand();
             conn.ConnectionString = "User Id=" + user + ";Password=" + pw + ";Data Source=" + "//192.168.15.50:1521/fhictora" + ";";
@@ -160,7 +160,67 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
+        // dit is het nieuwe huurmateriaal
+        public List<Huuritem> HaalGehuurdeItems()
+        {
+            List<Huuritem> tempHuurItems = new List<Huuritem>();
+            try
+            {
+                conn.Open();
+                string query = "SELECT p.MERK, p.SERIE, pe.VOLGNUMMER, c.NAAM FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND pe.ID IN (SELECT PRODUCTEXEMPLAAR_ID FROM VERHUUR)";
+                command = new OracleCommand(query, conn);
+                OracleDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    string merk = Convert.ToString(dataReader["MERK"]);
+                    string serie = Convert.ToString(dataReader["SERIE"]);
+                    int volgnummer = Convert.ToInt32(dataReader["VOLGNUMMER"]);
+                    string categorie = Convert.ToString(dataReader["NAAM"]);
+                    tempHuurItems.Add(new Huuritem(merk, serie, volgnummer, categorie, true));                            
+                }
+                return tempHuurItems;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }                    
+        }
 
+        public List<Huuritem> HaalNietGehuurdeItems()
+        {
+            List<Huuritem> tempHuurItems = new List<Huuritem>();
+            try
+            {
+                conn.Open();
+                string query = "SELECT p.MERK, p.SERIE, pe.VOLGNUMMER, c.NAAM FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND pe.ID NOT IN (SELECT PRODUCTEXEMPLAAR_ID FROM VERHUUR)";
+                command = new OracleCommand(query, conn);
+                OracleDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    string merk = Convert.ToString(dataReader["MERK"]);
+                    string serie = Convert.ToString(dataReader["SERIE"]);
+                    int volgnummer = Convert.ToInt32(dataReader["VOLGNUMMER"]);
+                    string categorie = Convert.ToString(dataReader["NAAM"]);
+                    tempHuurItems.Add(new Huuritem(merk, serie, volgnummer, categorie, false));
+                }
+                return tempHuurItems;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
+        // dit is het oude huurmateriaal
         public List<Huuritem> HaalHuuritemsOp(string eventNaam)
         {
             List<Huuritem> tempHuuritem = new List<Huuritem>();
@@ -202,9 +262,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
-        public List<Event> HaalAlleEvenementen()
+        public Event HaalEvent()
         {
-            List<Event> tempEvent = new List<Event>();
+            Event tempEvent = null;
             try
             {
                 conn.Open();
@@ -216,7 +276,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     string naam = Convert.ToString(dataReader["NAAM"]);
                     DateTime beginDatum = Convert.ToDateTime(dataReader["DATUMSTART"]);
                     DateTime eindDatum = Convert.ToDateTime(dataReader["DATUMEINDE"]);
-                    tempEvent.Add(new Event(naam, beginDatum, eindDatum, "Veghel"));
+                    tempEvent = (new Event(naam, beginDatum, eindDatum, "Veghel", "Rachelsmolen 1"));
                 }
                 return tempEvent;
             }
@@ -878,36 +938,6 @@ namespace ICT4Events_ASP_Groep_E_S24
                     categorienamen.Add(naam);
                 }
                 return categorienamen;
-            }
-            catch (Exception ex)
-            {
-                return null;
-                //MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-        public List<Huuritem> VraagHuuritemsOp(string categorienaam)
-        {
-            List<Huuritem> huuritems = new List<Huuritem>();
-            try
-            {
-                conn.Open();
-                string query = "SELECT p.MERK, p.SERIE, p.TYPENUMMER, pe.VOLGNUMMER FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND c.NAAM = :categorienaam";                
-                command = new OracleCommand(query, conn);
-                command.Parameters.Add(new OracleParameter("categorienaam", categorienaam));
-                OracleDataReader datareader = command.ExecuteReader();
-                while (datareader.Read())
-                {
-                    string merk = Convert.ToString(datareader["MERK"]);
-                    string serie = Convert.ToString(datareader["SERIE"]);
-                    int volgnummer = Convert.ToInt32(datareader["VOLGNUMMER"]);
-                    huuritems.Add(new Huuritem(merk, serie, volgnummer));                   
-                }
-                return huuritems;
             }
             catch (Exception ex)
             {

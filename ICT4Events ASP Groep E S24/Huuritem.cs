@@ -16,6 +16,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         private int volgnummer;
         private string merk;
         private string serie;
+        private string categorie;
 
         //Methodes
         public string Naam
@@ -54,6 +55,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             set { isGehuurd = value; }
         }
 
+        public string Categorie
+        {
+            get { return categorie; }
+            set { categorie = value; }
+        }
+
         //Constructor
         public Huuritem(string naam, string type, int prijs, bool isGehuurd)
         {
@@ -63,11 +70,19 @@ namespace ICT4Events_ASP_Groep_E_S24
             this.isGehuurd = isGehuurd;
         }
 
-        public Huuritem(string merk, string serie, int volgnummer)
+        // nieuwste huuritem
+        public Huuritem(string merk, string serie, int volgnummer, string categorie, bool isGehuurd)
         {
             this.merk = merk;
             this.serie = serie;
             this.volgnummer = volgnummer;
+            this.categorie = categorie;
+            this.isGehuurd = isGehuurd;
+        }
+
+        public override string ToString()
+        {
+            return this.categorie + " " + this.merk + " " + this.volgnummer;
         }
     }
 }

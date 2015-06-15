@@ -9,39 +9,29 @@ namespace ICT4Events_ASP_Groep_E_S24
 {
     public partial class MateriaalverhuurForm : System.Web.UI.Page
     {
-        DatabaseKoppeling databasekoppeling = new DatabaseKoppeling();
-        List<string> gekozenItems = new List<string>();
+        static Administratie administratie = new Administratie();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // je gaat ieder item (iedere string) in de list van materiaalsoorten af
             // en je stopt ze stuk voor stuk in de items van ddlHuuritem
-            if (Page.IsPostBack == false)
+            if(!Page.IsPostBack)
             {
-                foreach (string s in databasekoppeling.VraagMateriaalSoortOp())
+                // geef alle categorieën
+                ddlHuurItemType.Items.Clear();                
+                foreach(string huurItem in administratie.DatabaseKoppeling.VraagMateriaalSoortOp())
                 {
-                    ddlHuurItemType.Items.Add(s);
+                    ddlHuurItemType.Items.Add(huurItem);
                 }
             }
-            this.Session["selectedcategorie"] = ddlHuurItemType.SelectedItem;
-            this.Session["gekozenitems"] = ddlHuurItems.SelectedItem;
-
-            ddlHuurItems.Items.Clear();
-            foreach (Huuritem h in databasekoppeling.VraagHuuritemsOp(Session["selectedcategorie"].ToString()))
-            {
-                ddlHuurItems.Items.Add(h.Naam);
-            }
-
-            lbGekozenItems.Items.Clear();
-            foreach (string g in gekozenItems)
-            {
-                lbGekozenItems.Items.Add(g);
-            }
+            
         }
 
         protected void ddlHuurItemType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+           // de merken moeten op dat moment geladen worden
+            VulMerken();
+
         }
 
         public void GeefMessage(string message)
@@ -56,14 +46,76 @@ namespace ICT4Events_ASP_Groep_E_S24
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
 
-        protected void btnKiesCategorie_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         protected void btnKiesHuurItem_Click(object sender, EventArgs e)
         {
-            gekozenItems.Add(Session["gekozenitems"].ToString());
+            // wijs het product aan de huidige huurder
+            // selecteer deze huurder op zijn gebruikersnaam en voeg aan die huurder het item toe
+            // zet ook het huuritem op isgehuurd
+            foreach(Bezoeker b in administratie.Inschrijvers)
+            {
+                if(administratie.HuidigeHuurder.Gebruikersnaam == b.Gebruikersnaam)
+                {
+                    foreach(Huuritem h in administratie.HuurMateriaal)
+                    {
+                        if(ddlHuurItemType.SelectedItem.ToString() == h.Categorie)
+                        {
+                            if(ddlMerken.SelectedItem.ToString() == h.Merk)
+                            {
+                                if(Convert.ToInt32(ddlVolgnummers.SelectedItem.ToString()) == h.VolgNummer)
+                                {
+                                    b.VoegMateriaalToe(h);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Ververs();
+        }
+
+        protected void ddlMerken_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // vul alle mogelijke volgnummers die ze kunnen kiezen
+            VulVolgnummers();
+        }
+
+        private void VulVolgnummers()
+        {
+            ddlVolgnummers.Items.Clear();
+            if(ddlMerken.SelectedItem != null && ddlHuurItemType.SelectedItem != null)
+            {
+                foreach (Huuritem h in administratie.GeefProducten(ddlMerken.SelectedItem.ToString(), ddlHuurItemType.SelectedItem.ToString()))
+                {
+                    if(!h.IsGehuurd)
+                    {
+                        ddlVolgnummers.Items.Add(h.VolgNummer.ToString());
+                    }
+                }
+            }
+        }
+
+        private void VulMerken()
+        {
+            ddlMerken.Items.Clear();
+            if(ddlHuurItemType.SelectedItem != null)
+            {                
+                foreach (Huuritem h in administratie.GeefMerken(ddlHuurItemType.SelectedItem.ToString()))
+                {
+                    ddlMerken.Items.Add(h.Merk);
+                }
+                VulVolgnummers();
+            }
+        }
+
+        private void Ververs()
+        {
+            lbGekozenItems.Items.Clear();
+            {
+                foreach(Huuritem h in administratie.HuidigeHuurder.HuurMateriaal)
+                {
+                    lbGekozenItems.Items.Add(h.ToString());
+                }
+            }
         }
     }
 }

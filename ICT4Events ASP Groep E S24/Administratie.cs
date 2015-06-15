@@ -22,7 +22,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static Account nuIngelogdeAccount = null;
         private static List<Account> accounts = new List<Account>();
         private static List<Plaats> plaatsen = databaseKoppeling.HaalPlaatsenOp("dummy");
-        private static List<Huuritem> huurMateriaal = databaseKoppeling.HaalHuuritemsOp("dummy");
+        
 
         //Properties
         public List<Event> Events
@@ -44,8 +44,8 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         public List<Huuritem> HuurMateriaal
         {
-            get { return huurMateriaal; }
-            set { huurMateriaal = value; }
+            get { return AlleHuurItems(); }
+            set { HuurMateriaal = value; }
         }
 
         public Hoofdboeker HuidigeHoofdboeker
@@ -104,6 +104,20 @@ namespace ICT4Events_ASP_Groep_E_S24
        
 
         //Deze methode zoekt naar bestaande events
+        public List<Huuritem> AlleHuurItems()
+        {
+            List<Huuritem> alleItems = new List<Huuritem>();
+            foreach(Huuritem h in databaseKoppeling.HaalGehuurdeItems())
+            {
+                alleItems.Add(h);
+            }
+            foreach(Huuritem h in databaseKoppeling.HaalNietGehuurdeItems())
+            {
+                alleItems.Add(h);
+            }
+            return alleItems;
+        }       
+        
         public Event GeefEvent(string eventNaam)
         {
             foreach (Event e in events)
@@ -189,17 +203,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             return true;
         }
 
-        public void HaalAlleEventsOp()
-        {
-            events.Clear();
-            List<Event> tempEvent = new List<Event>();
-            tempEvent = databaseKoppeling.HaalAlleEvenementen();
-            foreach (Event e in tempEvent)
-            {
-                events.Add(e);
-            }
-        }
-
         public void VoegAlleGebruikersToeAanEvent(string eventNaam)
         {
             foreach (Event e in events)
@@ -220,9 +223,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         public void VraagAlleBerichtenOp(string eventNaam)
         {
             huidigEvent.Berichten.Clear();
-            huidigEvent.VoegBerichtenToe(databaseKoppeling.VraagBerichtenOpVanEvent(eventNaam));
-
-            
+            huidigEvent.VoegBerichtenToe(databaseKoppeling.VraagBerichtenOpVanEvent(eventNaam));           
         }
 
         public string RfidGenerator()
@@ -266,5 +267,52 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return null;
         }
+
+        public List<Huuritem> GeefMerken(string categorieNaam)
+        {
+            // geef de huuritems voor een bepaalde categorie
+            // waarbij je van elk merk maar 1 hebt
+            List<Huuritem> merken = new List<Huuritem>();
+            foreach(Huuritem h in HuurMateriaal)
+            {
+                if(!h.IsGehuurd)
+                {
+                    if (h.Categorie == categorieNaam)
+                    {
+                        bool bestaat = false;
+                        foreach (Huuritem hm in merken)
+                        {
+                            if (h.Merk == hm.Merk)
+                            {
+                                bestaat = true;
+                            }
+                        }
+                        if (!bestaat)
+                        {
+                            merken.Add(h);
+                        }
+                    }         
+                }                           
+            }
+            return merken;
+        }
+
+        public List<Huuritem> GeefProducten(string merk, string categorie)
+        {
+            List<Huuritem> items = new List<Huuritem>();
+            foreach(Huuritem h in HuurMateriaal)
+            {
+                if(!h.IsGehuurd)
+                {
+                    if (h.Categorie == categorie && h.Merk == merk)
+                    {
+                        items.Add(h);
+                    }
+                }
+            }
+            return items;
+        }
+
+
     }
 }

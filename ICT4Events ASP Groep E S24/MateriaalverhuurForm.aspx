@@ -17,12 +17,17 @@
         <br />
         <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px" AutoPostBack="True" OnSelectedIndexChanged="ddlHuurItemType_SelectedIndexChanged" >
         </asp:DropDownList>
-        <asp:Button ID="btnKiesCategorie" runat="server" OnClick="btnKiesCategorie_Click" Text="Kies deze categorie" />
         <br />
-        <asp:Label ID="Label2" runat="server" Text="Huuritems"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Merk"></asp:Label>
         <br />
-        <asp:DropDownList ID="ddlHuurItems" runat="server" Width="136px">
+        <asp:DropDownList ID="ddlMerken" runat="server" Width="136px" AutoPostBack="True" OnSelectedIndexChanged="ddlMerken_SelectedIndexChanged">
         </asp:DropDownList>
+        <br />
+        Volgnummer<br />
+        <asp:DropDownList ID="ddlVolgnummers" runat="server" Width="136px">
+        </asp:DropDownList>
+        <br />
+        <br />
         <asp:Button ID="btnKiesHuurItem" runat="server" Height="38px" style="margin-left: 0px" Text="Kies" Width="85px" OnClick="btnKiesHuurItem_Click" />
         <br />
         <br />
@@ -33,9 +38,8 @@
         <br />
         <asp:Button ID="btnVerwijderItem" runat="server" Text="Verwijder Item" />
         <br />
-        <br />
         <asp:Button ID="btnBevestig" runat="server" Text="Bevestigen" />
-        <asp:Button ID="btnAnnuleer" runat="server" style="margin-left: 197px" Text="Annuleren" />
+        <br />
         <br />
     
     </div>
