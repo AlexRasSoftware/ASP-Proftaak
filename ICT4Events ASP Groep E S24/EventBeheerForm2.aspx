@@ -26,8 +26,10 @@
     <div>
     
         <h3>Pas event aan</h3>
+        <asp:Button ID="btnNavLogin" runat="server" OnClick="btnNavLogin_Click" Text="Terug Naar Login" />
+        <br />
         Alle Events&nbsp;&nbsp;&nbsp;
-        <asp:DropDownList ID="ddlEvents" runat="server" CssClass="newStyle1" Width="131px">
+        <asp:DropDownList ID="ddlEvents" runat="server" CssClass="newStyle1" Width="131px" OnSelectedIndexChanged="ddlEvents_SelectedIndexChanged">
         </asp:DropDownList>
         <br />
         Naam:
@@ -61,19 +63,27 @@
         <asp:TextBox ID="tbZoekGebruiker" runat="server"></asp:TextBox>
         <br />
         <br />
-        <asp:Button ID="btnZoek" runat="server" Text="Zoek" />
+        <asp:Button ID="btnZoek" runat="server" Text="Zoek" OnClick="btnZoek_Click" />
+        <asp:Button ID="btnGebResetList" runat="server" OnClick="btnGebResetList_Click" Text="Reset" />
         <br />
         <br />
         <asp:ListBox ID="lbGebruikers" runat="server" Height="127px" Width="229px"></asp:ListBox>
         <br />
         <br />
-        <asp:Button ID="btnVerwijderGebr" runat="server" Text="Verwijder Gebruiker" />
+        <asp:Button ID="btnVerwijderGebr" runat="server" Text="Verwijder Gebruiker" OnClick="btnVerwijderGebr_Click" />
 
     </div>
 
     <div>
         <h3>Materiaal Toevoegen</h3>
-        <asp:DropDownList ID="DropDownList1" runat="server" Height="24px" Width="180px">
+        Type:
+        <asp:DropDownList ID="ddlMateriaalType" runat="server" Height="24px" Width="180px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+        </asp:DropDownList>
+        &nbsp;Merk:
+        <asp:DropDownList ID="ddlMateriaalMerk" runat="server">
+        </asp:DropDownList>
+&nbsp;Volgnummer:
+        <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server">
         </asp:DropDownList>
         <br />
         <br />
@@ -97,11 +107,19 @@
 
         <br />
         <h3>Plaats Beheer</h3>
-        Locatienaam:<br />
-        Plaatsnummer:<br />
-        Capaciteit:<br />
+        Locatienaam:<asp:DropDownList ID="ddlPlaNaam" runat="server" OnSelectedIndexChanged="ddlPlaNaam_SelectedIndexChanged" style="margin-left: 22px">
+        </asp:DropDownList>
         <br />
-        <asp:Button ID="Button1" runat="server" Text="Button" />
+        Plaatsnummer:&nbsp;&nbsp;&nbsp;
+        <asp:Label ID="lblPlaNr" runat="server" Text="1"></asp:Label>
+        <br />
+        Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Label ID="lblPlaCap" runat="server" Text="4"></asp:Label>
+        <br />
+        Prijs:<asp:TextBox ID="tbPlaPrijs" runat="server" style="margin-left: 69px"></asp:TextBox>
+        <br />
+        <br />
+        <asp:Button ID="btnPlaatsAanpassen" runat="server" Text="Plaats Aanpassen" OnClick="btnPlaatsAanpassen_Click" Width="121px" />
         <br />
 
     </div>
