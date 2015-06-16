@@ -157,7 +157,7 @@
     </div>
         <br />
 
-        <asp:Button ID="Button1" runat="server" Text="Bevestig" />
+        <asp:Button ID="btnBevestig" runat="server" Text="Bevestig" OnClick="btnBevestig_Click" />
 
         <br />
         <br />

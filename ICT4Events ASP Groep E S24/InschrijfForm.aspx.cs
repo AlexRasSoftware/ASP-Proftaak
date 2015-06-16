@@ -15,6 +15,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         static Administratie administratie;
         static List<Bezoeker> inschrijvers;
         private static string gebruikersNaam;
+        private static int aantalPersonen;
+        private static string hoofdBoeker;
 
         protected void Page_Load(object sender, EventArgs e)
         {            
@@ -23,6 +25,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 administratie = new Administratie();
                 dbKoppeling = new DatabaseKoppeling();
                 inschrijvers = new List<Bezoeker>();
+                aantalPersonen = -1;
                 VulPlaatsen();
                 
                 // geef alle categorieën
@@ -45,30 +48,49 @@ namespace ICT4Events_ASP_Groep_E_S24
         // het idee van alle inschrijvers maken is dat het pas definitief wordt op het einde van de inschrijving. Dan gaat alles pas naar de database 
             
         // als er al een hoofdboeker is gemaakt en er wordt op maakbezoeker geklikt dan wordt de oude vervangen. 
-            gebruikersNaam = tbGebruikersnaam.Text;
+            
             if (tbVoornaam.Text != "")
-            {                
-                // maak hier nu ook een hoofdboeker aan in de database
-                string error = "";
-                if(!dbKoppeling.NieuweBezoeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
-                    tbBanknr.Text, tbGebruikersnaam.Text, tbEmail.Text, null, 0, tbWachtwoord.Text, "gebruiker", out error))
+            {        
+                if(tbGebruikersnaam.Text != "")
                 {
-                    GeefMessage(error);
+                    gebruikersNaam = tbGebruikersnaam.Text;   
+                    if(tbAchternaam.Text != "")
+                    {
+                        // maak hier nu ook een hoofdboeker aan in de database
+                        string error = "";
+                        if(aantalPersonen == -1)
+                        {
+                            if (!dbKoppeling.NieuweHoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
+                            tbBanknr.Text, tbGebruikersnaam.Text, tbEmail.Text, null, 0, tbWachtwoord.Text, "gebruiker", out error))
+                            {
+                                GeefMessage(error);
+                            }
+                            else
+                            {
+                                administratie.HuidigeBezoeker = new Hoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
+                            tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
+                                GeefMessage("Hoofdboeker Aangemaakt");
+                                hoofdBoeker = tbGebruikersnaam.Text;
+                            }
+                        }
+                        else
+                        {
+                            if(!dbKoppeling.NieuweBezoeker(hoofdBoeker, tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
+                            tbBanknr.Text, tbGebruikersnaam.Text, tbEmail.Text, null, 0, tbWachtwoord.Text, "gebruiker", out error))
+                            {
+                                GeefMessage(error);
+                            }
+                            else
+                            {
+                                GeefMessage("Bezoeker Aangemaakt");
+                            }
+                        }                       
+                    }                 
                 }
                 else
                 {
-                    GeefMessage("Bezoeker Aangemaakt");
-                    if (tbTussenvoegsel.Text != "")
-                    {
-                        // er is een nieuwe hoofdboeker 
-                        administratie.HuidigeBezoeker = new Hoofdboeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
-                    }
-                    else
-                    {
-                        // tussenvoegsel leeg laten
-                        administratie.HuidigeBezoeker = new Hoofdboeker(tbVoornaam.Text, "", tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text, tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null, tbBanknr.Text);
-                    }
-                }
+                    GeefMessage("Voer een gebruikersnaam in");
+                }                
             }
             else
             {
@@ -254,25 +276,81 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnVerwijderItem_Click(object sender, EventArgs e)
         {
-            Huuritem h = administratie.GeefProductExemplaar(lbGekozenItems.SelectedItem.ToString());
-            if (administratie.HuidigeBezoeker != null)
+            if(lbGekozenItems.SelectedItem != null)
             {
-                if (!administratie.HuidigeBezoeker.VerwijderProduct(h, gebruikersNaam))
+                Huuritem h = administratie.GeefProductExemplaar(lbGekozenItems.SelectedItem.ToString());
+                if (administratie.HuidigeBezoeker != null)
                 {
-                    GeefMessage("verwijderen niet gelukt");
+                    if (!administratie.HuidigeBezoeker.VerwijderProduct(h, gebruikersNaam))
+                    {
+                        GeefMessage("verwijderen niet gelukt");
+                    }
+                    else
+                    {
+                        lbGekozenItems.Items.Remove(h.ToString());
+                    }
                 }
-                else
-                {
-                    lbGekozenItems.Items.Remove(h.ToString());
-                }
-            }
+            }           
         }
 
         protected void btnBevestig_Click(object sender, EventArgs e)
         {
+            if (aantalPersonen == -1)
+            {
+                if (lbPlaatsen.Items.Count != 0)
+                {
+                    if (!chbMeederePersonen.Checked)
+                    {
+                        // ga terug naar het inlogform
+                        Response.Redirect("LoginForm.aspx");
+                    }
+                    else
+                    {
+                        // alle vakjes die de bezoeker nodig heeft moeten disabled worden
+                        aantalPersonen = Convert.ToInt32(ddlMeerderePersonen.SelectedItem.ToString());
+                        aantalPersonen--;
+                        DisableControls();
+                    }
+                }
+                else
+                {
+                    GeefMessage("Je moet wel een plek selecteren");
+                }
+            }
+            else
+            {
+                if(aantalPersonen == 0)
+                {
+                    Response.Redirect("LoginForm.aspx");
+                }
+                else
+                {
+                    GeefMessage(Convert.ToString(aantalPersonen));
+                    aantalPersonen--;
+                }               
+            }
+        } 
+        
+        private void DisableControls()
+        {            
+            tbVoornaam.Text = "";
+            tbTussenvoegsel.Text = "";
+            tbAchternaam.Text = "";
+            tbStraat.Text = "";
+            tbHuisnr.Text = "";
+            tbWoonplaats.Text = "";
+            tbBanknr.Text = "";
+            tbGebruikersnaam.Text = "";
+            tbEmail.Text = "";
+            tbWachtwoord.Text = "";
 
+            tbBanknr.Enabled = false;
+            ddlPlaatsen.Enabled = false;
+            lbGekozenItems.Enabled = false;
+            btnVoegPlaatsToe.Enabled = false;
+            btnVerwijderPlaats.Enabled = false;
+            chbMeederePersonen.Enabled = false;
+            ddlMeerderePersonen.Enabled = false;
         }
-
-            
     }
 }
