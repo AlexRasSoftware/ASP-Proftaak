@@ -222,10 +222,23 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
         private void refreshMateriaalddl1()
         {
-            ddlMateriaalType.Items.Clear();
-            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
+            List<Huuritem> huuritems = new List<Huuritem>();
+
+            foreach (Huuritem h in database.HaalGehuurdeItems())
             {
-                ddlMateriaalType.Items.Add(h.Type);
+                huuritems.Add(h);
+            }
+
+            foreach (Huuritem e in database.HaalNietGehuurdeItems())
+            {
+                huuritems.Add(e);
+            }
+
+            foreach (Huuritem t in huuritems)
+            {
+                ddlMateriaalType.Items.Add(t.Categorie);
+                ddlMateriaalMerk.Items.Add(t.Merk);
+                ddlMateriaalVolgnr.Items.Add(t.VolgNummer.ToString());
             }
         }
 
