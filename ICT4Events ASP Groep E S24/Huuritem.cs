@@ -47,6 +47,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         public int Prijs
         {
             get { return prijs; }
+            set { prijs = Prijs; }
         }
 
         public bool IsGehuurd

@@ -589,26 +589,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
-        public bool DeleteMateriaal(string materiaalNaam)
-        {
-            try
-            {
-                conn.Open();
-                string query = "DELETE FROM HuurItem WHERE naam = " + materiaalNaam;
-                command = new OracleCommand(query, conn);
-                command.ExecuteNonQuery();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-                return false;
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
+        
 
         public int GeefReserveringID()
         {
@@ -1244,6 +1225,80 @@ namespace ICT4Events_ASP_Groep_E_S24
                 conn.Close();
             }
             exc="";
+            return kay;
+        }
+        public bool wijzigHuuritem(out string exc, Huuritem huVoor, Huuritem huNa)
+        {
+            bool kay = false;
+            try
+            {
+                conn.Open();
+                string query = "update PRODUCTCAT set naam=:naam where naam=:oldnaam";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
+                command.Parameters.Add(new OracleParameter("oldnaam", huVoor.Naam));
+                command.ExecuteNonQuery();
+
+                ///////////////////////
+
+                conn.Open();
+                query = "update PRODUCT set merk=:merk where naam=:oldmerk and productcat_id = " +
+                    "(select id from PRODUCTCAT where naam=:naam)";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("merk", huNa.Merk));
+                command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
+                command.Parameters.Add(new OracleParameter("oldmerk", huVoor.Merk));
+                command.ExecuteNonQuery();
+
+                ///////////////////////////
+
+                conn.Open();
+                query = "update PRODUCTEXEMPLAAR set volgnummer=:volgnr where volgnummer=:oldvolgnr" +
+                    "and product_id=(select id from PRODUCT where naam=:oldmerk and productcat_id = " +
+                    "(select id from PRODUCTCAT where naam=:naam)";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
+                command.Parameters.Add(new OracleParameter("oldmerk", huVoor.Merk));
+                command.Parameters.Add(new OracleParameter("volgnr", huNa.VolgNummer));
+                command.Parameters.Add(new OracleParameter("oldvolgnr", huVoor.VolgNummer));
+                command.ExecuteNonQuery();
+
+                kay = true;
+            }
+            catch (Exception ex)
+            {
+                exc = ex.ToString();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            exc = "";
+            return kay;
+        }
+
+        public bool DeleteMateriaal(string materiaalNaam, out string exc)
+        {
+            bool kay = false;
+            try
+            {
+                conn.Open();
+                string query = "DELETE FROM HuurItem WHERE naam = " + materiaalNaam;
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                exc = "";
+                kay =  true;
+            }
+            catch (Exception ex)
+            {
+                exc = ex.ToString();
+                kay = false;
+            }
+            finally
+            {
+                conn.Close();
+                
+            }
             return kay;
         }
         #endregion

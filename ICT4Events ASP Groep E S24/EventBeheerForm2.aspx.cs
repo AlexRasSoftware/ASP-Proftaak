@@ -266,9 +266,20 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
                 else
                 {
+                    string exc = "";
                     eventVoor = this.huidigEvent;
                     eventNa = new Event(tbEvNaam.Text, beginDatum, eindDatum, tbEvLocatie.Text);
-                    huidigEvent = database.HaalEvent();
+                    if (!database.WijzigEvent(out exc, eventVoor, eventNa))
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\""+ exc +"\");", true);
+                    }
+                    else
+                    {
+                        huidigEvent = database.HaalEvent();
+                        refreshEventBeheerddl();
+                    }
                 }
             }
             catch
@@ -279,5 +290,76 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             
         }
+
+        protected void btnVoegMaToe_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnPasMaAan_Click(object sender, EventArgs e)
+        {
+            Huuritem huVoor;
+            Huuritem huNa;
+            int ey = 0;
+            string error="";
+            bool notnumber=false;
+           
+            try
+            {
+                try
+                {
+                    ey = Convert.ToInt32(tbMaVolgnummer.Text);
+                    notnumber = false;
+                }
+                catch (Exception ex)
+                {
+                    notnumber = true;
+                    error = ex.ToString();
+                }
+                if (tbMaType.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Vul een Type in.\");", true);
+                }
+                else if (tbMaMerk.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Vul een merk in.\");", true);
+                }
+                else if (tbMaVolgnummer.Text == "" || notnumber)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"" + error + "\");", true);
+                }
+                else
+                {
+                    string exc = "";
+
+                    huNa = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
+                    huNa.Prijs = Convert.ToInt32(tbMaPrijs.Text);
+                    huVoor = new Huuritem(ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue, Convert.ToInt32(ddlMateriaalVolgnr.SelectedValue), tbMaType.Text, false);
+                    if (!database.wijzigHuuritem(out exc, huVoor, huNa))
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"" + exc + "\");", true);
+                    }
+                    else
+                    {
+                        refreshMateriaalddl1();
+                    }
+                }
+            }
+            catch
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"De data kloppen niet.\");", true);
+            }
+        }
+        
     }
 }
