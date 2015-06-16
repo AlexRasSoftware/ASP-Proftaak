@@ -29,8 +29,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                         Doorverwijzen(tempAccount.Accounttype);
                         administratie.NuIngelogdeAccount = tempAccount;
                     }
+                    GeefMessage("Ongeldig wachtwoord");
                 }
+                GeefMessage("Niet succesvol");
             }
+            GeefMessage("Ongeldige gebruikersnaam");
         }
 
         public void Doorverwijzen(string accounttype)
