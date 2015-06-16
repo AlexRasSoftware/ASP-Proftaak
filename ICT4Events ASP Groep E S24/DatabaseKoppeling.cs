@@ -1162,5 +1162,45 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         #endregion
+
+        #region Eventbeheer
+        public bool WijzigEvent(out string exc, Event evVoor, Event evNa)
+        {
+            bool kay = false;
+            try
+            {
+                conn.Open();
+                string query = "update LOCATIE set naam=:naam where naam=:oldnaam";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("naam", evNa.Plaats));
+                command.Parameters.Add(new OracleParameter("oldnaam", evVoor.Plaats));
+                command.ExecuteNonQuery();
+
+                ///////////////////////
+
+                query = "update EVENT set naam=:naam, datumStart=TO_DATE('" +
+                    evVoor.BeginDatum.Day + "/" + evVoor.BeginDatum.Month +
+                    "/" + evVoor.BeginDatum.Year + "', 'dd/mm/yyyy'),datumEinde=TO_DATE('" +
+                    evNa.EindDatum.Day + "/" + evNa.EindDatum.Month + "/" + evNa.EindDatum.Year +
+                    "', 'dd/mm/yyyy') where naam=:oldnaam";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("naam", evNa.Naam));
+                command.Parameters.Add(new OracleParameter("oldnaam", evVoor.Naam));
+                command.ExecuteNonQuery();
+
+                kay = true;
+            }
+            catch (Exception ex)
+            {
+                exc = ex.ToString();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            exc="";
+            return kay;
+        }
+        #endregion
     }
 }

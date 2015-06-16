@@ -12,10 +12,12 @@ namespace ICT4Events_ASP_Groep_E_S24
         private Plaats selectedPlaats;
         private Administratie administartie;
         private DatabaseKoppeling database;
+        private Event huidigEvent;
         protected void Page_Load(object sender, EventArgs e)
         {
             administartie = new Administratie();
             database = new DatabaseKoppeling();
+            huidigEvent = database.HaalEvent();
             refreshPlaatsbeheerddl();
             refreshEventBeheerddl();
             refreshGebruikerlb();
@@ -225,6 +227,44 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 ddlMateriaalType.Items.Add(h.Type);
             }
+        }
+
+        protected void btnPasEvAan_Click(object sender, EventArgs e)
+        {
+            DateTime eindDatum = new DateTime();
+            DateTime beginDatum = new DateTime();
+            try
+            {
+                Event eventVoor;
+                Event eventNa;
+                beginDatum = Convert.ToDateTime(tbEvDatStart.Text);
+                eindDatum = Convert.ToDateTime(tbEvDaEind.Text);
+                if (tbEvNaam.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Vul een naam in.\");", true);
+                }
+                else if (tbEvLocatie.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Vul een locatie in.\");", true);
+                }
+                else
+                {
+                    eventVoor = this.huidigEvent;
+                    eventNa = new Event(tbEvNaam.Text, beginDatum, eindDatum, tbEvLocatie.Text);
+                    huidigEvent = database.HaalEvent();
+                }
+            }
+            catch
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"De data kloppen niet.\");", true); 
+            }
+            
         }
     }
 }

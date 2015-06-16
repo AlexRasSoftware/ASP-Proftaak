@@ -46,7 +46,7 @@
     
         <br />
         <br />
-        <asp:Button ID="btnPasEvAan" runat="server" Text="Pas Aan" />
+        <asp:Button ID="btnPasEvAan" runat="server" Text="Pas Aan" OnClick="btnPasEvAan_Click" />
         <br />
     
     </div>
