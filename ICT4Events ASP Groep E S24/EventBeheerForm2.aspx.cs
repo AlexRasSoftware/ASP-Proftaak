@@ -10,18 +10,21 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class EventBeheerForm2 : System.Web.UI.Page
     {
         private Plaats selectedPlaats;
-        private Administratie administartie;
+        private static Administratie administartie;
         private DatabaseKoppeling database;
         private Event huidigEvent;
         protected void Page_Load(object sender, EventArgs e)
         {
-            administartie = new Administratie();
-            database = new DatabaseKoppeling();
-            huidigEvent = database.HaalEvent();
-            refreshPlaatsbeheerddl();
-            refreshEventBeheerddl();
-            refreshGebruikerlb();
-            refreshMateriaalddl1();
+            if(!IsPostBack)
+            {
+                administartie = new Administratie();
+                database = new DatabaseKoppeling();
+                huidigEvent = database.HaalEvent();
+                refreshPlaatsbeheerddl();
+                refreshEventBeheerddl();
+                refreshGebruikerlb();
+                VulCategorieen();
+            }
         }
 
         protected void refreshGebruikerlb()
@@ -170,56 +173,19 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlMateriaalMerk.Items.Clear();
-            ddlMateriaalVolgnr.Items.Clear();
-            tbMaMerk.Text = "";
-            tbMaPrijs.Text = "";
-            tbMaVolgnummer.Text = "";
-            tbMaType.Text = ddlMateriaalType.SelectedValue;
-            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
-            {
-                if (h.Type == ddlMateriaalType.SelectedValue)
-                {
-                    ddlMateriaalMerk.Items.Add(h.Merk);
-                }
-            }
+            VulMerken();
         }
 
         protected void ddlMateriaalMerk_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlMateriaalVolgnr.Items.Clear();
-            tbMaMerk.Text = ddlMateriaalMerk.SelectedValue;
-            tbMaPrijs.Text = "";
-            tbMaVolgnummer.Text = "";
-            tbMaType.Text = ddlMateriaalType.SelectedValue;
-            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
-            {
-                if (h.Type == ddlMateriaalType.SelectedValue && h.Merk==ddlMateriaalMerk.SelectedValue)
-                {
-                    ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
-                }
-            }
+            VulVolgnummers();
         }
 
         protected void ddlMateriaalVolgnr_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlMateriaalVolgnr.Items.Clear();
-            tbMaMerk.Text = ddlMateriaalMerk.SelectedValue;
-            tbMaPrijs.Text = "";
-            tbMaVolgnummer.Text = ddlMateriaalVolgnr.SelectedValue;
-            tbMaType.Text = ddlMateriaalType.SelectedValue;
-            foreach (Huuritem h in database.HaalHuuritemsOp(database.HaalEvent().Naam))
-            {
-                if (h.Type == ddlMateriaalType.SelectedValue && 
-                    h.Merk == ddlMateriaalMerk.SelectedValue &&
-                    h.VolgNummer.ToString() == ddlMateriaalVolgnr.SelectedValue)
-                {
-                    ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
-                    tbMaPrijs.Text = h.Prijs.ToString();
-                    break;
-                }
-            }
+
         }
+
         private void refreshMateriaalddl1()
         {
             List<Huuritem> huuritems = new List<Huuritem>();
@@ -358,6 +324,45 @@ namespace ICT4Events_ASP_Groep_E_S24
                 ScriptManager.RegisterStartupScript(this, GetType(),
                         "ServerControlScript",
                             "alert(\"De data kloppen niet.\");", true);
+            }
+        }
+
+        private void VulCategorieen()
+        {
+            ddlMateriaalType.Items.Clear();
+            foreach (string huurItem in administartie.DatabaseKoppeling.VraagMateriaalSoortOp())
+            {
+                ddlMateriaalType.Items.Add(huurItem);
+            }
+            VulMerken();
+            VulVolgnummers();
+        }
+
+        private void VulMerken()
+        {
+            ddlMateriaalMerk.Items.Clear();
+            if (ddlMateriaalType.SelectedItem != null)
+            {
+                foreach (Huuritem h in administartie.GeefMerken(ddlMateriaalType.SelectedItem.ToString()))
+                {
+                    ddlMateriaalMerk.Items.Add(h.Merk);
+                }
+                VulVolgnummers();
+            }
+        }
+
+        private void VulVolgnummers()
+        {
+            ddlMateriaalVolgnr.Items.Clear();
+            if (ddlMateriaalMerk.SelectedItem != null && ddlMateriaalType.SelectedItem != null)
+            {
+                foreach (Huuritem h in administartie.GeefProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
+                {
+                    if (!h.IsGehuurd)
+                    {
+                        ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
+                    }
+                }
             }
         }
         

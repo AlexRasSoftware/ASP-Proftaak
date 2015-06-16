@@ -74,13 +74,13 @@
     <div>
         <h3>Materiaal Toevoegen</h3>
         Type:
-        <asp:DropDownList ID="ddlMateriaalType" runat="server" Height="24px" Width="180px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+        <asp:DropDownList ID="ddlMateriaalType" runat="server" Height="24px" Width="180px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True">
         </asp:DropDownList>
         &nbsp;Merk:
-        <asp:DropDownList ID="ddlMateriaalMerk" runat="server" OnSelectedIndexChanged="ddlMateriaalMerk_SelectedIndexChanged">
+        <asp:DropDownList ID="ddlMateriaalMerk" runat="server" OnSelectedIndexChanged="ddlMateriaalMerk_SelectedIndexChanged" AutoPostBack="True">
         </asp:DropDownList>
 &nbsp;Volgnummer:
-        <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server" OnSelectedIndexChanged="ddlMateriaalVolgnr_SelectedIndexChanged">
+        <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server" OnSelectedIndexChanged="ddlMateriaalVolgnr_SelectedIndexChanged" AutoPostBack="True">
         </asp:DropDownList>
         <br />
         <br />

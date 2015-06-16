@@ -29,13 +29,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 VulPlaatsen();
                 
                 // geef alle categorieën
-                ddlHuurItemType.Items.Clear();
-                foreach (string huurItem in administratie.DatabaseKoppeling.VraagMateriaalSoortOp())
-                {
-                    ddlHuurItemType.Items.Add(huurItem);
-                }
-                VulMerken();
-                VulVolgnummers();
+                VulCategorieen();
 
             }
            
@@ -207,6 +201,17 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void ddlHuurItemType_SelectedIndexChanged(object sender, EventArgs e)
         {
             VulMerken();
+        }
+
+        private void VulCategorieen()
+        {
+            ddlHuurItemType.Items.Clear();
+            foreach (string huurItem in administratie.DatabaseKoppeling.VraagMateriaalSoortOp())
+            {
+                ddlHuurItemType.Items.Add(huurItem);
+            }
+            VulMerken();
+            VulVolgnummers();
         }
 
         private void VulMerken()

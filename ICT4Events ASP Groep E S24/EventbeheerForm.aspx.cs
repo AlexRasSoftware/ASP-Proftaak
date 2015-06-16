@@ -121,36 +121,36 @@ namespace ICT4Events_ASP_Groep_E_S24
             updateEventTab();
         }
 
-        protected void btnEventMateriaalVerwijder_Click(object sender, EventArgs e)
-        {
-            if (ddlEventMateriaal.Text != "")
-            {
-                string teverwijderen = ddlEventMateriaal.Text.Substring(0,
-                    ddlEventMateriaal.Text.IndexOf(","));
-                foreach (Huuritem h in 
-                    administratie.GeefEvent(ddlEvent.Text).HuurMateriaal)
-                {
-                    if (h.Naam == teverwijderen)
-                    {
-                        if (!database.DeleteMateriaal(h.Naam)) 
-                            ScriptManager.RegisterStartupScript(this, GetType(),
-                                "ServerControlScript",
-                                "alert(\"DatabaseKoppeling ging fout.\");", true);
-                            //MessageBox.Show("Database koppeling ging fout.");
-                        else administratie.GeefEvent(ddlEvent.Text).HuurMateriaal.Remove(h);
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "ServerControlScript", 
-                    "alert(\"Er is geen materiaal om te verwijderen.\");", true);
-                //MessageBox.Show("Er is geen materiaal om te verwijderen.");
-            }
-            updateEventTab();
-        }
+        //protected void btnEventMateriaalVerwijder_Click(object sender, EventArgs e)
+        //{
+        //    if (ddlEventMateriaal.Text != "")
+        //    {
+        //        string teverwijderen = ddlEventMateriaal.Text.Substring(0,
+        //            ddlEventMateriaal.Text.IndexOf(","));
+        //        foreach (Huuritem h in 
+        //            administratie.GeefEvent(ddlEvent.Text).HuurMateriaal)
+        //        {
+        //            if (h.Naam == teverwijderen)
+        //            {
+        //                if (!database.DeleteMateriaal(h.Naam)) 
+        //                    ScriptManager.RegisterStartupScript(this, GetType(),
+        //                        "ServerControlScript",
+        //                        "alert(\"DatabaseKoppeling ging fout.\");", true);
+        //                    //MessageBox.Show("Database koppeling ging fout.");
+        //                else administratie.GeefEvent(ddlEvent.Text).HuurMateriaal.Remove(h);
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, GetType(),
+        //            "ServerControlScript", 
+        //            "alert(\"Er is geen materiaal om te verwijderen.\");", true);
+        //        //MessageBox.Show("Er is geen materiaal om te verwijderen.");
+        //    }
+        //    updateEventTab();
+        //}
 
         protected void btnEventAanmaken_Click(object sender, EventArgs e)
         {
