@@ -11,7 +11,7 @@ namespace ICT4Events_ASP_Groep_E_S24
     {
         private Plaats selectedPlaats;
         private static Administratie administartie;
-        private DatabaseKoppeling database;
+        private static DatabaseKoppeling database;
         private Event huidigEvent;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -124,22 +124,25 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnZoek_Click(object sender, EventArgs e)
         {
             lbGebruikers.Items.Clear();
-            List<Bezoeker> bez=new List<Bezoeker>();
+            List<Account> bez=new List<Account>();
             if (tbZoekGebruiker.Text != null && tbZoekGebruiker.Text != "")
             {
-                foreach (Bezoeker b in administartie.Inschrijvers)
+                
+                foreach (Account a in database.HaalAlleAccountsOp())
                 {
-                    if (b.Gebruikersnaam.Contains(tbZoekGebruiker.Text) ||
-                        tbZoekGebruiker.Text.Contains(b.Gebruikersnaam))
+                    // deze manier werkt nog hoofdlettergevoelig ik
+                    // denk dat dit niet heel handig is is eigenlijk een could have
+                    if (a.Gebruikersnaam.Contains(tbZoekGebruiker.Text) ||
+                        tbZoekGebruiker.Text.Contains(a.Gebruikersnaam))
                     {
-                        bez.Add(b);
+                        bez.Add(a);
                     }
                 }
                 if (bez != null)
                 {
-                    foreach (Bezoeker b in bez)
+                    foreach (Account acc in bez)
                     {
-                        lbGebruikers.Items.Add(b.Gebruikersnaam);
+                        lbGebruikers.Items.Add(acc.Gebruikersnaam);
                     }
                 }
                 else
