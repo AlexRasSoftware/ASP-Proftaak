@@ -104,7 +104,7 @@
 
         <br />
         <h3>Plaats Beheer</h3>
-        Locatienaam:<asp:DropDownList ID="ddlPlaNaam" runat="server" OnSelectedIndexChanged="ddlPlaNaam_SelectedIndexChanged" style="margin-left: 22px">
+        Locatienaam:<asp:DropDownList ID="ddlPlaNaam" runat="server" OnSelectedIndexChanged="ddlPlaNaam_SelectedIndexChanged" style="margin-left: 22px" AutoPostBack="True">
         </asp:DropDownList>
         <br />
         Plaatsnummer:&nbsp;&nbsp;&nbsp;

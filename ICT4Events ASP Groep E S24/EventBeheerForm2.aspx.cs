@@ -23,6 +23,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 refreshPlaatsbeheerddl();
                 refreshEventBeheerddl();
                 refreshGebruikerlb();
+                //refreshMateriaalddl1();
                 VulCategorieen();
             }
         }
@@ -96,7 +97,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnNavLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LoginForm.asp");
+            Response.Redirect("LoginForm.aspx");
         }
 
         protected void btnPlaatsAanpassen_Click(object sender, EventArgs e)
@@ -177,16 +178,17 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
             VulMerken();
+            
         }
 
         protected void ddlMateriaalMerk_SelectedIndexChanged(object sender, EventArgs e)
         {
-            VulVolgnummers();
+            VulVolgnummers();            
         }
 
         protected void ddlMateriaalVolgnr_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void refreshMateriaalddl1()
@@ -393,7 +395,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlMateriaalMerk.Items.Clear();
             if (ddlMateriaalType.SelectedItem != null)
             {
-                foreach (Huuritem h in administartie.GeefMerken(ddlMateriaalType.SelectedItem.ToString()))
+                foreach (Huuritem h in administartie.GeefAlleMerken(ddlMateriaalType.SelectedItem.ToString()))
                 {
                     ddlMateriaalMerk.Items.Add(h.Merk);
                 }
@@ -406,12 +408,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlMateriaalVolgnr.Items.Clear();
             if (ddlMateriaalMerk.SelectedItem != null && ddlMateriaalType.SelectedItem != null)
             {
-                foreach (Huuritem h in administartie.GeefProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
+                foreach (Huuritem h in administartie.GeefAlleProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
                 {
-                    if (!h.IsGehuurd)
-                    {
-                        ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
-                    }
+                    ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());                    
                 }
             }
         }

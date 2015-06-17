@@ -278,6 +278,30 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
+        public List<Huuritem> GeefAlleMerken(string categorieNaam)
+        {
+            List<Huuritem> merken = new List<Huuritem>();
+            foreach (Huuritem h in HuurMateriaal)
+            {               
+                if (h.Categorie == categorieNaam)
+                {
+                    bool bestaat = false;
+                    foreach (Huuritem hm in merken)
+                    {
+                        if (h.Merk == hm.Merk)
+                        {
+                            bestaat = true;
+                        }
+                    }
+                    if (!bestaat)
+                    {
+                        merken.Add(h);
+                    }
+                }                
+            }
+            return merken;
+        }
+
         public List<Huuritem> GeefMerken(string categorieNaam)
         {
             // geef de huuritems voor een bepaalde categorie
@@ -305,6 +329,19 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }                           
             }
             return merken;
+        }
+
+        public List<Huuritem> GeefAlleProducten(string merk, string categorie)
+        {
+            List<Huuritem> items = new List<Huuritem>();
+            foreach (Huuritem h in HuurMateriaal)
+            {               
+                if (h.Categorie == categorie && h.Merk == merk)
+                {
+                    items.Add(h);
+                }                
+            }
+            return items;
         }
 
         public List<Huuritem> GeefProducten(string merk, string categorie)
