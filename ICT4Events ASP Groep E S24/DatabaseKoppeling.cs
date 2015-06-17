@@ -1225,6 +1225,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             exc="";
             return kay;
         }
+
         public bool wijzigHuuritem(out string exc, Huuritem huVoor, Huuritem huNa)
         {
             bool kay = false;
@@ -1233,33 +1234,31 @@ namespace ICT4Events_ASP_Groep_E_S24
                 conn.Open();
                 string query = "update PRODUCTCAT set naam=:naam where naam=:oldnaam";
                 command = new OracleCommand(query, conn);
-                command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
-                command.Parameters.Add(new OracleParameter("oldnaam", huVoor.Naam));
+                command.Parameters.Add(new OracleParameter("naam", huNa.Categorie));
+                command.Parameters.Add(new OracleParameter("oldnaam", huVoor.Categorie));
                 command.ExecuteNonQuery();
 
                 ///////////////////////
 
-                conn.Open();
-                query = "update PRODUCT set merk=:merk where naam=:oldmerk and productcat_id = " +
+                query = "update PRODUCT set merk=:merk where merk=:oldmerk and productcat_id = " +
                     "(select id from PRODUCTCAT where naam=:naam)";
                 command = new OracleCommand(query, conn);
                 command.Parameters.Add(new OracleParameter("merk", huNa.Merk));
-                command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
+                command.Parameters.Add(new OracleParameter("naam", huNa.Categorie));
                 command.Parameters.Add(new OracleParameter("oldmerk", huVoor.Merk));
                 command.ExecuteNonQuery();
 
                 ///////////////////////////
 
-                conn.Open();
-                query = "update PRODUCTEXEMPLAAR set volgnummer=:volgnr where volgnummer=:oldvolgnr" +
-                    "and product_id=(select id from PRODUCT where naam=:oldmerk and productcat_id = " +
-                    "(select id from PRODUCTCAT where naam=:naam)";
-                command = new OracleCommand(query, conn);
-                command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
-                command.Parameters.Add(new OracleParameter("oldmerk", huVoor.Merk));
-                command.Parameters.Add(new OracleParameter("volgnr", huNa.VolgNummer));
-                command.Parameters.Add(new OracleParameter("oldvolgnr", huVoor.VolgNummer));
-                command.ExecuteNonQuery();
+                //query = "update PRODUCTEXEMPLAAR set volgnummer=:volgnr where volgnummer=:oldvolgnr" +
+                //    "and product_id=(select id from PRODUCT where naam=:oldmerk and productcat_id = " +
+                //    "(select id from PRODUCTCAT where naam=:naam))";
+                //command = new OracleCommand(query, conn);
+                //command.Parameters.Add(new OracleParameter("naam", huNa.Naam));
+                //command.Parameters.Add(new OracleParameter("oldmerk", huVoor.Merk));
+                //command.Parameters.Add(new OracleParameter("volgnr", huNa.VolgNummer));
+                //command.Parameters.Add(new OracleParameter("oldvolgnr", huVoor.VolgNummer));
+                //command.ExecuteNonQuery();
 
                 kay = true;
             }
@@ -1377,6 +1376,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             bool kay = false;
             try
             {
+                conn.Open();
                 string query = "update PLEK set CAPACITEIT=:cap where NUMMER=:nummer";
                 command = new OracleCommand(query, conn);
                 command.Parameters.Add(new OracleParameter("cap", cap));
@@ -1396,6 +1396,27 @@ namespace ICT4Events_ASP_Groep_E_S24
                 conn.Close();
             }
             return kay;
+        }
+
+        public bool VerwijderGebruiker(string gebruikersNaam)
+        {
+            try
+            {
+                conn.Open();
+                string query = "UPDATE ACCOUNT SET GEACTIVEERD = 0 WHERE GEBRUIKERSNAAM = :gebruikersNaam";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("gebruikersNaam", gebruikersNaam));
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         #endregion

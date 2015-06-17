@@ -17,7 +17,7 @@
         }
         .newStyle3 {
             position: absolute;
-            left: 100px;
+            left: 150px;
             right: 598px;
         }
     </style>
@@ -84,7 +84,8 @@
         </asp:DropDownList>
         <br />
         <br />
-        Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbMaType" runat="server"></asp:TextBox>
+        Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" CssClass="newStyle3"></asp:TextBox>
+        &nbsp;&nbsp;&nbsp;
         <br />
         Merk:<asp:TextBox ID="tbMaMerk" runat="server" CssClass="newStyle3"></asp:TextBox>
         <br />
@@ -94,8 +95,8 @@
         <br />
         <br />
         <br />
-        <asp:Button ID="btnVoegMaToe" runat="server" Text="Voeg Materiaal Toe" Width="121px" OnClick="btnVoegMaToe_Click" />
-        <asp:Button ID="btnPasMaAan" runat="server" Text="Pas Materiaal Aan" Width="129px" OnClick="btnPasMaAan_Click" />
+        <asp:Button ID="btnVoegMaToe" runat="server" Text="Voeg Materiaal Toe" Width="162px" OnClick="btnVoegMaToe_Click" />
+        <asp:Button ID="btnPasMaAan" runat="server" Text="Pas Materiaal Aan" Width="152px" OnClick="btnPasMaAan_Click" />
         <br />
 
     </div>

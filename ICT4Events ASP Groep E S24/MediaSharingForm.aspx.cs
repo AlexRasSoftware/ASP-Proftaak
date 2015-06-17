@@ -82,7 +82,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (lbPosts.SelectedIndex >= 0)
             {
-                administratie.Geef
+                // wat is deze ? ;p
+                //administratie.Geef
             }
         }
     }

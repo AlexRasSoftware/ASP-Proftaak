@@ -31,21 +31,12 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void refreshGebruikerlb()
         {
             lbGebruikers.Items.Clear();
-            List<string> bezoekers = new List<string>();
-
-            foreach (string s in database.HaalAanwezigenOp())
+            foreach(Account a in database.HaalAlleAccountsOp())
             {
-               bezoekers.Add(s);
-            }
-
-            foreach (string e in database.HaalAfwezigenOp())
-            {
-                bezoekers.Add(e);
-            }
-
-            foreach (string x in bezoekers)
-            {
-                lbGebruikers.Items.Add(x);
+                if(a.Geactiveerd == true)
+                {
+                    lbGebruikers.Items.Add(a.Gebruikersnaam);
+                }              
             }
         }
 
@@ -110,7 +101,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             
             try
             {
-                plaatsNr = ddlPlaatsnummers.SelectedValue;
+                plaatsNr = ddlPlaatsnummers.SelectedItem.ToString();
                 cap = Convert.ToInt32(tbPlaCap.Text);
                 if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap))
                 {
@@ -157,10 +148,13 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     // deze manier werkt nog hoofdlettergevoelig ik
                     // denk dat dit niet heel handig is is eigenlijk een could have
-                    if (a.Gebruikersnaam.Contains(tbZoekGebruiker.Text) ||
-                        tbZoekGebruiker.Text.Contains(a.Gebruikersnaam))
+                    if(a.Geactiveerd == true)
                     {
-                        bez.Add(a);
+                        if (a.Gebruikersnaam.Contains(tbZoekGebruiker.Text) ||
+                            tbZoekGebruiker.Text.Contains(a.Gebruikersnaam))
+                        {
+                            bez.Add(a);
+                        }
                     }
                 }
                 if (bez != null)
@@ -188,7 +182,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (lbGebruikers.SelectedValue != null)
             {
-                database.DeleteGebruiker(lbGebruikers.SelectedValue);
+                database.VerwijderGebruiker(lbGebruikers.SelectedItem.ToString());
                 refreshGebruikerlb();
             }
             else
@@ -274,6 +268,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     {
                         huidigEvent = database.HaalEvent();
                         refreshEventBeheerddl();
+                        refreshPlaatsbeheerddl();
                     }
                 }
             }
@@ -382,8 +377,8 @@ namespace ICT4Events_ASP_Groep_E_S24
 
                     huNa = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
                     huNa.Prijs = Convert.ToInt32(tbMaPrijs.Text);
-                    huVoor = new Huuritem(ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue, Convert.ToInt32(ddlMateriaalVolgnr.SelectedValue), tbMaType.Text, false);
-                    if (!database.wijzigHuuritem(out exc, huVoor, huNa))
+                    huVoor = new Huuritem(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString(), Convert.ToInt32(ddlMateriaalVolgnr.SelectedItem.ToString()), tbMaType.Text, false);
+                     if (!database.wijzigHuuritem(out exc, huVoor, huNa))
                     {
                         ScriptManager.RegisterStartupScript(this, GetType(),
                             "ServerControlScript",
@@ -441,7 +436,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void ddlPlaatsnummers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tbPlaCap.Text = selectedPlaats.Capaciteit.ToString();
+            
         }
         
     }
