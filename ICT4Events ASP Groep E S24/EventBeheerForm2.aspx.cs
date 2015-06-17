@@ -51,14 +51,15 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void refreshPlaatsbeheerddl()
         {
-            ddlPlaNaam.Items.Clear();
-            foreach (Plaats p in database.HaalPlaatsenOp("Event"))
+            foreach (Plaats p in administartie.GeefAllePlaatsen())
             {
-                ddlPlaNaam.Items.Add(p.LocatieNaam);
+                lblPlaatsLocatie.Text = p.LocatieNaam;
+                selectedPlaats = p;
+                break;
             }
-            if (ddlPlaNaam.SelectedIndex >=0)
+            foreach(Plaats p in database.HaalPlaatsenOp("dummy"))
             {
-                ddlPlaNaam.SelectedIndex = 0;
+                ddlPlaatsnummers.Items.Add(p.PlaatsNummer);
             }
         }
         protected void refreshEventBeheerddl()
@@ -102,10 +103,32 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnPlaatsAanpassen_Click(object sender, EventArgs e)
         {
-
+            string plaatsNr = "";
+            int cap = 1;
+            string error = "Er is een fout opgetreden. /n Vraag Siebren voor meer info.";
+            
+            try
+            {
+                plaatsNr = ddlPlaatsnummers.SelectedValue;
+                cap = Convert.ToInt32(tbPlaCap.Text);
+                if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript",
+                        "alert(\"" + error + "\");", true);
+                }
+                else refreshPlaatsbeheerddl();
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript",
+                        "alert(\"" + ex.ToString() + "\");", true);
+            }
+            
         }
 
-        protected void ddlPlaNaam_SelectedIndexChanged(object sender, EventArgs e)
+        /*protected void ddlPlaNaam_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (Plaats p in administartie.Plaatsen)
             {
@@ -118,7 +141,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     break;
                 }
             }
-        }
+        }*/
 
         
 
@@ -413,6 +436,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                     ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());                    
                 }
             }
+        }
+
+        protected void ddlPlaatsnummers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbPlaCap.Text = selectedPlaats.Capaciteit.ToString();
         }
         
     }
