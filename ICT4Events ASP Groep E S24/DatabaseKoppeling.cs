@@ -1349,14 +1349,14 @@ namespace ICT4Events_ASP_Groep_E_S24
             return kay;
         }
 
-<<<<<<< HEAD
+
         public bool NieuwTekstBericht(string tekst, Account auteur)
         {
             try
             {
                 int nieuweId = Administratie.hoogsteIdBericht + 1;
                 conn.Open();
-                string query = "INSERT INTO Bericht(id, account_id, tekst, datum, bericht_soort) VALUES ('" + nieuweId + "', '" + auteur.Id +"', '" + tekst +"', SYSDATE, 'bericht')";
+                string query = "INSERT INTO Bericht(id, account_id, tekst, datum, bericht_soort) VALUES ('" + nieuweId + "', '" + auteur.Id + "', '" + tekst + "', SYSDATE, 'bericht')";
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
                 return true;
@@ -1364,7 +1364,15 @@ namespace ICT4Events_ASP_Groep_E_S24
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.ToString());
-=======
+            }
+            finally
+            {
+                conn.Close();
+                
+            }
+            return false;
+        }
+
         public bool PlaatsCapAanpassen(out string exc, string plaatsNr, int cap)
         {
             bool kay = false;
@@ -1381,18 +1389,14 @@ namespace ICT4Events_ASP_Groep_E_S24
             catch (Exception ex)
             {
                 exc = ex.ToString();
->>>>>>> origin/master
             }
             finally
             {
+                exc = "";
+                
                 conn.Close();
             }
-<<<<<<< HEAD
-            return false;
-=======
-            exc = "";
             return kay;
->>>>>>> origin/master
         }
 
         #endregion

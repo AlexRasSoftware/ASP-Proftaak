@@ -384,12 +384,13 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return null;
         }
-<<<<<<< HEAD
+
 
         public bool NieuwTekstBericht(string tekst, Account auteur)
         {
             return databaseKoppeling.NieuwTekstBericht(tekst, auteur);
-=======
+        }
+
         public List<Plaats> GeefAllePlaatsen()
         {
             List<Plaats> plaatsen = new List<Plaats>();
@@ -409,7 +410,6 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
             }
             return plaatsen;
->>>>>>> origin/master
         }
     }
 }
