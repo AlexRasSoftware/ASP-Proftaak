@@ -269,15 +269,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT * FROM EVENT";
+                string query = "SELECT e.NAAM AS EVENTNAAM, DATUMSTART, DATUMEINDE, l.NAAM AS LOCATIENAAM  FROM EVENT e, LOCATIE l WHERE e.LOCATIE_ID = l.ID";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    string naam = Convert.ToString(dataReader["NAAM"]);
+                    string naam = Convert.ToString(dataReader["EVENTNAAM"]);
                     DateTime beginDatum = Convert.ToDateTime(dataReader["DATUMSTART"]);
                     DateTime eindDatum = Convert.ToDateTime(dataReader["DATUMEINDE"]);
-                    tempEvent = (new Event(naam, beginDatum, eindDatum, "Veghel", "Rachelsmolen 1"));
+                    string plaats = Convert.ToString(dataReader["LOCATIENAAM"]);
+                    tempEvent = (new Event(naam, beginDatum, eindDatum, plaats, "Rachelsmolen 1"));
                 }
                 return tempEvent;
             }
@@ -1189,28 +1190,26 @@ namespace ICT4Events_ASP_Groep_E_S24
         #endregion
 
         #region Eventbeheer
-        public bool WijzigEvent(out string exc, Event evVoor, Event evNa)
+        public bool WijzigEvent(out string exc, Event evNa)
         {
             bool kay = false;
             try
             {
                 conn.Open();
-                string query = "update LOCATIE set naam=:naam where naam=:oldnaam";
+                string query = "update LOCATIE set naam=:naam";
                 command = new OracleCommand(query, conn);
                 command.Parameters.Add(new OracleParameter("naam", evNa.Plaats));
-                command.Parameters.Add(new OracleParameter("oldnaam", evVoor.Plaats));
                 command.ExecuteNonQuery();
 
                 ///////////////////////
 
                 query = "update EVENT set naam=:naam, datumStart=TO_DATE('" +
-                    evVoor.BeginDatum.Day + "/" + evVoor.BeginDatum.Month +
-                    "/" + evVoor.BeginDatum.Year + "', 'dd/mm/yyyy'),datumEinde=TO_DATE('" +
+                    evNa.BeginDatum.Day + "/" + evNa.BeginDatum.Month +
+                    "/" + evNa.BeginDatum.Year + "', 'dd/mm/yyyy'),datumEinde=TO_DATE('" +
                     evNa.EindDatum.Day + "/" + evNa.EindDatum.Month + "/" + evNa.EindDatum.Year +
-                    "', 'dd/mm/yyyy') where naam=:oldnaam";
+                    "', 'dd/mm/yyyy')";
                 command = new OracleCommand(query, conn);
                 command.Parameters.Add(new OracleParameter("naam", evNa.Naam));
-                command.Parameters.Add(new OracleParameter("oldnaam", evVoor.Naam));
                 command.ExecuteNonQuery();
 
                 kay = true;

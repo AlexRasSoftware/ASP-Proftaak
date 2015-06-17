@@ -30,7 +30,7 @@
         <asp:Button ID="btnNavLogin" runat="server" OnClick="btnNavLogin_Click" Text="Terug Naar Login" />
         <br />
         Naam:
-        <asp:TextBox ID="tbEvNaam" runat="server" CssClass="newStyle1"></asp:TextBox>
+        <asp:TextBox ID="tbEvNaam" runat="server" CssClass="newStyle1" Enabled="False"></asp:TextBox>
         <br />
         Datum Start: <asp:TextBox ID="tbEvDatStart" runat="server" CssClass="newStyle1"></asp:TextBox>
         <asp:ImageButton ID="imbtnCalendarStart" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarStart_Click" Width="24px" CssClass="newStyle2" />

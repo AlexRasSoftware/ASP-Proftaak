@@ -51,13 +51,14 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void refreshPlaatsbeheerddl()
         {
-            foreach (Plaats p in administartie.GeefAllePlaatsen())
+            List<Plaats> plaatsen = database.HaalPlaatsenOp("dummy");
+            foreach (Plaats p in plaatsen)
             {
                 lblPlaatsLocatie.Text = p.LocatieNaam;
                 selectedPlaats = p;
                 break;
             }
-            foreach(Plaats p in database.HaalPlaatsenOp("dummy"))
+            foreach(Plaats p in plaatsen)
             {
                 ddlPlaatsnummers.Items.Add(p.PlaatsNummer);
             }
@@ -263,7 +264,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     string exc = "";
                     eventVoor = this.huidigEvent;
                     eventNa = new Event(tbEvNaam.Text, beginDatum, eindDatum, tbEvLocatie.Text);
-                    if (!database.WijzigEvent(out exc, eventVoor, eventNa))
+                    if (!database.WijzigEvent(out exc, eventNa))
                     {
                         ScriptManager.RegisterStartupScript(this, GetType(),
                             "ServerControlScript",
