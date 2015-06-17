@@ -262,7 +262,56 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnVoegMaToe_Click(object sender, EventArgs e)
         {
-
+            Huuritem huurInvoer;
+            bool notnumber = false;
+            string error = "In volgnummer staat geen nummer";
+            foreach (char ch in tbMaVolgnummer.Text)
+            {
+                if (!Char.IsNumber(ch))
+                {
+                    notnumber = true;
+                    break;
+                }
+            }
+            if (tbMaType.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"Vul een Type in.\");", true);
+            }
+            else if (tbMaMerk.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"Vul een merk in.\");", true);
+            }
+            else if (tbMaVolgnummer.Text == "" || notnumber)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"" + error + "\");", true);
+            }
+            else
+            {
+                try
+                {
+                    string exc = "";
+                    huurInvoer = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
+                    huurInvoer.Prijs = Convert.ToInt32(tbMaPrijs.Text);
+                    if (!database.VoegMateriaalToe(out exc, huurInvoer))
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"" + exc + "\");", true);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"" + ex.ToString() + "\");", true);
+                }
+            }
         }
 
         protected void btnPasMaAan_Click(object sender, EventArgs e)
@@ -270,20 +319,18 @@ namespace ICT4Events_ASP_Groep_E_S24
             Huuritem huVoor;
             Huuritem huNa;
             int ey = 0;
-            string error="";
+            string error = "In volgnummer staat geen nummer";
             bool notnumber=false;
            
             try
             {
-                try
+                foreach (char ch in tbMaVolgnummer.Text)
                 {
-                    ey = Convert.ToInt32(tbMaVolgnummer.Text);
-                    notnumber = false;
-                }
-                catch (Exception ex)
-                {
-                    notnumber = true;
-                    error = ex.ToString();
+                    if(!Char.IsNumber(ch))
+                    {
+                        notnumber = true;
+                        break;
+                    }
                 }
                 if (tbMaType.Text == "")
                 {
