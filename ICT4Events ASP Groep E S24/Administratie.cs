@@ -218,10 +218,9 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         public List<Bericht> VraagAlleBerichtenOp()
         {
-
-            return databaseKoppeling.VraagBerichtenOpVanEvent();
-            huidigEvent.Berichten.Clear();
-            huidigEvent.VoegBerichtenToe(databaseKoppeling.VraagBerichtenOpVanEvent());           
+            List<Bericht> tempList = databaseKoppeling.VraagBerichtenOpVanEvent();
+            tempList.Sort();
+            return tempList;         
         }
 
         public string RfidGenerator()

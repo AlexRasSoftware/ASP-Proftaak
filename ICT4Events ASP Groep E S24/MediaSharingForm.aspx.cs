@@ -77,5 +77,13 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
             }
         }
+
+        protected void btnReageerMeer_Click(object sender, EventArgs e)
+        {
+            if (lbPosts.SelectedIndex >= 0)
+            {
+                administratie.Geef
+            }
+        }
     }
 }
