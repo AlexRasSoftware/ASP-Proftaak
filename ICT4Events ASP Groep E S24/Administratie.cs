@@ -383,5 +383,25 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return null;
         }
+        public List<Plaats> GeefAllePlaatsen()
+        {
+            List<Plaats> plaatsen = new List<Plaats>();
+            foreach (Plaats p in this.Plaatsen)
+            {
+                bool bestaat = false;
+                foreach (Plaats pl in databaseKoppeling.HaalPlaatsenOp(databaseKoppeling.HaalEvent().Naam))
+                {
+                    if (p.LocatieNaam == pl.LocatieNaam)
+                    {
+                        bestaat = true;
+                    }
+                }
+                if (!bestaat)
+                {
+                    plaatsen.Add(p);
+                }
+            }
+            return plaatsen;
+        }
     }
 }

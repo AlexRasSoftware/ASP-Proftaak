@@ -104,16 +104,15 @@
 
         <br />
         <h3>Plaats Beheer</h3>
-        Locatienaam:<asp:DropDownList ID="ddlPlaNaam" runat="server" OnSelectedIndexChanged="ddlPlaNaam_SelectedIndexChanged" style="margin-left: 22px" AutoPostBack="True">
-        </asp:DropDownList>
+        Locatienaam:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Label ID="lblPlaatsLocatie" runat="server" Text="Label"></asp:Label>
         <br />
         Plaatsnummer:&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="lblPlaNr" runat="server" Text="1"></asp:Label>
+        <asp:DropDownList ID="ddlPlaatsnummers" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPlaatsnummers_SelectedIndexChanged">
+        </asp:DropDownList>
         <br />
         Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="lblPlaCap" runat="server" Text="4"></asp:Label>
-        <br />
-        Prijs:<asp:TextBox ID="tbPlaPrijs" runat="server" style="margin-left: 69px"></asp:TextBox>
+        <asp:TextBox ID="tbPlaCap" runat="server"></asp:TextBox>
         <br />
         <br />
         <asp:Button ID="btnPlaatsAanpassen" runat="server" Text="Plaats Aanpassen" OnClick="btnPlaatsAanpassen_Click" Width="121px" />

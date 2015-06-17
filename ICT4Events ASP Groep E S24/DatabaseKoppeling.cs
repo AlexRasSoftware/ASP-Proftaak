@@ -1350,6 +1350,30 @@ namespace ICT4Events_ASP_Groep_E_S24
             return kay;
         }
 
+        public bool PlaatsCapAanpassen(out string exc, string plaatsNr, int cap)
+        {
+            bool kay = false;
+            try
+            {
+                string query = "update PLEK set CAPACITEIT=:cap where NUMMER=:nummer";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("cap", cap));
+                command.Parameters.Add(new OracleParameter("nummer", plaatsNr));
+                command.ExecuteNonQuery();
+
+                kay = true;
+            }
+            catch (Exception ex)
+            {
+                exc = ex.ToString();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            exc = "";
+            return kay;
+        }
 
         #endregion
     }
