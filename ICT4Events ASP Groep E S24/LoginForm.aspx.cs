@@ -13,7 +13,6 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void Page_Load(object sender, EventArgs e)
         {
             administratie.HaalAlleAccountsOp();
-            
         }
 
         protected void btnInloggen_Click(object sender, EventArgs e)
@@ -26,8 +25,9 @@ namespace ICT4Events_ASP_Groep_E_S24
                     if (tempAccount.Wachtwoord == tbWachtwoord.Text)
                     {
                         GeefMessage("Succesvol");
-                        Doorverwijzen(tempAccount.Accounttype);
                         administratie.NuIngelogdeAccount = tempAccount;
+                        Doorverwijzen(tempAccount.Accounttype);
+                        
                     }
                     GeefMessage("Ongeldig wachtwoord");
                 }

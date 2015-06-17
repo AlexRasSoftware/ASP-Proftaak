@@ -22,7 +22,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static Account nuIngelogdeAccount = null;
         private static List<Account> accounts = new List<Account>();
         private static List<Plaats> plaatsen = databaseKoppeling.HaalPlaatsenOp("dummy");
-        
+
+        public static int hoogsteIdBericht = 0;
 
         //Properties
         public List<Event> Events
@@ -345,6 +346,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }
             }
             return null;
+        }
+
+        public bool NieuwTekstBericht(string tekst, Account auteur)
+        {
+            return databaseKoppeling.NieuwTekstBericht(tekst, auteur);
         }
     }
 }

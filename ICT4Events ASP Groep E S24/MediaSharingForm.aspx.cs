@@ -18,6 +18,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 HerlaadGegevens();
             }
+            //GeefMessage(Convert.ToString(Administratie.hoogsteIdBericht));
         }
 
         protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -59,6 +60,22 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnLike_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnPost_Click(object sender, EventArgs e)
+        {
+            if (administratie.NuIngelogdeAccount != null && tbBericht.Text.Length > 0)
+            {
+                if (administratie.NieuwTekstBericht(tbBericht.Text, administratie.NuIngelogdeAccount))
+                {
+                    GeefMessage("Geslaagd");
+                    HerlaadGegevens();
+                }
+                else
+                {
+                    GeefMessage("Niet gelukt");
+                }
+            }
         }
     }
 }

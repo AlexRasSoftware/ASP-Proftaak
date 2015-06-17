@@ -342,7 +342,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT * FROM bijdrage bd, bericht br WHERE bd.id = br.BIJDRAGE_ID";
+                string query = "SELECT * FROM Bericht";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
@@ -351,7 +351,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     int accountId = Convert.ToInt32(dataReader["ACCOUNT_ID"]);
                     Account auteur = administratie.GeefAccountDoorId(accountId);
                     DateTime datumGepost = Convert.ToDateTime(dataReader["DATUM"]);
-                    string berichtSoort = Convert.ToString(dataReader["SOORT"]);
+                    string berichtSoort = Convert.ToString(dataReader["BERICHT_SOORT"]);
                     int soort = 0;
                     if(berichtSoort == "foto")
                     {
@@ -365,9 +365,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                     {
                         soort = 3;
                     }
-                    string titel = Convert.ToString(dataReader["TITEL"]);
-                    string inhoud = Convert.ToString(dataReader["INHOUD"]);
-                    tempList.Add(new Bericht(inhoud, auteur, datumGepost, soort, id, titel));
+                    string tekst = Convert.ToString(dataReader["TEKST"]);
+                    tempList.Add(new Bericht(tekst, auteur, datumGepost, soort, id));
                 }
                 return tempList;
             }
@@ -1350,6 +1349,27 @@ namespace ICT4Events_ASP_Groep_E_S24
             return kay;
         }
 
+        public bool NieuwTekstBericht(string tekst, Account auteur)
+        {
+            try
+            {
+                int nieuweId = Administratie.hoogsteIdBericht + 1;
+                conn.Open();
+                string query = "INSERT INTO Bericht(id, account_id, tekst, datum, bericht_soort) VALUES ('" + nieuweId + "', '" + auteur.Id +"', '" + tekst +"', SYSDATE, 'bericht')";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return false;
+        }
 
         #endregion
     }

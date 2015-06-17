@@ -89,6 +89,21 @@ namespace ICT4Events_ASP_Groep_E_S24
             id = -1;
         }
 
+        //public Bericht(string tekst, Account auteur, DateTime datumGepost, int berichtSoort, int id)
+        //{
+        //    this.tekst = tekst;
+        //    this.auteur = auteur;
+        //    this.datumGepost = datumGepost;
+        //    this.berichtSoort = (BerichtSoort)berichtSoort;
+        //    this.id = id;
+        //    //reacties
+        //    //rapportages
+        //    //likes
+        //    reacties = databaseKoppeling.AlleReactiesVanBericht(id.ToString());
+        //    rapportages = new List<Rapportage>();
+        //    likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
+        //}
+
         public Bericht(string tekst, Account auteur, DateTime datumGepost, int berichtSoort, int id)
         {
             this.tekst = tekst;
@@ -96,28 +111,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             this.datumGepost = datumGepost;
             this.berichtSoort = (BerichtSoort)berichtSoort;
             this.id = id;
-            //reacties
-            //rapportages
-            //likes
-            reacties = databaseKoppeling.AlleReactiesVanBericht(id.ToString());
-            rapportages = new List<Rapportage>();
-            likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
-        }
-
-        public Bericht(string tekst, Account auteur, DateTime datumGepost, int berichtSoort, int id, string titel)
-        {
-            this.tekst = tekst;
-            this.auteur = auteur;
-            this.datumGepost = datumGepost;
-            this.berichtSoort = (BerichtSoort)berichtSoort;
-            this.id = id;
-            this.titel = titel;
+            if (id > Administratie.hoogsteIdBericht)
+            {
+                Administratie.hoogsteIdBericht = id;
+            }
         }
 
         //Methodes
         public override string ToString()
         {
-            return auteur.Gebruikersnaam + ": " + titel + " | " + datumGepost;
+            return auteur.Gebruikersnaam + " (" + datumGepost + "): " + tekst;
         }
 
         //Met deze persoon kun je een bericht liken

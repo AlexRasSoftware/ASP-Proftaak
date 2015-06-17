@@ -29,7 +29,7 @@
         <br />
         <br />
         <asp:Button ID="btUploadBestand" runat="server" Text="Upload bestand" />
-        <asp:Button ID="btnPost" runat="server" Text="Plaats post" />
+        <asp:Button ID="btnPost" runat="server" Text="Plaats post" OnClick="btnPost_Click" />
         <br />
         Zoeken<br />
         <asp:TextBox ID="tbZoeken" runat="server"></asp:TextBox>
