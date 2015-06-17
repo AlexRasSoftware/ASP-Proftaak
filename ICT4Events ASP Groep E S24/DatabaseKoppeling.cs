@@ -1349,6 +1349,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             return kay;
         }
 
+<<<<<<< HEAD
         public bool NieuwTekstBericht(string tekst, Account auteur)
         {
             try
@@ -1363,12 +1364,35 @@ namespace ICT4Events_ASP_Groep_E_S24
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.ToString());
+=======
+        public bool PlaatsCapAanpassen(out string exc, string plaatsNr, int cap)
+        {
+            bool kay = false;
+            try
+            {
+                string query = "update PLEK set CAPACITEIT=:cap where NUMMER=:nummer";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("cap", cap));
+                command.Parameters.Add(new OracleParameter("nummer", plaatsNr));
+                command.ExecuteNonQuery();
+
+                kay = true;
+            }
+            catch (Exception ex)
+            {
+                exc = ex.ToString();
+>>>>>>> origin/master
             }
             finally
             {
                 conn.Close();
             }
+<<<<<<< HEAD
             return false;
+=======
+            exc = "";
+            return kay;
+>>>>>>> origin/master
         }
 
         #endregion

@@ -23,6 +23,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 refreshPlaatsbeheerddl();
                 refreshEventBeheerddl();
                 refreshGebruikerlb();
+                //refreshMateriaalddl1();
                 VulCategorieen();
             }
         }
@@ -50,14 +51,15 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void refreshPlaatsbeheerddl()
         {
-            ddlPlaNaam.Items.Clear();
-            foreach (Plaats p in database.HaalPlaatsenOp("Event"))
+            foreach (Plaats p in administartie.GeefAllePlaatsen())
             {
-                ddlPlaNaam.Items.Add(p.LocatieNaam);
+                lblPlaatsLocatie.Text = p.LocatieNaam;
+                selectedPlaats = p;
+                break;
             }
-            if (ddlPlaNaam.SelectedIndex >=0)
+            foreach(Plaats p in database.HaalPlaatsenOp("dummy"))
             {
-                ddlPlaNaam.SelectedIndex = 0;
+                ddlPlaatsnummers.Items.Add(p.PlaatsNummer);
             }
         }
         protected void refreshEventBeheerddl()
@@ -96,15 +98,37 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnNavLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LoginForm.asp");
+            Response.Redirect("LoginForm.aspx");
         }
 
         protected void btnPlaatsAanpassen_Click(object sender, EventArgs e)
         {
-
+            string plaatsNr = "";
+            int cap = 1;
+            string error = "Er is een fout opgetreden. /n Vraag Siebren voor meer info.";
+            
+            try
+            {
+                plaatsNr = ddlPlaatsnummers.SelectedValue;
+                cap = Convert.ToInt32(tbPlaCap.Text);
+                if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript",
+                        "alert(\"" + error + "\");", true);
+                }
+                else refreshPlaatsbeheerddl();
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "ServerControlScript",
+                        "alert(\"" + ex.ToString() + "\");", true);
+            }
+            
         }
 
-        protected void ddlPlaNaam_SelectedIndexChanged(object sender, EventArgs e)
+        /*protected void ddlPlaNaam_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (Plaats p in administartie.Plaatsen)
             {
@@ -117,7 +141,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     break;
                 }
             }
-        }
+        }*/
 
         
 
@@ -177,16 +201,17 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
             VulMerken();
+            
         }
 
         protected void ddlMateriaalMerk_SelectedIndexChanged(object sender, EventArgs e)
         {
-            VulVolgnummers();
+            VulVolgnummers();            
         }
 
         protected void ddlMateriaalVolgnr_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void refreshMateriaalddl1()
@@ -393,7 +418,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlMateriaalMerk.Items.Clear();
             if (ddlMateriaalType.SelectedItem != null)
             {
-                foreach (Huuritem h in administartie.GeefMerken(ddlMateriaalType.SelectedItem.ToString()))
+                foreach (Huuritem h in administartie.GeefAlleMerken(ddlMateriaalType.SelectedItem.ToString()))
                 {
                     ddlMateriaalMerk.Items.Add(h.Merk);
                 }
@@ -406,14 +431,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlMateriaalVolgnr.Items.Clear();
             if (ddlMateriaalMerk.SelectedItem != null && ddlMateriaalType.SelectedItem != null)
             {
-                foreach (Huuritem h in administartie.GeefProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
+                foreach (Huuritem h in administartie.GeefAlleProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
                 {
-                    if (!h.IsGehuurd)
-                    {
-                        ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());
-                    }
+                    ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());                    
                 }
             }
+        }
+
+        protected void ddlPlaatsnummers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbPlaCap.Text = selectedPlaats.Capaciteit.ToString();
         }
         
     }

@@ -279,6 +279,30 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
+        public List<Huuritem> GeefAlleMerken(string categorieNaam)
+        {
+            List<Huuritem> merken = new List<Huuritem>();
+            foreach (Huuritem h in HuurMateriaal)
+            {               
+                if (h.Categorie == categorieNaam)
+                {
+                    bool bestaat = false;
+                    foreach (Huuritem hm in merken)
+                    {
+                        if (h.Merk == hm.Merk)
+                        {
+                            bestaat = true;
+                        }
+                    }
+                    if (!bestaat)
+                    {
+                        merken.Add(h);
+                    }
+                }                
+            }
+            return merken;
+        }
+
         public List<Huuritem> GeefMerken(string categorieNaam)
         {
             // geef de huuritems voor een bepaalde categorie
@@ -306,6 +330,19 @@ namespace ICT4Events_ASP_Groep_E_S24
                 }                           
             }
             return merken;
+        }
+
+        public List<Huuritem> GeefAlleProducten(string merk, string categorie)
+        {
+            List<Huuritem> items = new List<Huuritem>();
+            foreach (Huuritem h in HuurMateriaal)
+            {               
+                if (h.Categorie == categorie && h.Merk == merk)
+                {
+                    items.Add(h);
+                }                
+            }
+            return items;
         }
 
         public List<Huuritem> GeefProducten(string merk, string categorie)
@@ -347,10 +384,32 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return null;
         }
+<<<<<<< HEAD
 
         public bool NieuwTekstBericht(string tekst, Account auteur)
         {
             return databaseKoppeling.NieuwTekstBericht(tekst, auteur);
+=======
+        public List<Plaats> GeefAllePlaatsen()
+        {
+            List<Plaats> plaatsen = new List<Plaats>();
+            foreach (Plaats p in this.Plaatsen)
+            {
+                bool bestaat = false;
+                foreach (Plaats pl in databaseKoppeling.HaalPlaatsenOp(databaseKoppeling.HaalEvent().Naam))
+                {
+                    if (p.LocatieNaam == pl.LocatieNaam)
+                    {
+                        bestaat = true;
+                    }
+                }
+                if (!bestaat)
+                {
+                    plaatsen.Add(p);
+                }
+            }
+            return plaatsen;
+>>>>>>> origin/master
         }
     }
 }

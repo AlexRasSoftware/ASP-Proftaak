@@ -238,40 +238,31 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnPasMaAan;
         
         /// <summary>
-        /// ddlPlaNaam control.
+        /// lblPlaatsLocatie control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPlaNaam;
+        protected global::System.Web.UI.WebControls.Label lblPlaatsLocatie;
         
         /// <summary>
-        /// lblPlaNr control.
+        /// ddlPlaatsnummers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlaNr;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPlaatsnummers;
         
         /// <summary>
-        /// lblPlaCap control.
+        /// tbPlaCap control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlaCap;
-        
-        /// <summary>
-        /// tbPlaPrijs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPlaPrijs;
+        protected global::System.Web.UI.WebControls.TextBox tbPlaCap;
         
         /// <summary>
         /// btnPlaatsAanpassen control.
