@@ -32,13 +32,15 @@
         Naam:
         <asp:TextBox ID="tbEvNaam" runat="server" CssClass="newStyle1" Enabled="False"></asp:TextBox>
         <br />
-        Datum Start: <asp:TextBox ID="tbEvDatStart" runat="server" CssClass="newStyle1"></asp:TextBox>
+        Datum Start: 
         <asp:ImageButton ID="imbtnCalendarStart" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarStart_Click" Width="24px" CssClass="newStyle2" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Label ID="tbEvDatStart" runat="server" Text="11-09-2001"></asp:Label>
         <asp:Calendar ID="calStart" runat="server" OnSelectionChanged="calStart_SelectionChanged" Visible="False"></asp:Calendar>
-        <br />
-        Datum Eind:
-        <asp:TextBox ID="tbEvDaEind" runat="server" CssClass="newStyle1"></asp:TextBox>
+        <br />Datum Eind:
         <asp:ImageButton ID="imbtnCalendarEind" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarEind_Click" Width="24px" CssClass="newStyle2" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Label ID="tbEvDaEind" runat="server" Text="21-12-2012"></asp:Label>
         <asp:Calendar ID="calEind" runat="server" OnSelectionChanged="calEind_SelectionChanged" Visible="False"></asp:Calendar>
         <br />
         Locatie:
@@ -113,6 +115,7 @@
         </asp:DropDownList>
         <br />
         Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
         <asp:TextBox ID="tbPlaCap" runat="server"></asp:TextBox>
         <br />
         <br />

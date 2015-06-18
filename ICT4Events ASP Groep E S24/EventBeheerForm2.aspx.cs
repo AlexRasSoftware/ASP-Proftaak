@@ -101,15 +101,31 @@ namespace ICT4Events_ASP_Groep_E_S24
             
             try
             {
+                bool err = false;
                 plaatsNr = ddlPlaatsnummers.SelectedItem.ToString();
-                cap = Convert.ToInt32(tbPlaCap.Text);
-                if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap))
+                foreach (char ch in tbPlaCap.Text)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                    "ServerControlScript",
-                        "alert(\"" + error + "\");", true);
+                    if (!Char.IsDigit(ch))
+                    {
+                        err = true;
+                        break;
+                    }
+                }
+                if (!err)
+                {
+                    cap = Convert.ToInt32(tbPlaCap.Text);
+
+                    if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap) || !err)
+                    {
+                        cap = Convert.ToInt32(tbPlaCap.Text);
+                        ScriptManager.RegisterStartupScript(this, GetType(),
+                        "ServerControlScript",
+                            "alert(\"" + error + "\");", true);
+                    }
+                    else refreshPlaatsbeheerddl();
                 }
                 else refreshPlaatsbeheerddl();
+                
             }
             catch (Exception ex)
             {
@@ -150,8 +166,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                     // denk dat dit niet heel handig is is eigenlijk een could have
                     if(a.Geactiveerd == true)
                     {
-                        if (a.Gebruikersnaam.Contains(tbZoekGebruiker.Text) ||
-                            tbZoekGebruiker.Text.Contains(a.Gebruikersnaam))
+                        if (a.Gebruikersnaam.ToUpper().Contains(tbZoekGebruiker.Text.ToUpper()) ||
+                            tbZoekGebruiker.Text.ToUpper().Contains(a.Gebruikersnaam.ToUpper()))
                         {
                             bez.Add(a);
                         }
@@ -253,6 +269,12 @@ namespace ICT4Events_ASP_Groep_E_S24
                             "ServerControlScript",
                                 "alert(\"Vul een locatie in.\");", true);
                 }
+                else if (beginDatum > eindDatum) 
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Data kloppen niet. /n De begindatum mag niet later zijn dan de einddatum.\");", true);
+                }
                 else
                 {
                     string exc = "";
@@ -262,7 +284,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     {
                         ScriptManager.RegisterStartupScript(this, GetType(),
                             "ServerControlScript",
-                                "alert(\""+ exc +"\");", true);
+                                "alert(\"" + exc + "\");", true);
                     }
                     else
                     {
