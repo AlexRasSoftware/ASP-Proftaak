@@ -281,7 +281,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         public List<Huuritem> GeefAlleMerken(string categorieNaam)
         {
             List<Huuritem> merken = new List<Huuritem>();
-            foreach (Huuritem h in HuurMateriaal)
+            foreach (Huuritem h in AlleHuurItems())
             {               
                 if (h.Categorie == categorieNaam)
                 {

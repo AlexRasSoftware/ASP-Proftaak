@@ -1274,6 +1274,54 @@ namespace ICT4Events_ASP_Groep_E_S24
             return kay;
         }
 
+        public bool NieuweCategorie(string categorieNaam)
+        {
+            try
+            {
+                command = new OracleCommand("NIEUWEPRODUCTCAT", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_CATNAAM", OracleDbType.Varchar2).Value = categorieNaam;
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+                
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool NieuwProduct(string categorieNaam, string merkNaam, int volgnummer)
+        {
+            try
+            {
+                command = new OracleCommand("NIEUWPRODUCT", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_CATNAAM", OracleDbType.Varchar2).Value = categorieNaam;
+                command.Parameters.Add("P_MERKNAAM", OracleDbType.Varchar2).Value = merkNaam;
+                command.Parameters.Add("P_VOLGNUMMER", OracleDbType.Int32).Value = volgnummer;
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         public bool VoegMateriaalToe(out string exc, Huuritem huuritem)
         {
             bool kay = false;
@@ -1410,6 +1458,29 @@ namespace ICT4Events_ASP_Groep_E_S24
                 return true;
             }
             catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool UpdateMateriaalPrijs(string categorieNaam, string merk, int prijs)
+        {
+            try
+            {
+                conn.Open();
+                string query = "UPDATE PRODUCT SET PRIJS = :prijs WHERE merk = :merk AND productcat_ID = (SELECT ID FROM PRODUCTCAT WHERE NAAM = :categorienaam)";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("prijs", prijs));
+                command.Parameters.Add(new OracleParameter("merk", merk));
+                command.Parameters.Add(new OracleParameter("categorienaam", categorieNaam));
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch
             {
                 return false;
             }

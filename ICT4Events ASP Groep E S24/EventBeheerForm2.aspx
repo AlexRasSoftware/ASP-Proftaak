@@ -97,8 +97,11 @@
         <br />
         <br />
         <br />
+        <asp:Button ID="btnNieuwType" runat="server" OnClick="btnNieuwType_Click" Text="Nieuw Type" />
         <asp:Button ID="btnVoegMaToe" runat="server" Text="Voeg Materiaal Toe" Width="162px" OnClick="btnVoegMaToe_Click" />
-        <asp:Button ID="btnPasMaAan" runat="server" Text="Pas Materiaal Aan" Width="152px" OnClick="btnPasMaAan_Click" />
+        <asp:Button ID="btnPasMaAan" runat="server" Text="Pas Prijs Aan" Width="152px" OnClick="btnPasMaAan_Click" />
+        <br />
+        <br />
         <br />
 
     </div>

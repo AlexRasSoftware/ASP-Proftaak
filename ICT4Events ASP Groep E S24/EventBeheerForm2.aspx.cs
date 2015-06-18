@@ -54,6 +54,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 ddlPlaatsnummers.Items.Add(p.PlaatsNummer);
             }
         }
+
         protected void refreshEventBeheerddl()
         {
             tbEvNaam.Text = database.HaalEvent().Naam;
@@ -305,119 +306,153 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnVoegMaToe_Click(object sender, EventArgs e)
         {
-            Huuritem huurInvoer;
-            bool notnumber = false;
-            string error = "In volgnummer staat geen nummer";
-            foreach (char ch in tbMaVolgnummer.Text)
+            //Huuritem huurInvoer;
+            //bool notnumber = false;
+            //string error = "In volgnummer staat geen nummer";
+            //foreach (char ch in tbMaVolgnummer.Text)
+            //{
+            //    if (!Char.IsNumber(ch))
+            //    {
+            //        notnumber = true;
+            //        break;
+            //    }
+            //}
+            //if (tbMaType.Text == "")
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(),
+            //            "ServerControlScript",
+            //                "alert(\"Vul een Type in.\");", true);
+            //}
+            //else if (tbMaMerk.Text == "")
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(),
+            //            "ServerControlScript",
+            //                "alert(\"Vul een merk in.\");", true);
+            //}
+            //else if (tbMaVolgnummer.Text == "" || notnumber)
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(),
+            //            "ServerControlScript",
+            //                "alert(\"" + error + "\");", true);
+            //}
+            //else
+            //{
+            //    try
+            //    {
+            //        string exc = "";
+            //        huurInvoer = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
+            //        huurInvoer.Prijs = Convert.ToInt32(tbMaPrijs.Text);
+            //        if (!database.VoegMateriaalToe(out exc, huurInvoer))
+            //        {
+            //            ScriptManager.RegisterStartupScript(this, GetType(),
+            //            "ServerControlScript",
+            //                "alert(\"" + exc + "\");", true);
+            //        }
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        ScriptManager.RegisterStartupScript(this, GetType(),
+            //            "ServerControlScript",
+            //                "alert(\"" + ex.ToString() + "\");", true);
+            //    }
+            //}
+
+            if(ddlMateriaalType.SelectedItem != null && tbMaMerk.Text != "" && tbMaVolgnummer.Text != "")
             {
-                if (!Char.IsNumber(ch))
+                if (!database.NieuwProduct(ddlMateriaalType.SelectedItem.ToString(), tbMaMerk.Text, Convert.ToInt32(tbMaVolgnummer.Text)))
                 {
-                    notnumber = true;
-                    break;
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Product kon niet worden toegevoegd\");", true);
                 }
-            }
-            if (tbMaType.Text == "")
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                        "ServerControlScript",
-                            "alert(\"Vul een Type in.\");", true);
-            }
-            else if (tbMaMerk.Text == "")
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                        "ServerControlScript",
-                            "alert(\"Vul een merk in.\");", true);
-            }
-            else if (tbMaVolgnummer.Text == "" || notnumber)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                        "ServerControlScript",
-                            "alert(\"" + error + "\");", true);
             }
             else
             {
-                try
-                {
-                    string exc = "";
-                    huurInvoer = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
-                    huurInvoer.Prijs = Convert.ToInt32(tbMaPrijs.Text);
-                    if (!database.VoegMateriaalToe(out exc, huurInvoer))
-                    {
-                        ScriptManager.RegisterStartupScript(this, GetType(),
-                        "ServerControlScript",
-                            "alert(\"" + exc + "\");", true);
-                    }
-                }
-                catch(Exception ex)
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                        "ServerControlScript",
-                            "alert(\"" + ex.ToString() + "\");", true);
-                }
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Selecteer een type en vul een nieuw merk en volgnummer in.\");", true);
             }
+            VulMerken();
         }
 
         protected void btnPasMaAan_Click(object sender, EventArgs e)
         {
-            Huuritem huVoor;
-            Huuritem huNa;
-            int ey = 0;
-            string error = "In volgnummer staat geen nummer";
-            bool notnumber=false;
+            //Huuritem huVoor;
+            //Huuritem huNa;
+            //int ey = 0;
+            //string error = "In volgnummer staat geen nummer";
+            //bool notnumber=false;
            
-            try
-            {
-                foreach (char ch in tbMaVolgnummer.Text)
-                {
-                    if(!Char.IsNumber(ch))
-                    {
-                        notnumber = true;
-                        break;
-                    }
-                }
-                if (tbMaType.Text == "")
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                            "ServerControlScript",
-                                "alert(\"Vul een Type in.\");", true);
-                }
-                else if (tbMaMerk.Text == "")
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                            "ServerControlScript",
-                                "alert(\"Vul een merk in.\");", true);
-                }
-                else if (tbMaVolgnummer.Text == "" || notnumber)
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                            "ServerControlScript",
-                                "alert(\"" + error + "\");", true);
-                }
-                else
-                {
-                    string exc = "";
+            //try
+            //{
+            //    foreach (char ch in tbMaVolgnummer.Text)
+            //    {
+            //        if(!Char.IsNumber(ch))
+            //        {
+            //            notnumber = true;
+            //            break;
+            //        }
+            //    }
+            //    if (tbMaType.Text == "")
+            //    {
+            //        ScriptManager.RegisterStartupScript(this, GetType(),
+            //                "ServerControlScript",
+            //                    "alert(\"Vul een Type in.\");", true);
+            //    }
+            //    else if (tbMaMerk.Text == "")
+            //    {
+            //        ScriptManager.RegisterStartupScript(this, GetType(),
+            //                "ServerControlScript",
+            //                    "alert(\"Vul een merk in.\");", true);
+            //    }
+            //    else if (tbMaVolgnummer.Text == "" || notnumber)
+            //    {
+            //        ScriptManager.RegisterStartupScript(this, GetType(),
+            //                "ServerControlScript",
+            //                    "alert(\"" + error + "\");", true);
+            //    }
+            //    else
+            //    {
+            //        string exc = "";
 
-                    huNa = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
-                    huNa.Prijs = Convert.ToInt32(tbMaPrijs.Text);
-                    huVoor = new Huuritem(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString(), Convert.ToInt32(ddlMateriaalVolgnr.SelectedItem.ToString()), tbMaType.Text, false);
-                     if (!database.wijzigHuuritem(out exc, huVoor, huNa))
-                    {
-                        ScriptManager.RegisterStartupScript(this, GetType(),
+            //        huNa = new Huuritem(tbMaMerk.Text, tbMaType.Text, Convert.ToInt32(tbMaVolgnummer.Text), tbMaType.Text, false);
+            //        huNa.Prijs = Convert.ToInt32(tbMaPrijs.Text);
+            //        huVoor = new Huuritem(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString(), Convert.ToInt32(ddlMateriaalVolgnr.SelectedItem.ToString()), tbMaType.Text, false);
+            //         if (!database.wijzigHuuritem(out exc, huVoor, huNa))
+            //        {
+            //            ScriptManager.RegisterStartupScript(this, GetType(),
+            //                "ServerControlScript",
+            //                    "alert(\"" + exc + "\");", true);
+            //        }
+            //        else
+            //        {
+            //            refreshMateriaalddl1();
+            //        }
+            //    }
+            //}
+            //catch
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(),
+            //            "ServerControlScript",
+            //                "alert(\"De data kloppen niet.\");", true);
+            //}
+
+            if(ddlMateriaalType.SelectedItem != null && ddlMateriaalMerk.SelectedItem != null && tbMaPrijs.Text != "")
+            {
+                if (!database.UpdateMateriaalPrijs(ddlMateriaalType.SelectedItem.ToString(), ddlMateriaalMerk.SelectedItem.ToString(), Convert.ToInt32(tbMaPrijs.Text)))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
                             "ServerControlScript",
-                                "alert(\"" + exc + "\");", true);
-                    }
-                    else
-                    {
-                        refreshMateriaalddl1();
-                    }
+                            "alert(\"Product kon niet geupdate worden\");", true);
                 }
             }
-            catch
+            else
             {
                 ScriptManager.RegisterStartupScript(this, GetType(),
-                        "ServerControlScript",
-                            "alert(\"De data kloppen niet.\");", true);
+                            "ServerControlScript",
+                            "alert(\"Selecteer een type en een merk en vul een nieuwe prijs in\");", true);
             }
+
         }
 
         private void VulCategorieen()
@@ -457,6 +492,32 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         protected void ddlPlaatsnummers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnNieuwType_Click(object sender, EventArgs e)
+        {
+            // insert een nieuwe categorie in de database
+            if(tbMaType.Text != "")
+            {
+                if (!database.NieuweCategorie(tbMaType.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"categorie kon niet worden aangemaakt.\");", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Vul een Type in.\");", true);
+            }
+            VulCategorieen();
+        }
+
+        protected void btnNieuwMerk_Click(object sender, EventArgs e)
         {
             
         }
