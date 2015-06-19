@@ -332,6 +332,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     GeefMessage(Convert.ToString(aantalPersonen));
                     aantalPersonen--;
+                    DisableControls();
                 }               
             }
         } 
