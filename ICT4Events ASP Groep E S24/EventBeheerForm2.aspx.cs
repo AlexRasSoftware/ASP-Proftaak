@@ -285,7 +285,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(),
                             "ServerControlScript",
-                                "alert(\"Data kloppen niet. /n De begindatum mag niet later zijn dan de einddatum.\");", true);
+                                "alert(\"Data kloppen niet. De begindatum mag niet later zijn dan de einddatum.\");", true);
                 }
                 else
                 {

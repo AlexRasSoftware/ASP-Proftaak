@@ -87,7 +87,7 @@
         <br />
         <br />
         <asp:Label ID="Label12" runat="server" Text="Wachtwoord: "></asp:Label>
-        <asp:TextBox ID="tbWachtwoord" runat="server" style="margin-left: 0px; top: 420px; left: 154px;" CssClass="InschrijfForm"></asp:TextBox>
+        <asp:TextBox ID="tbWachtwoord" runat="server" style="margin-left: 0px; top: 420px; left: 154px;" CssClass="InschrijfForm" input type="password"></asp:TextBox>
         <br />
         <br />
         <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -166,14 +166,16 @@
             <ContentTemplate>
                 <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 0px" Width="118px">
                 </asp:DropDownList>
+                <br />
+                <br />
+                <br />
+                <asp:Button ID="btnBevestig" runat="server" OnClick="btnBevestig_Click" Text="Bevestig" />
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
 
     </div>
         <br />
-
-        <asp:Button ID="btnBevestig" runat="server" Text="Bevestig" OnClick="btnBevestig_Click" />
 
         <br />
         <br />

@@ -31,7 +31,7 @@
         <asp:Button ID="btnInloggen" runat="server" Text="Inloggen" Width="180px" OnClick="btnInloggen_Click" />
         <br />
         <br />
-        <asp:Button ID="btnInschrijven" runat="server" Text="Inschrijven" Width="180px" />
+        <asp:Button ID="btnInschrijven" runat="server" Text="Inschrijven" Width="180px" OnClick="btnInschrijven_Click" />
     </form>
 </body>
 </html>
