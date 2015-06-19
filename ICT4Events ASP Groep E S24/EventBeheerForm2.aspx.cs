@@ -445,6 +445,12 @@ namespace ICT4Events_ASP_Groep_E_S24
                             "ServerControlScript",
                             "alert(\"Product kon niet geupdate worden\");", true);
                 }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                            "alert(\"Product prijs gewijzigd\");", true);
+                }
             }
             else
             {
