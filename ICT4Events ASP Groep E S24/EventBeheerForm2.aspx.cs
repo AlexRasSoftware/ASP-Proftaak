@@ -530,6 +530,12 @@ namespace ICT4Events_ASP_Groep_E_S24
                             "ServerControlScript",
                                 "alert(\"categorie kon niet worden aangemaakt.\");", true);
                 }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                            "ServerControlScript",
+                                "alert(\"Categorie Toegevoegd\");", true);
+                }
             }
             else
             {
@@ -609,6 +615,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             if (tbPlaatsnummer.Text != "")
             {
                 if (!database.NieuwePlek(Convert.ToInt32(tbPlaatsnummer.Text)))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                        "ServerControlScript",
+                                            "alert(\"Nieuwe Plek Kon Niet Worden Aangemaakt\");", true);
+                }
+                else
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(),
                                         "ServerControlScript",

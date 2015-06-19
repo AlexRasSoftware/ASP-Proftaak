@@ -90,6 +90,8 @@
         <asp:TextBox ID="tbWachtwoord" runat="server" style="margin-left: 0px; top: 420px; left: 154px;" CssClass="InschrijfForm"></asp:TextBox>
         <br />
         <br />
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
         <br />
         
 
@@ -137,20 +139,22 @@
                 Volgnummer<br />
                 <asp:DropDownList ID="ddlVolgnummers" runat="server" Width="136px">
                 </asp:DropDownList>
+                <br />
+                <br />
+                <br />
+                <asp:Button ID="btnKiesHuurItem" runat="server" Height="38px" OnClick="btnKiesHuurItem_Click" style="margin-left: 0px" Text="Kies" Width="85px" />
+                <br />
+                <asp:Label ID="Label14" runat="server" Text="Gekozen Items"></asp:Label>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <br />
+                <asp:Button ID="btnVerwijderItem" runat="server" OnClick="btnVerwijderItem_Click" Text="Verwijder Item" />
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
-        <br />
-        <asp:Button ID="btnKiesHuurItem" runat="server" Height="38px" style="margin-left: 0px" Text="Kies" Width="85px" OnClick="btnKiesHuurItem_Click" />
-        <br />
-        <asp:Label ID="Label14" runat="server" Text="Gekozen Items"></asp:Label>
-        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-            <ContentTemplate>
-                <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-        <br />
-        <asp:Button ID="btnVerwijderItem" runat="server" Text="Verwijder Item" OnClick="btnVerwijderItem_Click" />
         <br />
         <br />
 
