@@ -27,11 +27,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             lbLikes.Text = administratie.TempBericht.Likes.Count.ToString();
             if (administratie.TempBericht.CheckBerichtGeliked(administratie.NuIngelogdeAccount))
             {
-                btnLike.Text = "Unlike";
+                btnLike.Text = "Minder netjes";
             }
             else
             {
-                btnLike.Text = "Like";
+                btnLike.Text = "Netjes";
             }
             foreach (Reactie r in administratie.TempBericht.Reacties)
             {
@@ -74,8 +74,14 @@ namespace ICT4Events_ASP_Groep_E_S24
             if (tbReactie.Text.Length > 0 && administratie.NuIngelogdeAccount != null)
             {
                 administratie.TempBericht.ReactieToevoegen(tbReactie.Text, administratie.NuIngelogdeAccount);
+                tbReactie.Text = "";
                 HerlaadGegevens();
             }
+        }
+
+        protected void btnTerug_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MediaSharingForm.aspx");
         }
     }
 }

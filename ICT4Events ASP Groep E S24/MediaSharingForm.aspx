@@ -21,7 +21,7 @@
         <br />
         <asp:ListBox ID="lbPosts" runat="server" Height="162px" Width="716px"></asp:ListBox>
         <br />
-        <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="btnLike_Click" />
+        <asp:Button ID="btnLike" runat="server" Text="Netjes" OnClick="btnLike_Click" />
         <asp:Button ID="btnReageerMeer" runat="server" Text="Reageer en meer" OnClick="btnReageerMeer_Click" />
         <br />
         Nieuwe post<br />
@@ -33,6 +33,7 @@
         <br />
         Zoeken<br />
         <asp:TextBox ID="tbZoeken" runat="server"></asp:TextBox>
+        <asp:Button ID="btnTerug" runat="server" OnClick="Button1_Click" Text="Terug" />
         <br />
     </form>
 </body>

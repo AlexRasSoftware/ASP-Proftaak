@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ICT4Events_ASP_Groep_E_S24
 {
-    public class Reactie
+    public class Reactie : IComparable<Reactie>
     {
         //Fields
         private int id;
@@ -46,11 +46,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             this.id = -1;
         }
 
-        public Reactie(Account plaatser, string inhoud, int id)
+        public Reactie(Account plaatser, string inhoud, int id, DateTime datumGeplaatst)
         {
             this.plaatser = plaatser;
             this.inhoud = inhoud;
             this.id = id;
+            this.datumGeplaatst = datumGeplaatst;
             if (id > Administratie.hoogsteIdReactie)
             {
                 Administratie.hoogsteIdReactie = id;
@@ -61,6 +62,22 @@ namespace ICT4Events_ASP_Groep_E_S24
         public string ToString()
         {
             return plaatser.Gebruikersnaam + ": " + inhoud;
+        }
+
+        public int CompareTo(Reactie other)
+        {
+            if (datumGeplaatst > other.DatumGeplaatst)
+            {
+                return -1;
+            }
+            else if (datumGeplaatst < other.DatumGeplaatst)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

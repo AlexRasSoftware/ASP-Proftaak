@@ -119,7 +119,8 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 Administratie.hoogsteIdBericht = id;
             }
-            reacties = databaseKoppeling.AlleReactiesVanBericht(id.ToString());
+            reacties = databaseKoppeling.AlleReactiesVanBericht(id);
+            reacties.Sort();
             likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
         }
 
@@ -175,7 +176,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         public bool ReactieToevoegen(string tekst, Account plaatser)
         {
             bool temp = databaseKoppeling.PlaatsReactieOpBericht(plaatser, this.id, tekst);
-            reacties = databaseKoppeling.AlleReactiesVanBericht(id.ToString());
+            reacties = databaseKoppeling.AlleReactiesVanBericht(id);
+            reacties.Sort();
             return temp;
         }
 

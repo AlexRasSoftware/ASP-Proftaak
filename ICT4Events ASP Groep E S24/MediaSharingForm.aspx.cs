@@ -89,5 +89,10 @@ namespace ICT4Events_ASP_Groep_E_S24
                 
             }
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("LoginForm.aspx");
+        }
     }
 }

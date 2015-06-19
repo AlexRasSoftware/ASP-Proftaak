@@ -382,7 +382,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             return null;
         }
 
-        public List<Reactie> AlleReactiesVanBericht(string berichtId)
+        public List<Reactie> AlleReactiesVanBericht(int berichtId)
         {
             List<Reactie> tempList = new List<Reactie>();
             try
@@ -395,9 +395,9 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     int accountid = Convert.ToInt32(dataReader["account_id"]);
                     int reactieId = Convert.ToInt32(dataReader["id"]);
-                    int berichtenId = Convert.ToInt32(dataReader["bericht_id"]);
                     string tekst = Convert.ToString(dataReader["tekst"]);
-                    tempList.Add(new Reactie(administratie.GeefAccountDoorId(accountid), tekst, berichtenId));
+                    DateTime datumgeplaatst = Convert.ToDateTime(dataReader["datumtijd"]);
+                    tempList.Add(new Reactie(administratie.GeefAccountDoorId(accountid), tekst, reactieId, datumgeplaatst));
                 }
                 return tempList;
             }
@@ -1546,7 +1546,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 int nieuweId = Administratie.hoogsteIdReactie + 1;
                 conn.Open();
-                string query = "INSERT INTO Reactie(id, bericht_id, account_id, tekst) VALUES ('" + nieuweId + "', '" + berichtId + "', '" + plaatser.Id + "', '" + tekst + "')";
+                string query = "INSERT INTO Reactie(id, bericht_id, account_id, tekst, datumtijd) VALUES ('" + nieuweId + "', '" + berichtId + "', '" + plaatser.Id + "', '" + tekst + "', SYSDATE)";
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
                 return true;
