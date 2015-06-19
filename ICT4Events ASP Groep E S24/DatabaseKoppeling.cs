@@ -46,7 +46,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 conn.Open();
                 // query van alle plaatsen met de eventueel bijbehorende
                 // hoofdboekers
-                string query = "SELECT p.nummer, p.capaciteit, p.gehuurd, l.naam FROM PLEK p, LOCATIE l WHERE l.ID = p.locatie_id";
+                string query = "SELECT p.nummer, p.capaciteit, p.gehuurd, l.naam FROM PLEK p, LOCATIE l WHERE l.ID = p.locatie_id ORDER BY p.ID";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 // dataReader gaat record voor record omlaag totdat 
@@ -1383,6 +1383,28 @@ namespace ICT4Events_ASP_Groep_E_S24
                 command.Parameters.Add("P_CATNAAM", OracleDbType.Varchar2).Value = catnaam;
                 command.Parameters.Add("P_MERK", OracleDbType.Varchar2).Value = merk;
                 command.Parameters.Add("P_VOLGNR", OracleDbType.Int32).Value = volgnummer;
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool NieuwePlek(int plaatsNummer)
+        {
+            try
+            {
+                command = new OracleCommand("NIEUWPLAATSNUMMER", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_PLAATSNUMMER", OracleDbType.Int32).Value = plaatsNummer;
                 conn.Open();
                 OracleDataAdapter da = new OracleDataAdapter(command);
                 command.ExecuteNonQuery();

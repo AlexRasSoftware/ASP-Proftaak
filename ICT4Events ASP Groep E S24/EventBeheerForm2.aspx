@@ -40,6 +40,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="tbEvDatStart" runat="server" Text="11-09-2001"></asp:Label>
                 <asp:Calendar ID="calStart" runat="server" OnSelectionChanged="calStart_SelectionChanged" Visible="False"></asp:Calendar>
+                <asp:ScriptManager ID="ScriptManager1" runat="server">
+                </asp:ScriptManager>
             </ContentTemplate>
         </asp:UpdatePanel>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -95,26 +97,28 @@
                 &nbsp;Volgnummer:
                 <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMateriaalVolgnr_SelectedIndexChanged">
                 </asp:DropDownList>
+                <br />
+                <br />
+                Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" CssClass="newStyle3"></asp:TextBox>
+                &nbsp;&nbsp;&nbsp;
+                <br />
+                Merk:<asp:TextBox ID="tbMaMerk" runat="server" CssClass="newStyle3"></asp:TextBox>
+                <br />
+                Volgnummer:<asp:TextBox ID="tbMaVolgnummer" runat="server" CssClass="newStyle3"></asp:TextBox>
+                <br />
+                Prijs:<asp:TextBox ID="tbMaPrijs" runat="server" CssClass="newStyle3"></asp:TextBox>
+                <br />
+                <br />
+                <br />
+                <asp:Button ID="btnNieuwType" runat="server" OnClick="btnNieuwType_Click" Text="Nieuw Type" />
+                <asp:Button ID="btnNieuwMerk" runat="server" OnClick="btnNieuwMerk_Click1" Text="Nieuw Merk" />
+                <asp:Button ID="btnVolgnr" runat="server" OnClick="btnVolgnr_Click" Text="Nieuw Volgnr" />
+                <br />
+                <br />
+                <asp:Button ID="btnPasMaAan" runat="server" OnClick="btnPasMaAan_Click" Text="Pas Prijs Aan" Width="152px" />
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
-        Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" CssClass="newStyle3"></asp:TextBox>
-        &nbsp;&nbsp;&nbsp;
-        <br />
-        Merk:<asp:TextBox ID="tbMaMerk" runat="server" CssClass="newStyle3"></asp:TextBox>
-        <br />
-        Volgnummer:<asp:TextBox ID="tbMaVolgnummer" runat="server" CssClass="newStyle3"></asp:TextBox>
-        <br />
-        Prijs:<asp:TextBox ID="tbMaPrijs" runat="server" CssClass="newStyle3"></asp:TextBox>
-        <br />
-        <br />
-        <br />
-        <asp:Button ID="btnNieuwType" runat="server" OnClick="btnNieuwType_Click" Text="Nieuw Type" />
-        <asp:Button ID="btnNieuwMerk" runat="server" OnClick="btnNieuwMerk_Click1" Text="Nieuw Merk" />
-        <asp:Button ID="btnVolgnr" runat="server" OnClick="btnVolgnr_Click" Text="Nieuw Volgnr" />
-        <br />
-        <br />
-        <asp:Button ID="btnPasMaAan" runat="server" Text="Pas Prijs Aan" Width="152px" OnClick="btnPasMaAan_Click" />
         <br />
         <br />
 
@@ -132,15 +136,22 @@
                 Plaatsnummer:&nbsp;&nbsp;&nbsp;
                 <asp:DropDownList ID="ddlPlaatsnummers" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPlaatsnummers_SelectedIndexChanged">
                 </asp:DropDownList>
+                <br />
+                Capaciteit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblPlaatscapaciteit" runat="server" Text="Label"></asp:Label>
+                <br />
+                Plaatsnummer&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="tbPlaatsnummer" runat="server" style="margin-left: 8px"></asp:TextBox>
+                <br />
+                Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="tbPlaCap" runat="server"></asp:TextBox>
+                <br />
+                <br />
+                <br />
+                <asp:Button ID="btnPlaatsAanpassen" runat="server" OnClick="btnPlaatsAanpassen_Click" Text="Plaats Aanpassen" Width="147px" />
+                <asp:Button ID="btnNieuwPlaats" runat="server" OnClick="btnNieuwPlaats_Click1" Text="Nieuwe Plaats" />
             </ContentTemplate>
         </asp:UpdatePanel>
-        <br />
-        Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-        <asp:TextBox ID="tbPlaCap" runat="server"></asp:TextBox>
-        <br />
-        <br />
-        <asp:Button ID="btnPlaatsAanpassen" runat="server" Text="Plaats Aanpassen" OnClick="btnPlaatsAanpassen_Click" Width="121px" />
         <br />
 
     </div>

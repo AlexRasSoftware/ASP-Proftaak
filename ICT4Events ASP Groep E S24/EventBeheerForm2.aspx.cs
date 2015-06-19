@@ -23,7 +23,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 refreshPlaatsbeheerddl();
                 refreshEventBeheerddl();
                 refreshGebruikerlb();
-                //refreshMateriaalddl1();
+                refreshMateriaalddl1();
                 VulCategorieen();
             }
         }
@@ -45,10 +45,12 @@ namespace ICT4Events_ASP_Groep_E_S24
             List<Plaats> plaatsen = database.HaalPlaatsenOp("dummy");
             foreach (Plaats p in plaatsen)
             {
+                lblPlaatscapaciteit.Text = Convert.ToString(p.Capaciteit);
                 lblPlaatsLocatie.Text = p.LocatieNaam;
                 selectedPlaats = p;
                 break;
             }
+            ddlPlaatsnummers.Items.Clear();
             foreach(Plaats p in plaatsen)
             {
                 ddlPlaatsnummers.Items.Add(p.PlaatsNummer);
@@ -98,7 +100,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             string plaatsNr = "";
             int cap = 1;
-            string error = "Er is een fout opgetreden. /n Vraag Siebren voor meer info.";
+            string error = "Er is een fout opgetreden. /nVraag Siebren voor meer info.";
             
             try
             {
@@ -123,9 +125,18 @@ namespace ICT4Events_ASP_Groep_E_S24
                         "ServerControlScript",
                             "alert(\"" + error + "\");", true);
                     }
-                    else refreshPlaatsbeheerddl();
+                    else 
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(),
+                                "ServerControlScript",
+                                "alert(\"Plaatscapaciteit succesvol aangepast\");", true); 
+                    }
                 }
-                else refreshPlaatsbeheerddl();
+                else 
+                {
+
+                }
+                refreshPlaatsbeheerddl();
                 
             }
             catch (Exception ex)
@@ -499,7 +510,13 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void ddlPlaatsnummers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            foreach(Plaats p in database.HaalPlaatsenOp("Dummy"))
+            {
+                if(p.PlaatsNummer == ddlPlaatsnummers.SelectedItem.ToString())
+                {
+                    lblPlaatscapaciteit.Text = Convert.ToString(p.Capaciteit);
+                }
+            }
         }
 
         protected void btnNieuwType_Click(object sender, EventArgs e)
@@ -580,6 +597,31 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
                 
             VulVolgnummers();
+        }
+
+        protected void btnNieuwPlaats_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnNieuwPlaats_Click1(object sender, EventArgs e)
+        {
+            if (tbPlaatsnummer.Text != "")
+            {
+                if (!database.NieuwePlek(Convert.ToInt32(tbPlaatsnummer.Text)))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                        "ServerControlScript",
+                                            "alert(\"Nieuwe Plek Aangemaakt\");", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                                        "ServerControlScript",
+                                            "alert(\"Vul een nieuw plaatsnummer in\");", true);
+            }
+            refreshPlaatsbeheerddl();
         }
         
     }
