@@ -95,9 +95,12 @@
 
         <asp:Button ID="btnMaakBezoeker" runat="server" Text="Maak Bezoeker" Width="131px" OnClick="btnMaakBezoeker_Click" />
         <br />
+        <br />
         
 
     </div>
+
+    <div>
 
     <div id="Plaats" class="Plaatsen">
 
@@ -116,31 +119,36 @@
         <br />
     </div>
 
-    <div>
-
         <br />
         <h3>Materiaal Verhuur</h3>
         <br />
         <br />
         <asp:Label ID="Label1" runat="server" Text="Type Huuritem"></asp:Label>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:DropDownList ID="ddlHuurItemType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlHuurItemType_SelectedIndexChanged" Width="133px">
+                </asp:DropDownList>
         <br />
-        <asp:DropDownList ID="ddlHuurItemType" runat="server" Width="133px" AutoPostBack="True" OnSelectedIndexChanged="ddlHuurItemType_SelectedIndexChanged" >
-        </asp:DropDownList>
+                <asp:Label ID="Label13" runat="server" Text="Merk"></asp:Label>
         <br />
-        <asp:Label ID="Label13" runat="server" Text="Merk"></asp:Label>
+                <asp:DropDownList ID="ddlMerken" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMerken_SelectedIndexChanged" Width="136px">
+                </asp:DropDownList>
         <br />
-        <asp:DropDownList ID="ddlMerken" runat="server" Width="136px" AutoPostBack="True" OnSelectedIndexChanged="ddlMerken_SelectedIndexChanged">
-        </asp:DropDownList>
+                Volgnummer<br />
+                <asp:DropDownList ID="ddlVolgnummers" runat="server" Width="136px">
+                </asp:DropDownList>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <br />
-        Volgnummer<br />
-        <asp:DropDownList ID="ddlVolgnummers" runat="server" Width="136px">
-        </asp:DropDownList>
         <br />
         <asp:Button ID="btnKiesHuurItem" runat="server" Height="38px" style="margin-left: 0px" Text="Kies" Width="85px" OnClick="btnKiesHuurItem_Click" />
         <br />
         <asp:Label ID="Label14" runat="server" Text="Gekozen Items"></asp:Label>
-        <br />
-        <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+            <ContentTemplate>
+                <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <br />
         <asp:Button ID="btnVerwijderItem" runat="server" Text="Verwijder Item" OnClick="btnVerwijderItem_Click" />
         <br />
@@ -150,8 +158,12 @@
     <div class="EindInschrijf" id="Eindinschrijf">
 
         <asp:CheckBox ID="chbMeederePersonen" runat="server" Text="Meerdere Personen" />
-        <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 0px" Width="118px">
-        </asp:DropDownList>
+        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+            <ContentTemplate>
+                <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 0px" Width="118px">
+                </asp:DropDownList>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <br />
 
     </div>
