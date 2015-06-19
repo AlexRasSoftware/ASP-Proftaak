@@ -1352,6 +1352,53 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        public bool NieuwMerk(string catnaam, string merk)
+        {
+            try
+            {
+                command = new OracleCommand("NIEUWMERK", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_CATNAAM", OracleDbType.Varchar2).Value = catnaam;
+                command.Parameters.Add("P_MERK", OracleDbType.Varchar2).Value = merk;
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public bool NieuwVolgnummer(string catnaam, string merk, int volgnummer)
+        {
+            try
+            {
+                command = new OracleCommand("NIEUWVOLGNUMMER", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("P_CATNAAM", OracleDbType.Varchar2).Value = catnaam;
+                command.Parameters.Add("P_MERK", OracleDbType.Varchar2).Value = merk;
+                command.Parameters.Add("P_VOLGNR", OracleDbType.Int32).Value = volgnummer;
+                conn.Open();
+                OracleDataAdapter da = new OracleDataAdapter(command);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         public bool VoegMateriaalToe(out string exc, Huuritem huuritem)
         {
             bool kay = false;
@@ -1518,6 +1565,34 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 conn.Close();
             }
+        }
+
+        public List<string> HaalAlleMerken(string catnaam)
+        {
+            List<string> tempList = new List<string>();
+            try
+            {
+                conn.Open();
+                string query = "SELECT DISTINCT(MERK) FROM PRODUCT WHERE PRODUCTCAT_ID = (SELECT ID FROM PRODUCTCAT WHERE NAAM = :catnaam)";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("catnaam", catnaam));
+                OracleDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    tempList.Add(Convert.ToString(dataReader["MERK"]));
+                }
+                return tempList;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
         }
 
         #endregion

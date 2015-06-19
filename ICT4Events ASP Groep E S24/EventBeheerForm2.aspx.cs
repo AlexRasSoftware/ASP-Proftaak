@@ -477,9 +477,9 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlMateriaalMerk.Items.Clear();
             if (ddlMateriaalType.SelectedItem != null)
             {
-                foreach (Huuritem h in administartie.GeefAlleMerken(ddlMateriaalType.SelectedItem.ToString()))
+                foreach (string s in database.HaalAlleMerken(ddlMateriaalType.SelectedItem.ToString()))
                 {
-                    ddlMateriaalMerk.Items.Add(h.Merk);
+                    ddlMateriaalMerk.Items.Add(s);
                 }
                 VulVolgnummers();
             }
@@ -526,6 +526,60 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnNieuwMerk_Click(object sender, EventArgs e)
         {
             
+        }
+
+        protected void btnNieuwMerk_Click1(object sender, EventArgs e)
+        {
+            if(ddlMateriaalType.SelectedItem != null && tbMaMerk.Text != "")
+            {
+                if (!database.NieuwMerk(ddlMateriaalType.SelectedItem.ToString(), tbMaMerk.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                "ServerControlScript",
+                                    "alert(\"Merk kon niet aangemaakt worden\");", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                "ServerControlScript",
+                                    "alert(\"Merk is aangemaakt\");", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                                "ServerControlScript",
+                                    "alert(\"Selecteer een type en vul een merk in\");", true);
+            }
+            VulMerken();
+        }
+
+        protected void btnVolgnr_Click(object sender, EventArgs e)
+        {
+            
+            if(ddlMateriaalType.SelectedItem != null && ddlMateriaalMerk.SelectedItem != null && tbMaVolgnummer.Text != "")
+            {
+                if (!database.NieuwVolgnummer(ddlMateriaalType.SelectedItem.ToString(), ddlMateriaalMerk.SelectedItem.ToString(), Convert.ToInt32(tbMaVolgnummer.Text)))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                    "ServerControlScript",
+                                        "alert(\"Volgnummer kon niet aangemaakt worden\");", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                                    "ServerControlScript",
+                                        "alert(\"Volgnummer is toegevoegd\");", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                                    "ServerControlScript",
+                                        "alert(\"Selecteer een materiaal en een merk en vul vervolgens een volgnummer\");", true);
+            }
+                
+            VulVolgnummers();
         }
         
     }
