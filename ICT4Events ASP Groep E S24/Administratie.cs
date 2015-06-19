@@ -410,5 +410,19 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             return plaatsen;
         }
+
+        public Bericht GeefBerichtDoorToString(string bericht)
+        {
+            List<Bericht> tempList = databaseKoppeling.VraagBerichtenOpVanEvent();
+            foreach (Bericht b in tempList)
+            {
+                if (bericht == b.ToString())
+                {
+                    tempBericht = b;
+                    return b;
+                }
+            }
+            return null;
+        }
     }
 }

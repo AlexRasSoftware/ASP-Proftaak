@@ -11,6 +11,25 @@
     <form id="form1" runat="server">
     <div>
     
+        <asp:Label ID="lbGebruikersnaam" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="lbTekst" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="lbLikes" runat="server" Text="Label"></asp:Label>
+&nbsp;-
+        <asp:Label ID="lbDatum" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Button ID="btnLike" runat="server" Text="Like" />
+        <asp:Button ID="btnRapporteer" runat="server" Text="Rapporteer" />
+        <asp:Button ID="Button1" runat="server" Text="Plaats Reactie" />
+        <asp:TextBox ID="tbReactie" runat="server" Height="55px" Width="269px"></asp:TextBox>
+        <br />
+        <br />
+        <asp:ListBox ID="lbReacties" runat="server" Height="206px" Width="272px"></asp:ListBox>
+        <br />
+        <asp:Button ID="btnVerwijderReactie" runat="server" Text="Verwijder Reactie" />
+        <asp:Button ID="btnVerwijderBericht" runat="server" Text="Verwijder Bericht" />
+    
     </div>
     </form>
 </body>

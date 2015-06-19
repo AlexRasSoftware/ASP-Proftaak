@@ -82,8 +82,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (lbPosts.SelectedIndex >= 0)
             {
-                // wat is deze ? ;p
-                //administratie.Geef
+                if (administratie.GeefBerichtDoorToString(lbPosts.SelectedItem.Text) != null)
+                {
+                    Response.Redirect("PostForm.aspx");
+                }
+                
             }
         }
     }

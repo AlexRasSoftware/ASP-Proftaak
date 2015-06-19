@@ -115,6 +115,8 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 Administratie.hoogsteIdBericht = id;
             }
+            reacties = databaseKoppeling.AlleReactiesVanBericht(id.ToString());
+            likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
         }
 
         //Methodes

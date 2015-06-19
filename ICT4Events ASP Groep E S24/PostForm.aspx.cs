@@ -9,9 +9,20 @@ namespace ICT4Events_ASP_Groep_E_S24
 {
     public partial class PostForm : System.Web.UI.Page
     {
+        Administratie administratie = new Administratie();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                HerlaadGegevens();
+            }
+        }
 
+        private void HerlaadGegevens()
+        {
+            lbGebruikersnaam.Text = administratie.TempBericht.Auteur.Gebruikersnaam;
+            lbTekst.Text = administratie.TempBericht.Tekst;
+            lbDatum.Text = administratie.TempBericht.DatumGepost.ToString();
         }
     }
 }
