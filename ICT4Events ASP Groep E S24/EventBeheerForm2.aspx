@@ -32,16 +32,24 @@
         Naam:
         <asp:TextBox ID="tbEvNaam" runat="server" CssClass="newStyle1" Enabled="False"></asp:TextBox>
         <br />
-        Datum Start: 
-        <asp:ImageButton ID="imbtnCalendarStart" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarStart_Click" Width="24px" CssClass="newStyle2" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="tbEvDatStart" runat="server" Text="11-09-2001"></asp:Label>
-        <asp:Calendar ID="calStart" runat="server" OnSelectionChanged="calStart_SelectionChanged" Visible="False"></asp:Calendar>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                Datum Start:
+                <asp:ImageButton ID="imbtnCalendarStart" runat="server" CssClass="newStyle2" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarStart_Click" Width="24px" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="tbEvDatStart" runat="server" Text="11-09-2001"></asp:Label>
+                <asp:Calendar ID="calStart" runat="server" OnSelectionChanged="calStart_SelectionChanged" Visible="False"></asp:Calendar>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+            <ContentTemplate>
         <br />Datum Eind:
-        <asp:ImageButton ID="imbtnCalendarEind" runat="server" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarEind_Click" Width="24px" CssClass="newStyle2" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="tbEvDaEind" runat="server" Text="21-12-2012"></asp:Label>
-        <asp:Calendar ID="calEind" runat="server" OnSelectionChanged="calEind_SelectionChanged" Visible="False"></asp:Calendar>
+                <asp:ImageButton ID="imbtnCalendarEind" runat="server" CssClass="newStyle2" Height="24px" ImageUrl="~/Plaatjes/CalendarImg.png" OnClick="imbtnCalendarEind_Click" Width="24px" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="tbEvDaEind" runat="server" Text="21-12-2012"></asp:Label>
+                <asp:Calendar ID="calEind" runat="server" OnSelectionChanged="calEind_SelectionChanged" Visible="False"></asp:Calendar>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <br />
         Locatie:
         <asp:TextBox ID="tbEvLocatie" runat="server" CssClass="newStyle1"></asp:TextBox>
@@ -75,16 +83,19 @@
 
     <div>
         <h3>Materiaal Toevoegen</h3>
-        Type:
-        <asp:DropDownList ID="ddlMateriaalType" runat="server" Height="24px" Width="180px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True">
-        </asp:DropDownList>
-        &nbsp;Merk:
-        <asp:DropDownList ID="ddlMateriaalMerk" runat="server" OnSelectedIndexChanged="ddlMateriaalMerk_SelectedIndexChanged" AutoPostBack="True">
-        </asp:DropDownList>
-&nbsp;Volgnummer:
-        <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server" OnSelectedIndexChanged="ddlMateriaalVolgnr_SelectedIndexChanged" AutoPostBack="True">
-        </asp:DropDownList>
-        <br />
+        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+            <ContentTemplate>
+                Type:
+                <asp:DropDownList ID="ddlMateriaalType" runat="server" AutoPostBack="True" Height="24px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="180px">
+                </asp:DropDownList>
+                &nbsp;Merk:
+                <asp:DropDownList ID="ddlMateriaalMerk" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMateriaalMerk_SelectedIndexChanged">
+                </asp:DropDownList>
+                &nbsp;Volgnummer:
+                <asp:DropDownList ID="ddlMateriaalVolgnr" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMateriaalVolgnr_SelectedIndexChanged">
+                </asp:DropDownList>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <br />
         Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" CssClass="newStyle3"></asp:TextBox>
         &nbsp;&nbsp;&nbsp;
@@ -113,9 +124,13 @@
         Locatienaam:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="lblPlaatsLocatie" runat="server" Text="Label"></asp:Label>
         <br />
-        Plaatsnummer:&nbsp;&nbsp;&nbsp;
-        <asp:DropDownList ID="ddlPlaatsnummers" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPlaatsnummers_SelectedIndexChanged">
-        </asp:DropDownList>
+        <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+            <ContentTemplate>
+                Plaatsnummer:&nbsp;&nbsp;&nbsp;
+                <asp:DropDownList ID="ddlPlaatsnummers" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPlaatsnummers_SelectedIndexChanged">
+                </asp:DropDownList>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <br />
         Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
