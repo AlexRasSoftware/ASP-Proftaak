@@ -19,19 +19,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             RefreshData();
         }
 
-        protected void ButtonCheckInUit_Click(object sender, EventArgs e)
-        {
-            if (database.CheckInOut(TextBoxCheckIn.Text))
-            {
-                GeefMessage("In/Uitchecken is gelukt.");
-            }
-            else
-            {
-                GeefMessage("In/Uitchecken is niet gelukt.");
-            }
-            RefreshData();
-        }
-
         private void RefreshData()
         {
             ListBoxAanwezig.Items.Clear();

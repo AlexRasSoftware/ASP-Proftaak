@@ -31,7 +31,6 @@
         <br />
         Barcode:<br />
         <asp:TextBox ID="TextBoxCheckIn" runat="server" Width="300px" OnTextChanged="TextBoxCheckIn_TextChanged" AutoPostBack="True"></asp:TextBox>
-        <asp:Button ID="ButtonCheckInUit" runat="server" style="margin-left: 0px" Text="Check In/Uit" OnClick="ButtonCheckInUit_Click" />
         <asp:Button ID="ButtonCalamiteit" runat="server" OnClick="ButtonCalamiteit_Click" Text="Aanwezigen (voor calamiteiten)" Width="224px" />
         <asp:Button ID="ButtonTerug" runat="server" OnClick="ButtonTerug_Click" Text="Terug" />
         <br />
