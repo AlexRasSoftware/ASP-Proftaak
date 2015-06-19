@@ -992,6 +992,36 @@ namespace ICT4Events_ASP_Groep_E_S24
                 return true;
             }
         }
+        public List<string> CalamiteitenLijst()
+        {
+            List<string> personen = new List<string>();
+            try
+            {
+                conn.Open();
+                string query = "SELECT VOORNAAM,TUSSENVOEGSEL,ACHTERNAAM,STRAAT,HUISNR,WOONPLAATS FROM PERSOON WHERE ID IN (SELECT PERSOON_ID FROM RESERVERING WHERE ID IN (SELECT RESERVERING_ID FROM RESERVERING_POLSBANDJE WHERE AANWEZIG = 1))";
+                command = new OracleCommand(query, conn);
+                OracleDataReader datareader = command.ExecuteReader();
+                while (datareader.Read())
+                {
+                    string voornaam = Convert.ToString(datareader["VOORNAAM"]);
+                    string tussenvoegsel = Convert.ToString(datareader["TUSSENVOEGSEL"]);
+                    string achternaam = Convert.ToString(datareader["ACHTERNAAM"]);
+                    string straat = Convert.ToString(datareader["STRAAT"]);
+                    string huisnr = Convert.ToString(datareader["HUISNR"]);
+                    string woonplaats = Convert.ToString(datareader["WOONPLAATS"]);
+                    personen.Add(voornaam + ' ' + tussenvoegsel + ' ' + achternaam + " uit " + woonplaats + ", " + straat + " " + huisnr);
+                }
+                return personen;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
 
         #region reserveringssysteem
         
