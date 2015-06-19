@@ -9,25 +9,36 @@ namespace ICT4Events_ASP_Groep_E_S24
     public class Like
     {
         //Field
-        private Persoon liker;
+        private Account liker;
         private int id;
 
         //Property
-        public Persoon Liker
+        public Account Liker
         {
             get { return liker; }
         }
 
+        public int Id
+        {
+            get { return id; }
+        }
+
         //Constructor
-        public Like(Persoon liker)
+        public Like(Account liker)
         {
             this.liker = liker;
         }
 
-        public Like(Persoon liker, int id)
+        
+
+        public Like(Account liker, int id)
         {
             this.liker = liker;
             this.id = id;
+            if (id > Administratie.hoogsteIdLike)
+            {
+                Administratie.hoogsteIdLike = id;
+            }
         }
     }
 }

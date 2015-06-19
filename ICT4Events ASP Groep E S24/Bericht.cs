@@ -63,6 +63,10 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return (int)berichtSoort; }
         }
 
+        public int Id
+        {
+            get { return id; }
+        }
 
         public Bericht(string tekst, Account auteur)
         {
@@ -126,7 +130,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Met deze persoon kun je een bericht liken
-        public bool BerichtLiken(Persoon invPersoon)
+        public bool BerichtLiken(Account invPersoon)
         {
             foreach (Like l in likes)
             {
@@ -135,38 +139,44 @@ namespace ICT4Events_ASP_Groep_E_S24
                     return false;
                 }
             }
-            likes.Add(new Like(invPersoon));
-            return true;
+            bool temp = databaseKoppeling.LikeBericht(this.id, invPersoon);
+            likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
+            return temp;
         }
 
-        public bool BerichtUnliken(Persoon invPersoon)
+        public bool BerichtUnliken(Account invPersoon)
         {
+            Like tempLike = null;
             foreach (Like l in likes)
             {
-                if (l.Liker == invPersoon)
+                if (invPersoon.Gebruikersnaam == l.Liker.Gebruikersnaam)
                 {
-                    likes.Remove(l);
+                    tempLike = l;
+                }
+            }
+            bool temp = databaseKoppeling.UnLikeBericht(tempLike.Id);
+            likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
+            return temp;
+        }
+
+        public bool CheckBerichtGeliked(Account invPersoon)
+        {
+            likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
+            foreach (Like l in likes)
+            {
+                if (l.Liker.Gebruikersnaam == invPersoon.Gebruikersnaam)
+                {
                     return true;
                 }
             }
             return false;
         }
 
-        public bool CheckBerichtGeliked(Persoon invPersoon)
+        public bool ReactieToevoegen(string tekst, Account plaatser)
         {
-            foreach (Like l in likes)
-            {
-                if (l.Liker == invPersoon)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void ReactieToevoegen(string tekst, Persoon plaatser)
-        {
-            reacties.Add(new Reactie(plaatser, tekst));
+            bool temp = databaseKoppeling.PlaatsReactieOpBericht(plaatser, this.id, tekst);
+            reacties = databaseKoppeling.AlleReactiesVanBericht(id.ToString());
+            return temp;
         }
 
         //Deze methode rapporteerd berichten of posts

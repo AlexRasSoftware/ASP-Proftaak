@@ -24,6 +24,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         private static List<Plaats> plaatsen = databaseKoppeling.HaalPlaatsenOp("dummy");
 
         public static int hoogsteIdBericht = 0;
+        public static int hoogsteIdReactie = 0;
+        public static int hoogsteIdLike = 0;
 
         //Properties
         public List<Event> Events

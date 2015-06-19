@@ -393,12 +393,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    string persoonRfid = Convert.ToString(dataReader["persoon_rfid"]);
+                    int accountid = Convert.ToInt32(dataReader["account_id"]);
                     int reactieId = Convert.ToInt32(dataReader["id"]);
                     int berichtenId = Convert.ToInt32(dataReader["bericht_id"]);
-                    DateTime plaatsDatum = Convert.ToDateTime(dataReader["plaatsdatum"]);
                     string tekst = Convert.ToString(dataReader["tekst"]);
-                    tempList.Add(new Reactie(administratie.HuidigEvent.CheckGebruikersNaamRfid(persoonRfid), tekst, berichtenId, plaatsDatum));
+                    tempList.Add(new Reactie(administratie.GeefAccountDoorId(accountid), tekst, berichtenId));
                 }
                 return tempList;
             }
@@ -419,14 +418,14 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT * FROM likes WHERE bericht_id = '" + berichtId + "'";
+                string query = "SELECT * FROM \"LIKE\" WHERE bericht_id = '" + berichtId + "'";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    int id = Convert.ToInt32(dataReader["bericht_id"]);
-                    string persoonRfid = Convert.ToString(dataReader["persoon_rfid"]);
-                    tempList.Add(new Like(administratie.HuidigEvent.CheckGebruikersNaamRfid(persoonRfid), id));
+                    int id = Convert.ToInt32(dataReader["id"]);
+                    int accountId = Convert.ToInt32(dataReader["account_id"]);
+                    tempList.Add(new Like(administratie.GeefAccountDoorId(accountId), id));
                 }
                 return tempList;
             }
@@ -1492,6 +1491,75 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 conn.Close();
                 
+            }
+            return false;
+        }
+
+        public bool LikeBericht(int berichtId, Account liker)
+        {
+            try
+            {
+                int nieuweId = Administratie.hoogsteIdLike + 1;
+                conn.Open();
+                string query = "INSERT INTO \"LIKE\"(ACCOUNT_ID, BERICHT_ID, ID) VALUES (" + liker.Id + ", " + berichtId+ ", " + nieuweId + ")";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return false;
+        }
+
+        public bool PlaatsReactieOpBericht(Account plaatser, int berichtId, string tekst)
+        {
+            try
+            {
+                int nieuweId = Administratie.hoogsteIdReactie + 1;
+                conn.Open();
+                string query = "INSERT INTO Reactie(id, bericht_id, account_id, tekst) VALUES ('" + nieuweId + "', '" + berichtId + "', '" + plaatser.Id + "', '" + tekst + "')";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return false;
+        }
+
+        public bool UnLikeBericht(int id)
+        {
+            try
+            {
+                int nieuweId = Administratie.hoogsteIdLike + 1;
+                conn.Open();
+                string query = "DELETE FROM \"LIKE\" WHERE id = '" + id.ToString() + "'";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+
             }
             return false;
         }

@@ -9,20 +9,14 @@ namespace ICT4Events_ASP_Groep_E_S24
     public class Reactie
     {
         //Fields
-        private static int reactienummer;
         private int id;
-        private Persoon plaatser;
+        private Account plaatser;
         private string inhoud;
         private bool gerapporteerd;
         private DateTime datumGeplaatst;
 
         //Properties
-        public int Reactienummer
-        {
-            get { return reactienummer; }
-        }
-
-        public Persoon Plaatser
+        public Account Plaatser
         {
             get { return plaatser; }
         }
@@ -43,7 +37,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Constructor
-        public Reactie(Persoon plaatser, string inhoud)
+        public Reactie(Account plaatser, string inhoud)
         {
             gerapporteerd = false;
             datumGeplaatst = DateTime.Now;
@@ -52,12 +46,15 @@ namespace ICT4Events_ASP_Groep_E_S24
             this.id = -1;
         }
 
-        public Reactie(Persoon plaatser, string inhoud, int id, DateTime datumGeplaatst)
+        public Reactie(Account plaatser, string inhoud, int id)
         {
             this.plaatser = plaatser;
             this.inhoud = inhoud;
             this.id = id;
-            this.datumGeplaatst = datumGeplaatst;
+            if (id > Administratie.hoogsteIdReactie)
+            {
+                Administratie.hoogsteIdReactie = id;
+            }
         }
 
         //Methode

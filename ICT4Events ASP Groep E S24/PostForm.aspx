@@ -19,9 +19,9 @@
 &nbsp;-
         <asp:Label ID="lbDatum" runat="server" Text="Label"></asp:Label>
         <br />
-        <asp:Button ID="btnLike" runat="server" Text="Like" />
+        <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="btnLike_Click" />
         <asp:Button ID="btnRapporteer" runat="server" Text="Rapporteer" />
-        <asp:Button ID="Button1" runat="server" Text="Plaats Reactie" />
+        <asp:Button ID="btnPlaatsReactie" runat="server" Text="Plaats Reactie" OnClick="Button1_Click" />
         <asp:TextBox ID="tbReactie" runat="server" Height="55px" Width="269px"></asp:TextBox>
         <br />
         <br />
