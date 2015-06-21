@@ -10,6 +10,8 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class LoginForm : System.Web.UI.Page
     {
         Administratie administratie = new Administratie();
+        string bestandPad;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             administratie.HaalAlleAccountsOp();

@@ -26,6 +26,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         public static int hoogsteIdBericht = 0;
         public static int hoogsteIdReactie = 0;
         public static int hoogsteIdLike = 0;
+        public static int hoogsteIdBestand = 0;
 
         //Properties
         public List<Event> Events
@@ -390,6 +391,11 @@ namespace ICT4Events_ASP_Groep_E_S24
         public bool NieuwTekstBericht(string tekst, Account auteur)
         {
             return databaseKoppeling.NieuwTekstBericht(tekst, auteur);
+        }
+
+        public bool NieuwBestandBericht(string tekst, Account auteur, string pad)
+        {
+            return databaseKoppeling.NieuwBestandBericht(tekst, auteur, pad);
         }
 
         public List<Plaats> GeefAllePlaatsen()

@@ -1517,6 +1517,33 @@ namespace ICT4Events_ASP_Groep_E_S24
             return false;
         }
 
+        public bool NieuwBestandBericht(string tekst, Account auteur, string pad)
+        {
+            try
+            {
+                int nieuweIdBericht = Administratie.hoogsteIdBericht + 1;
+                int nieuweIdBestand = Administratie.hoogsteIdBestand + 1;
+                conn.Open();
+                string query = "INSERT INTO Bestand(id, bericht_id, \"pad\") VALUES ('" + nieuweIdBestand + "', '" + nieuweIdBericht + "', '" + pad + "')";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                query = "INSERT INTO Bericht(id, account_id, tekst, datum, bericht_soort, bestand_id) VALUES ('" + nieuweIdBericht + "', '" + auteur.Id + "', '" + tekst + "', SYSDATE, 'foto', '" + nieuweIdBestand + "')";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return false;
+        }
+
         public bool LikeBericht(int berichtId, Account liker)
         {
             try

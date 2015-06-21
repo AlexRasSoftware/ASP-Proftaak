@@ -124,6 +124,23 @@ namespace ICT4Events_ASP_Groep_E_S24
             likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
         }
 
+        public Bericht(string tekst, Account auteur, DateTime datumGepost, int berichtSoort, int id, Bestand bestand)
+        {
+            this.tekst = tekst;
+            this.auteur = auteur;
+            this.datumGepost = datumGepost;
+            this.berichtSoort = (BerichtSoort)berichtSoort;
+            this.id = id;
+            this.bestand = bestand;
+            if (id > Administratie.hoogsteIdBericht)
+            {
+                Administratie.hoogsteIdBericht = id;
+            }
+            reacties = databaseKoppeling.AlleReactiesVanBericht(id);
+            reacties.Sort();
+            likes = databaseKoppeling.AlleLikesVanBericht(id.ToString());
+        }
+
         //Methodes
         public override string ToString()
         {

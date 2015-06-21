@@ -10,6 +10,9 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class MediaSharingForm : System.Web.UI.Page
     {
         Administratie administratie = new Administratie();
+        bool bestandBericht = false;
+        string pad;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             administratie.HaalAlleAccountsOp();
@@ -66,6 +69,15 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (administratie.NuIngelogdeAccount != null && tbBericht.Text.Length > 0)
             {
+                if (bestandBericht)
+                {
+                    if (administratie.NieuwBestandBericht(tbBericht.Text, administratie.NuIngelogdeAccount, pad))
+                    {
+                        bestandBericht = false;
+                        HerlaadGegevens();
+                    }
+                    return;
+                }
                 if (administratie.NieuwTekstBericht(tbBericht.Text, administratie.NuIngelogdeAccount))
                 {
                     GeefMessage("Geslaagd");
@@ -90,9 +102,27 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        //protected void Button1_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("LoginForm.aspx");
+        //}
+
+        protected void btUploadBestand_Click(object sender, EventArgs e)
+        {
+            if (this.FileUpload1.HasFile)
+            {
+                this.FileUpload1.SaveAs("c:\\" + this.FileUpload1.FileName);
+            }
+        }
+
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LoginForm.aspx");
+            
+            if (this.FileUpload1.HasFile)
+            {
+                pad = "C:\temp\\" + this.FileUpload1.FileName;
+                bestandBericht = true;
+            }
         }
     }
 }

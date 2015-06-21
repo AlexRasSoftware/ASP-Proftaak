@@ -12,6 +12,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         //private Persoon maker;
         //private int likes;
         private string pad;
+        private int id;
         //private int aantalKeerGerapporteerd;
         //private int aantalKeerBekeken;
         //private List<Reactie> reacties;
@@ -23,11 +24,20 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return pad; }
         }
 
-        //Constructor
-        public Bestand(string pad)
+        public int Id
         {
-            
+            get { return id; }
+        }
+
+        //Constructor
+        public Bestand(int id, string pad)
+        {
+            this.id = id;
             this.pad = pad;
+            if (id > Administratie.hoogsteIdBestand)
+            {
+                Administratie.hoogsteIdBestand = id;
+            }
             
         }
 
