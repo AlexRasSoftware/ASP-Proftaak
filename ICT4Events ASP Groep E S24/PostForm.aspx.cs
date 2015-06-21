@@ -37,6 +37,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 lbReacties.Items.Add(r.ToString());
             }
+            if (administratie.TempBericht.Auteur.Gebruikersnaam == administratie.NuIngelogdeAccount.Gebruikersnaam)
+            {
+                btnVerwijderBericht.Visible = true;
+                btnVerwijderReactie.Visible = true;
+            }
+            else
+            {
+                btnVerwijderBericht.Visible = false;
+                btnVerwijderReactie.Visible = false;
+            }
         }
 
         protected void btnLike_Click(object sender, EventArgs e)
@@ -82,6 +92,21 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnTerug_Click(object sender, EventArgs e)
         {
             Response.Redirect("MediaSharingForm.aspx");
+        }
+
+        protected void btnVerwijderReactie_Click(object sender, EventArgs e)
+        {
+            if (lbReacties.SelectedIndex >= 0)
+            {
+                Reactie tempReactie = administratie.TempBericht.ReactieZoekenMetToString(lbReacties.SelectedItem.Text);
+                if (tempReactie != null)
+                {
+                    if (administratie.TempBericht.ReactieVerwijder(tempReactie))
+                    {
+                        HerlaadGegevens();
+                    }
+                }
+            }
         }
     }
 }

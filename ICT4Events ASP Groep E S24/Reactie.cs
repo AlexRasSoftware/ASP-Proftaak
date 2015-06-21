@@ -36,6 +36,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             get { return gerapporteerd; }
         }
 
+        public int Id
+        {
+            get { return id; }
+        }
+
         //Constructor
         public Reactie(Account plaatser, string inhoud)
         {

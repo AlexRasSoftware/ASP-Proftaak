@@ -239,16 +239,12 @@ namespace ICT4Events_ASP_Groep_E_S24
         }
 
         //Deze methode verwijderd een reactie
-        public void ReactieVerwijder(Reactie reactie)
+        public bool ReactieVerwijder(Reactie reactie)
         {
-            foreach (Reactie r in reacties)
-            {
-                if (r == reactie)
-                {
-                    reacties.Remove(r);
-                    return;
-                }
-            }
+            bool temp = databaseKoppeling.ReactieVerwijderen(reactie.Id);
+            reacties = databaseKoppeling.AlleReactiesVanBericht(id);
+            reacties.Sort();
+            return temp;
         }
 
         

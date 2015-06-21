@@ -27,7 +27,7 @@
         <br />
         <asp:ListBox ID="lbReacties" runat="server" Height="206px" Width="272px"></asp:ListBox>
         <br />
-        <asp:Button ID="btnVerwijderReactie" runat="server" Text="Verwijder Reactie" />
+        <asp:Button ID="btnVerwijderReactie" runat="server" Text="Verwijder Reactie" OnClick="btnVerwijderReactie_Click" />
         <asp:Button ID="btnVerwijderBericht" runat="server" Text="Verwijder Bericht" />
     
         <asp:Button ID="btnTerug" runat="server" OnClick="btnTerug_Click" Text="Terug" />

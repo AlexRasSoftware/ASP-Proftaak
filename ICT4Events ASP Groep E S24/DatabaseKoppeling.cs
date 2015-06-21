@@ -1567,9 +1567,30 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             try
             {
-                int nieuweId = Administratie.hoogsteIdLike + 1;
                 conn.Open();
                 string query = "DELETE FROM \"LIKE\" WHERE id = '" + id.ToString() + "'";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return false;
+        }
+
+        public bool ReactieVerwijderen(int id)
+        {
+            try
+            {
+                conn.Open();
+                string query = "DELETE FROM Reactie WHERE id = '" + id.ToString() + "'";
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
                 return true;
