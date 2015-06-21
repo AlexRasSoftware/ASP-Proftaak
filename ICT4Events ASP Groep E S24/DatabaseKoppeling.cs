@@ -1607,6 +1607,34 @@ namespace ICT4Events_ASP_Groep_E_S24
             return false;
         }
 
+        public bool BerichtVerwijderen(int id)
+        {
+            try
+            {
+                conn.Open();
+                string query = "DELETE FROM Reactie WHERE bericht_id = '" + id.ToString() + "'";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                query = "DELETE FROM \"LIKE\" WHERE bericht_id = '" + id.ToString() + "'";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                query = "DELETE FROM Bericht WHERE id = '" + id.ToString() + "'";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return false;
+        }
+
         public bool PlaatsCapAanpassen(out string exc, string plaatsNr, int cap)
         {
             bool kay = false;

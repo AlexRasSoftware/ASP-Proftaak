@@ -37,7 +37,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 lbReacties.Items.Add(r.ToString());
             }
-            if (administratie.TempBericht.Auteur.Gebruikersnaam == administratie.NuIngelogdeAccount.Gebruikersnaam)
+            if (administratie.TempBericht.Auteur.Gebruikersnaam == administratie.NuIngelogdeAccount.Gebruikersnaam || administratie.NuIngelogdeAccount.Gebruikersnaam == "admin")
             {
                 btnVerwijderBericht.Visible = true;
                 btnVerwijderReactie.Visible = true;
@@ -106,6 +106,14 @@ namespace ICT4Events_ASP_Groep_E_S24
                         HerlaadGegevens();
                     }
                 }
+            }
+        }
+
+        protected void btnVerwijderBericht_Click(object sender, EventArgs e)
+        {
+            if (administratie.VerwijderBericht(administratie.TempBericht))
+            {
+                Response.Redirect("MediaSharingForm.aspx");
             }
         }
     }
