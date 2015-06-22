@@ -337,6 +337,36 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
+        public Bestand VraagBestandVanBericht(int invId)
+        {
+            Bestand bestand = null;
+            try
+            {
+                //conn.Open();
+                string query = "SELECT * FROM Bestand WHERE bericht_id = '" + invId + "'";
+                command = new OracleCommand(query, conn);
+                OracleDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    int id = Convert.ToInt32(dataReader["id"]);
+                    int berichtId = Convert.ToInt32(dataReader["bericht_id"]);
+                    string pad = Convert.ToString(dataReader["pad"]);
+                    bestand = new Bestand(id, pad, berichtId);
+                    return bestand;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                //conn.Close();
+            }
+            return null;
+        }
+
         public List<Bericht> VraagBerichtenOpVanEvent()
         {
             List<Bericht> tempList = new List<Bericht>();
@@ -352,11 +382,13 @@ namespace ICT4Events_ASP_Groep_E_S24
                     int accountId = Convert.ToInt32(dataReader["ACCOUNT_ID"]);
                     Account auteur = administratie.GeefAccountDoorId(accountId);
                     DateTime datumGepost = Convert.ToDateTime(dataReader["DATUM"]);
+                    string tekst = Convert.ToString(dataReader["TEKST"]);
                     string berichtSoort = Convert.ToString(dataReader["BERICHT_SOORT"]);
                     int soort = 0;
                     if(berichtSoort == "foto")
                     {
                         soort = 1;
+                        tempList.Add(new Bericht(tekst, auteur, datumGepost, soort, id, VraagBestandVanBericht(id)));
                     }
                     if (berichtSoort == "video")
                     {
@@ -366,8 +398,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                     {
                         soort = 3;
                     }
-                    string tekst = Convert.ToString(dataReader["TEKST"]);
-                    tempList.Add(new Bericht(tekst, auteur, datumGepost, soort, id));
+                    else
+                    {
+                        tempList.Add(new Bericht(tekst, auteur, datumGepost, soort, id));
+                    }
+                    
                 }
                 return tempList;
             }
@@ -1524,12 +1559,14 @@ namespace ICT4Events_ASP_Groep_E_S24
                 int nieuweIdBericht = Administratie.hoogsteIdBericht + 1;
                 int nieuweIdBestand = Administratie.hoogsteIdBestand + 1;
                 conn.Open();
-                string query = "INSERT INTO Bestand(id, bericht_id, \"pad\") VALUES ('" + nieuweIdBestand + "', '" + nieuweIdBericht + "', '" + pad + "')";
+                string query = "INSERT INTO Bericht(id, account_id, tekst, datum, bericht_soort) VALUES ('" + nieuweIdBericht + "', '" + auteur.Id + "', '" + tekst + "', SYSDATE, 'foto')";
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
-                query = "INSERT INTO Bericht(id, account_id, tekst, datum, bericht_soort, bestand_id) VALUES ('" + nieuweIdBericht + "', '" + auteur.Id + "', '" + tekst + "', SYSDATE, 'foto', '" + nieuweIdBestand + "')";
+
+                query = "INSERT INTO Bestand(id, bericht_id, pad) VALUES ('" + nieuweIdBestand +"', '" + nieuweIdBericht +"', '" + pad +"')";
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
+
                 return true;
             }
             catch (Exception ex)
@@ -1643,6 +1680,9 @@ namespace ICT4Events_ASP_Groep_E_S24
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
                 query = "DELETE FROM \"LIKE\" WHERE bericht_id = '" + id.ToString() + "'";
+                command = new OracleCommand(query, conn);
+                command.ExecuteNonQuery();
+                query = "DELETE FROM Bestand WHERE bericht_id = '" + id.ToString() + "'";
                 command = new OracleCommand(query, conn);
                 command.ExecuteNonQuery();
                 query = "DELETE FROM Bericht WHERE id = '" + id.ToString() + "'";

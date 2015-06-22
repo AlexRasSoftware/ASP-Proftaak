@@ -47,6 +47,16 @@ namespace ICT4Events_ASP_Groep_E_S24
                 btnVerwijderBericht.Visible = false;
                 btnVerwijderReactie.Visible = false;
             }
+            if (administratie.TempBericht.BerichtSoort == 1)
+            {
+                imgBox.Visible = true;
+                string pad = administratie.TempBericht.GeefBestandPad();
+                imgBox.ImageUrl = administratie.TempBericht.GeefBestandPad();
+            }
+            else
+            {
+                imgBox.Visible = false;
+            }
         }
 
         protected void btnLike_Click(object sender, EventArgs e)

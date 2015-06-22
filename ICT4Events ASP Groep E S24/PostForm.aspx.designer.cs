@@ -58,6 +58,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Label lbDatum;
         
         /// <summary>
+        /// imgBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgBox;
+        
+        /// <summary>
         /// btnLike control.
         /// </summary>
         /// <remarks>

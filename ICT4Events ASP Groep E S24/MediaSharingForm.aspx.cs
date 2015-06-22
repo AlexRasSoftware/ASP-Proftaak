@@ -4,15 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO;
-using System.Text;
 
 namespace ICT4Events_ASP_Groep_E_S24
 {
     public partial class MediaSharingForm : System.Web.UI.Page
     {
         Administratie administratie = new Administratie();
-        string fromRootToPhotos = @"C:\Users\Sven\Documents\school\S2\PTS2\Github ASP.NET ICT4Events\ASP-Proftaak\ICT4Events ASP Groep E S24\foto\";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,6 +47,8 @@ namespace ICT4Events_ASP_Groep_E_S24
         public void HerlaadGegevens()
         {
             lbPosts.Items.Clear();
+            bool bestandBericht = false;
+            string pad = "";
             foreach (Bericht b in administratie.VraagAlleBerichtenOp())
             {
                 lbPosts.Items.Add(b.ToString());
@@ -70,13 +69,22 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (administratie.NuIngelogdeAccount != null && tbBericht.Text.Length > 0)
             {
-                if (true)
+                string pad = "";
+                bool bestandBericht = false;
+                if (fuUpload.HasFile)
                 {
-                    //if (administratie.NieuwBestandBericht(tbBericht.Text, administratie.NuIngelogdeAccount, pad))
-                    //{
-                    //    HerlaadGegevens();
-                    //}
-                    //return;
+                    pad = @"C:\temp\" + fuUpload.FileName;
+                    bestandBericht = true;
+                }
+                if (bestandBericht)
+                {
+                    if (administratie.NieuwBestandBericht(tbBericht.Text, administratie.NuIngelogdeAccount, pad))
+                    {
+                        pad = "";
+                        bestandBericht = false;
+                        HerlaadGegevens();
+                    }
+                    return;
                 }
                 if (administratie.NieuwTekstBericht(tbBericht.Text, administratie.NuIngelogdeAccount))
                 {
@@ -109,35 +117,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btUploadBestand_Click(object sender, EventArgs e)
         {
-            if (fuUpload.HasFile)
-            {
-                if ((fuUpload.PostedFile.ContentType == "image/jpeg") ||
-                    (fuUpload.PostedFile.ContentType == "image/png") ||
-                    (fuUpload.PostedFile.ContentType == "image/bmp") ||
-                    (fuUpload.PostedFile.ContentType == "image/gif"))
-                {
-                    if (Convert.ToInt64(fuUpload.PostedFile.ContentLength) < 10000000)
-                    {
-                        string photoFolder = Path.Combine(fromRootToPhotos, User.Identity.Name);
-
-                        if (!Directory.Exists(photoFolder))
-                            Directory.CreateDirectory(photoFolder);
-
-                        string extension = Path.GetExtension(fuUpload.FileName);
-                        string uniqueFileName = Path.ChangeExtension(fuUpload.FileName, DateTime.Now.Ticks.ToString());
-
-                        fuUpload.SaveAs(Path.Combine(photoFolder, uniqueFileName + extension));
-
-                        GeefMessage("<font color='Green'>Successfully uploaded " + fuUpload.FileName + "</font>");
-                    }
-                    else
-                        GeefMessage("File must be less than 10 MB.");
-                }
-                else
-                    GeefMessage("File must be of type jpeg, jpg, png, bmp, or gif.");
-            }
-            else
-                GeefMessage("No file selected to upload.");
+            
         }
     }
 }

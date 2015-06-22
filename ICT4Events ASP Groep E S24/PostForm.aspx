@@ -19,6 +19,8 @@
 &nbsp;-
         <asp:Label ID="lbDatum" runat="server" Text="Label"></asp:Label>
         <br />
+        <asp:Image ID="imgBox" runat="server" Height="216px" Width="291px" />
+        <br />
         <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="btnLike_Click" />
         <asp:Button ID="btnRapporteer" runat="server" Text="Rapporteer" />
         <asp:Button ID="btnPlaatsReactie" runat="server" Text="Plaats Reactie" OnClick="Button1_Click" />
