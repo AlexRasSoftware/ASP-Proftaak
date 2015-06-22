@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <%-- <link rel="stylesheet" type="text/css" href="stylesheet.css"> --%>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <style type="text/css">
         .newStyle1 {
             position: absolute;
@@ -21,6 +21,10 @@
             left: 150px;
             right: 598px;
         }
+        .newStyle4 {
+            position: absolute;
+            left: 150px;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +35,7 @@
         <asp:Button ID="btnNavLogin" runat="server" OnClick="btnNavLogin_Click" Text="Terug Naar Login" />
         <br />
         Naam:
-        <asp:TextBox ID="tbEvNaam" runat="server" CssClass="newStyle1" Enabled="False"></asp:TextBox>
+        <asp:TextBox ID="tbEvNaam" runat="server" Enabled="False"></asp:TextBox>
         <br />
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
@@ -55,7 +59,7 @@
         </asp:UpdatePanel>
         <br />
         Locatie:
-        <asp:TextBox ID="tbEvLocatie" runat="server" CssClass="newStyle1"></asp:TextBox>
+        <asp:TextBox ID="tbEvLocatie" runat="server" ></asp:TextBox>
     
         <br />
         <br />
@@ -99,14 +103,17 @@
                 </asp:DropDownList>
                 <br />
                 <br />
-                Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" CssClass="newStyle3"></asp:TextBox>
+                Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" ></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;
                 <br />
-                Merk:<asp:TextBox ID="tbMaMerk" runat="server" CssClass="newStyle3"></asp:TextBox>
+                Merk:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="tbMaMerk" runat="server" ></asp:TextBox>
                 <br />
-                Volgnummer:<asp:TextBox ID="tbMaVolgnummer" runat="server" CssClass="newStyle3"></asp:TextBox>
+                Volgnummer:
+                <asp:TextBox ID="tbMaVolgnummer" runat="server" ></asp:TextBox>
                 <br />
-                Prijs:<asp:TextBox ID="tbMaPrijs" runat="server" CssClass="newStyle3"></asp:TextBox>
+                Prijs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="tbMaPrijs" runat="server" ></asp:TextBox>
                 <br />
                 <br />
                 <br />
@@ -143,7 +150,7 @@
                 Plaatsnummer&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbPlaatsnummer" runat="server" style="margin-left: 8px"></asp:TextBox>
                 <br />
-                Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Capaciteit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbPlaCap" runat="server"></asp:TextBox>
                 <br />
                 <br />

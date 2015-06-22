@@ -118,12 +118,12 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     cap = Convert.ToInt32(tbPlaCap.Text);
 
-                    if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap) || !err)
+                    if (!database.PlaatsCapAanpassen(out error, plaatsNr, cap))
                     {
                         cap = Convert.ToInt32(tbPlaCap.Text);
                         ScriptManager.RegisterStartupScript(this, GetType(),
                         "ServerControlScript",
-                            "alert(\"" + error + "\");", true);
+                            "alert(\"" + error + "\");", true); 
                     }
                     else 
                     {
