@@ -31,7 +31,7 @@
         <br />
         <asp:Button ID="btUploadBestand" runat="server" Text="Upload bestand" OnClick="btUploadBestand_Click" />
         <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />
-        <asp:FileUpload ID="FileUpload1" runat="server" />
+        <asp:FileUpload ID="fuUpload" runat="server" />
         <asp:Button ID="btnPost" runat="server" Text="Plaats post" OnClick="btnPost_Click" />
         <br />
         Zoeken<br />

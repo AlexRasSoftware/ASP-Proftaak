@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Text;
 
 namespace ICT4Events_ASP_Groep_E_S24
 {
     public partial class MediaSharingForm : System.Web.UI.Page
     {
         Administratie administratie = new Administratie();
-        bool bestandBericht = false;
-        string pad;
+        string fromRootToPhotos = @"C:\Users\Sven\Documents\school\S2\PTS2\Github ASP.NET ICT4Events\ASP-Proftaak\ICT4Events ASP Groep E S24\foto\";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,14 +70,13 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (administratie.NuIngelogdeAccount != null && tbBericht.Text.Length > 0)
             {
-                if (bestandBericht)
+                if (true)
                 {
-                    if (administratie.NieuwBestandBericht(tbBericht.Text, administratie.NuIngelogdeAccount, pad))
-                    {
-                        bestandBericht = false;
-                        HerlaadGegevens();
-                    }
-                    return;
+                    //if (administratie.NieuwBestandBericht(tbBericht.Text, administratie.NuIngelogdeAccount, pad))
+                    //{
+                    //    HerlaadGegevens();
+                    //}
+                    //return;
                 }
                 if (administratie.NieuwTekstBericht(tbBericht.Text, administratie.NuIngelogdeAccount))
                 {
@@ -102,27 +102,42 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
         }
 
-        //protected void Button1_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("LoginForm.aspx");
-        //}
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("LoginForm.aspx");
+        }
 
         protected void btUploadBestand_Click(object sender, EventArgs e)
         {
-            if (this.FileUpload1.HasFile)
+            if (fuUpload.HasFile)
             {
-                this.FileUpload1.SaveAs("c:\\" + this.FileUpload1.FileName);
-            }
-        }
+                if ((fuUpload.PostedFile.ContentType == "image/jpeg") ||
+                    (fuUpload.PostedFile.ContentType == "image/png") ||
+                    (fuUpload.PostedFile.ContentType == "image/bmp") ||
+                    (fuUpload.PostedFile.ContentType == "image/gif"))
+                {
+                    if (Convert.ToInt64(fuUpload.PostedFile.ContentLength) < 10000000)
+                    {
+                        string photoFolder = Path.Combine(fromRootToPhotos, User.Identity.Name);
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            
-            if (this.FileUpload1.HasFile)
-            {
-                pad = "C:\temp\\" + this.FileUpload1.FileName;
-                bestandBericht = true;
+                        if (!Directory.Exists(photoFolder))
+                            Directory.CreateDirectory(photoFolder);
+
+                        string extension = Path.GetExtension(fuUpload.FileName);
+                        string uniqueFileName = Path.ChangeExtension(fuUpload.FileName, DateTime.Now.Ticks.ToString());
+
+                        fuUpload.SaveAs(Path.Combine(photoFolder, uniqueFileName + extension));
+
+                        GeefMessage("<font color='Green'>Successfully uploaded " + fuUpload.FileName + "</font>");
+                    }
+                    else
+                        GeefMessage("File must be less than 10 MB.");
+                }
+                else
+                    GeefMessage("File must be of type jpeg, jpg, png, bmp, or gif.");
             }
+            else
+                GeefMessage("No file selected to upload.");
         }
     }
 }
