@@ -1816,16 +1816,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                 command.ExecuteNonQuery();
                 return true;
             }
-            catch(Exception)
+            catch(Exception exc)
             {
-                error = "Dit item is verhuurd";
+                error = exc.ToString();
                 return false;
             }
-            finally
-            {
-                conn.Close();
-            }
-             
         }
         public bool VerwijderMateriaalMerk(out string error, string merknaam, string categoie)
         {
@@ -1834,7 +1829,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 conn.Open();
                 string query = "DELETE FROM PRODUCT where merk = :merknaam and productcat_id in " +
-                    "(select ID from PRODUCTCAT where naam = :categorie)";
+                    "(select ID from PRODUCTCAT where naam = :categorie))";
                 command = new OracleCommand(query, conn);
                 command.Parameters.Add(new OracleParameter("merknaam", merknaam));
                 command.Parameters.Add(new OracleParameter("categorie", categoie));
@@ -1845,10 +1840,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 error = exc.ToString();
                 return false;
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -1868,10 +1859,6 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 error = exc.ToString();
                 return false;
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
