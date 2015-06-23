@@ -15,17 +15,21 @@ namespace ICT4Events_ASP_Groep_E_S24
         private Event huidigEvent;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (administartie.NuIngelogdeAccount.Gebruikersnaam == "admin")
             {
-                administartie = new Administratie();
-                database = new DatabaseKoppeling();
-                huidigEvent = database.HaalEvent();
-                refreshPlaatsbeheerddl();
-                refreshEventBeheerddl();
-                refreshGebruikerlb();
-                refreshMateriaalddl1();
-                VulCategorieen();
+                if (!IsPostBack)
+                {
+                    administartie = new Administratie();
+                    database = new DatabaseKoppeling();
+                    huidigEvent = database.HaalEvent();
+                    refreshPlaatsbeheerddl();
+                    refreshEventBeheerddl();
+                    refreshGebruikerlb();
+                    refreshMateriaalddl1();
+                    VulCategorieen();
+                }
             }
+            else Response.Redirect("LoginForm.aspx");
         }
 
         protected void refreshGebruikerlb()
