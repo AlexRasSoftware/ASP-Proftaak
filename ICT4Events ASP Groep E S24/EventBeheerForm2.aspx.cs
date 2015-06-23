@@ -620,7 +620,26 @@ namespace ICT4Events_ASP_Groep_E_S24
         #region materiaal vewijder knoppen
         protected void btnMaTypeVerw_Click(object sender, EventArgs e)
         {
+            string error = "";
             // verwijder volgnummers in merk en
+            foreach (string s1 in ddlMateriaalMerk.Items)
+            {
+                foreach (string s2 in ddlMateriaalVolgnr.Items)
+                {
+                    if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s2), s1, ddlMateriaalType.SelectedValue))
+                    {
+                        popup(error);
+                    }
+                }
+                if (!database.VerwijderMateriaalMerk(out error, s1, ddlMateriaalType.SelectedValue))
+                {
+                    popup(error);
+                }
+            }
+            if (!database.VerwijderMateriaalCategorie(out error, ddlMateriaalType.SelectedValue))
+            {
+                popup(error);
+            }
             // verwijder merken in type
             // verwijder type.
             VulCategorieen();
@@ -630,7 +649,19 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void MaMerkVerw_Click(object sender, EventArgs e)
         {
+            string error = "";
             // verwijder volgnummers in merk 
+            foreach (string s in ddlMateriaalVolgnr.Items)
+            {
+                if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+                {
+                    popup(error);
+                }
+            }
+            if (!database.VerwijderMateriaalMerk(out error, ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+            {
+                popup(error);
+            }
             // verwijder merk
             VulMerken();
             VulVolgnummers();

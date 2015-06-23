@@ -1822,6 +1822,45 @@ namespace ICT4Events_ASP_Groep_E_S24
                 return false;
             }
         }
+        public bool VerwijderMateriaalMerk(out string error, string merknaam, string categoie)
+        {
+            error = "";
+            try
+            {
+                conn.Open();
+                string query = "DELETE FROM PRODUCT where merk = :merknaam and productcat_id in " +
+                    "(select ID from PRODUCTCAT where naam = :categorie))";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("merknaam", merknaam));
+                command.Parameters.Add(new OracleParameter("categorie", categoie));
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception exc)
+            {
+                error = exc.ToString();
+                return false;
+            }
+        }
+
+        public bool VerwijderMateriaalCategorie(out string error, string categoie)
+        {
+            error = "";
+            try
+            {
+                conn.Open();
+                string query = "DELETE FROM PRODUCTCAT where naam = :categorie))";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("categorie", categoie));
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception exc)
+            {
+                error = exc.ToString();
+                return false;
+            }
+        }
 
         #endregion
     }
