@@ -621,25 +621,32 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnMaTypeVerw_Click(object sender, EventArgs e)
         {
             string error = "";
+            bool nowork = false;
             // verwijder volgnummers in merk en
             foreach (string s1 in ddlMateriaalMerk.Items)
             {
                 foreach (string s2 in ddlMateriaalVolgnr.Items)
                 {
-                    if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s2), s1, ddlMateriaalType.SelectedValue))
+                    if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s2), s1, ddlMateriaalType.SelectedValue))
                     {
                         popup(error);
                     }
                 }
-                if (!database.VerwijderMateriaalMerk(out error, s1, ddlMateriaalType.SelectedValue))
+                if (!nowork)
                 {
-                    popup(error);
+                    if (!database.VerwijderMateriaalMerk(out error, s1, ddlMateriaalType.SelectedValue))
+                    {
+                        popup(error);
+                    }
                 }
                 VulVolgnummers();
             }
-            if (!database.VerwijderMateriaalCategorie(out error, ddlMateriaalType.SelectedValue))
+            if (!nowork)
             {
-                popup(error);
+                if (!database.VerwijderMateriaalCategorie(out error, ddlMateriaalType.SelectedValue))
+                {
+                    popup(error);
+                }
             }
             // verwijder merken in type
             // verwijder type.

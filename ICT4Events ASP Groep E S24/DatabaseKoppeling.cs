@@ -1800,9 +1800,10 @@ namespace ICT4Events_ASP_Groep_E_S24
 
 
         }
-        public bool VerwijderMateriaalVolgnummer(out string error, int volgnr, string merknaam, string categoie)
+        public bool VerwijderMateriaalVolgnummer(out string error,out bool nowork, int volgnr, string merknaam, string categoie)
         {
             error = "";
+            nowork = false;
             try
             {
                 conn.Open();
@@ -1818,6 +1819,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             }
             catch(Exception exc)
             {
+                nowork = true;
                 error = exc.ToString();
                 return false;
             }
