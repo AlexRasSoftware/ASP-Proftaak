@@ -621,26 +621,34 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnMaTypeVerw_Click(object sender, EventArgs e)
         {
             string error = "";
+            bool nowork = false;
+            bool nope=false;
             // verwijder volgnummers in merk en
-            foreach (string s1 in ddlMateriaalMerk.Items)
+            foreach (ListItem s1 in ddlMateriaalMerk.Items)
             {
+                nowork = false;
                 foreach (string s2 in ddlMateriaalVolgnr.Items)
                 {
-                    if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s2), s1, ddlMateriaalType.SelectedValue))
+                    if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s2.ToString()), s1.ToString(), ddlMateriaalType.SelectedValue))
+                    {
+                        popup(error);
+                        if (nowork) nope = true;
+                    }
+                }
+                if (nope) popup("Merk kan niet verijderd worden, omdat de items verhuurd zijn.");
+                else
+                    if (!database.VerwijderMateriaalMerk(out error, s1.ToString(), ddlMateriaalType.SelectedValue))
                     {
                         popup(error);
                     }
-                }
-                if (!database.VerwijderMateriaalMerk(out error, s1, ddlMateriaalType.SelectedValue))
+                VulVolgnummers();
+            }
+            if (nope) popup("Categorie kan niet verijderd worden, omdat de items verhuurd zijn.");
+            else
+                if (!database.VerwijderMateriaalCategorie(out error, ddlMateriaalType.SelectedValue))
                 {
                     popup(error);
                 }
-                VulVolgnummers();
-            }
-            if (!database.VerwijderMateriaalCategorie(out error, ddlMateriaalType.SelectedValue))
-            {
-                popup(error);
-            }
             // verwijder merken in type
             // verwijder type.
             VulCategorieen();
@@ -651,14 +659,20 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void MaMerkVerw_Click(object sender, EventArgs e)
         {
             string error = "";
+            bool nope = false;
+            bool nowork = false;
             // verwijder volgnummers in merk 
             foreach (string s in ddlMateriaalVolgnr.Items)
             {
-                if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+                nowork = false;
+                if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
                 {
                     popup(error);
+                    if (nowork) nope = true;
                 }
             }
+            if (nope) popup("Materiaal kan niet verijderd worden, omdat de items verhuurd zijn.");
+            else
             if (!database.VerwijderMateriaalMerk(out error, ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
             {
                 popup(error);
@@ -671,8 +685,9 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btnMaVolgnrVerw_Click(object sender, EventArgs e)
         {
             // verwijder volgnummer
+            bool nowork = false;
             string error = "";
-            if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(ddlMateriaalVolgnr.SelectedValue), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+            if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(ddlMateriaalVolgnr.SelectedValue), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
             {
                 popup(error);
             }
