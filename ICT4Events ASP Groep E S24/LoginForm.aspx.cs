@@ -14,6 +14,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            administratie.NuIngelogdeAccount = null;
             administratie.HaalAlleAccountsOp();
         }
 
