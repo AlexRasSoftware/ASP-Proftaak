@@ -265,6 +265,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnNieuwType;
         
         /// <summary>
+        /// btnMaTypeVerw control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMaTypeVerw;
+        
+        /// <summary>
         /// btnNieuwMerk control.
         /// </summary>
         /// <remarks>
@@ -274,6 +283,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.Button btnNieuwMerk;
         
         /// <summary>
+        /// MaMerkVerw control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button MaMerkVerw;
+        
+        /// <summary>
         /// btnVolgnr control.
         /// </summary>
         /// <remarks>
@@ -281,6 +299,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVolgnr;
+        
+        /// <summary>
+        /// btnMaVolgnrVerw control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMaVolgnrVerw;
         
         /// <summary>
         /// btnPasMaAan control.

@@ -118,8 +118,11 @@
                 <br />
                 <br />
                 <asp:Button ID="btnNieuwType" runat="server" OnClick="btnNieuwType_Click" Text="Nieuw Type" />
+                <asp:Button ID="btnMaTypeVerw" runat="server" OnClick="btnMaTypeVerw_Click" Text="Verwijder Type" />
                 <asp:Button ID="btnNieuwMerk" runat="server" OnClick="btnNieuwMerk_Click1" Text="Nieuw Merk" />
+                <asp:Button ID="MaMerkVerw" runat="server" OnClick="MaMerkVerw_Click" Text="Verwijder Merk" />
                 <asp:Button ID="btnVolgnr" runat="server" OnClick="btnVolgnr_Click" Text="Nieuw Volgnr" />
+                <asp:Button ID="btnMaVolgnrVerw" runat="server" OnClick="btnMaVolgnrVerw_Click" Text="Verwijder Volgnr" />
                 <br />
                 <br />
                 <asp:Button ID="btnPasMaAan" runat="server" OnClick="btnPasMaAan_Click" Text="Pas Prijs Aan" Width="152px" />
@@ -134,8 +137,7 @@
     <div>
 
         <br />
-        <h3>Plaats Beheer</h3>
-        Locatienaam:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h3>Plaats Beheer    Locatienaam:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="lblPlaatsLocatie" runat="server" Text="Label"></asp:Label>
         <br />
         <asp:UpdatePanel ID="UpdatePanel4" runat="server">

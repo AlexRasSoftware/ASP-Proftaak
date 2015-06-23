@@ -557,22 +557,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 if (!database.NieuwMerk(ddlMateriaalType.SelectedItem.ToString(), tbMaMerk.Text))
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                "ServerControlScript",
-                                    "alert(\"Merk kon niet aangemaakt worden\");", true);
+                    popup("Merk kon niet aangemaakt worden");
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                "ServerControlScript",
-                                    "alert(\"Merk is aangemaakt\");", true);
+                    popup("Merk is aangemaakt");
                 }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                                "ServerControlScript",
-                                    "alert(\"Selecteer een type en vul een merk in\");", true);
+                popup("Selecteer een type en vul een merk in");
             }
             VulMerken();
         }
@@ -584,22 +578,16 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 if (!database.NieuwVolgnummer(ddlMateriaalType.SelectedItem.ToString(), ddlMateriaalMerk.SelectedItem.ToString(), Convert.ToInt32(tbMaVolgnummer.Text)))
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                    "ServerControlScript",
-                                        "alert(\"Volgnummer kon niet aangemaakt worden\");", true);
+                    popup("Volgnummer kon niet aangemaakt worden");
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                    "ServerControlScript",
-                                        "alert(\"Volgnummer is toegevoegd\");", true);
+                    popup("Volgnummer is toegevoegd");
                 }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                                    "ServerControlScript",
-                                        "alert(\"Selecteer een materiaal en een merk en vul vervolgens een volgnummer\");", true);
+                popup("Selecteer een materiaal en een merk en vul vervolgens een volgnummer");
             }
                 
             VulVolgnummers();
@@ -616,25 +604,58 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 if (!database.NieuwePlek(Convert.ToInt32(tbPlaatsnummer.Text)))
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                        "ServerControlScript",
-                                            "alert(\"Nieuwe Plek Kon Niet Worden Aangemaakt\");", true);
+                    popup("Nieuwe Plek Kon Niet Worden Aangemaakt");
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                                        "ServerControlScript",
-                                            "alert(\"Nieuwe Plek Aangemaakt\");", true);
+                    popup("Nieuwe Plek Aangemaakt");
                 }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                                        "ServerControlScript",
-                                            "alert(\"Vul een nieuw plaatsnummer in\");", true);
+                popup("Vul een nieuw plaatsnummer in");
             }
             refreshPlaatsbeheerddl();
         }
-        
+        #region materiaal vewijder knoppen
+        protected void btnMaTypeVerw_Click(object sender, EventArgs e)
+        {
+            // verwijder volgnummers in merk en
+            // verwijder merken in type
+            // verwijder type.
+            VulCategorieen();
+            VulMerken();
+            VulVolgnummers();
+        }
+
+        protected void MaMerkVerw_Click(object sender, EventArgs e)
+        {
+            // verwijder volgnummers in merk 
+            // verwijder merk
+            VulMerken();
+            VulVolgnummers();
+        }
+
+        protected void btnMaVolgnrVerw_Click(object sender, EventArgs e)
+        {
+            // verwijder volgnummer
+            string error = "";
+            if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(ddlMateriaalVolgnr.Text)))
+            {
+                popup(error);
+            }
+            else VulVolgnummers();
+        }
+
+        #endregion
+
+        private void popup(string pop)
+        {
+            ScriptManager.RegisterStartupScript(
+                this, GetType(),
+                "ServerControlScript",
+                "alert(\"" + pop + "\");", true);
+        }
+
     }
 }

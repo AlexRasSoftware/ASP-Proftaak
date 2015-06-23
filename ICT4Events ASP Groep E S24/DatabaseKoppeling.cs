@@ -1800,6 +1800,28 @@ namespace ICT4Events_ASP_Groep_E_S24
 
 
         }
+        public bool VerwijderMateriaalVolgnummer(out string error, int volgnr, string merknaam, string categoie)
+        {
+            error = "";
+            try
+            {
+                conn.Open();
+                string query = "DELETE FROM PRODUCTEXEMPLAAR WHERE volgnummer = :volgnummer and product_id in " +
+                    "(select ID from PRODUCT where merk = :merknaam and productcat_id in " +
+                    "(select ID from PRODUCTCAT where naam = :categorie))";
+                command = new OracleCommand(query, conn);
+                command.Parameters.Add(new OracleParameter("volgnummer", volgnr));
+                command.Parameters.Add(new OracleParameter("merknaam", merknaam));
+                command.Parameters.Add(new OracleParameter("categorie", categoie));
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception exc)
+            {
+                error = exc.ToString();
+                return false;
+            }
+        }
 
         #endregion
     }
