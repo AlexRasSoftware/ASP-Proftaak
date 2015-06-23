@@ -58,7 +58,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             if (database.CheckInOut(TextBoxCheckIn.Text))
             {
-                GeefMessage("In/Uitchecken is gelukt.");
+                
             }
             else
             {

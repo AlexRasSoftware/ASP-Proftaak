@@ -83,7 +83,7 @@
         <asp:ListBox ID="lbGebruikers" runat="server" Height="127px" Width="229px"></asp:ListBox>
         <br />
         <br />
-        <asp:Button ID="btnVerwijderGebr" runat="server" Text="Verwijder Gebruiker" OnClick="btnVerwijderGebr_Click" />
+        <asp:Button ID="btnVerwijderGebr" runat="server" Text="Verwijder Gebruiker" OnClick="btnVerwijderGebr_Click" OnClientClick="return confirm('Weet u het zeker?');"/>
 
     </div>
 
@@ -117,14 +117,14 @@
                 <br />
                 <br />
                 <asp:Button ID="btnNieuwType" runat="server" OnClick="btnNieuwType_Click" Text="Nieuw Type" />
-                <asp:Button ID="btnMaTypeVerw" runat="server" OnClick="btnMaTypeVerw_Click" Text="Verwijder Type" />
+                <asp:Button ID="btnMaTypeVerw" runat="server" OnClick="btnMaTypeVerw_Click" Text="Verwijder Type" OnClientClick="return confirm('Weet u het zeker?');"/>
                 <asp:Button ID="btnNieuwMerk" runat="server" OnClick="btnNieuwMerk_Click1" Text="Nieuw Merk" />
-                <asp:Button ID="MaMerkVerw" runat="server" OnClick="MaMerkVerw_Click" Text="Verwijder Merk" />
+                <asp:Button ID="MaMerkVerw" runat="server" OnClick="MaMerkVerw_Click" Text="Verwijder Merk" OnClientClick="return confirm('Weet u het zeker?');"/>
                 <asp:Button ID="btnVolgnr" runat="server" OnClick="btnVolgnr_Click" Text="Nieuw Volgnr" />
-                <asp:Button ID="btnMaVolgnrVerw" runat="server" OnClick="btnMaVolgnrVerw_Click" Text="Verwijder Volgnr" />
+                <asp:Button ID="btnMaVolgnrVerw" runat="server" OnClick="btnMaVolgnrVerw_Click" Text="Verwijder Volgnr" OnClientClick="return confirm('Weet u het zeker?');"/>
                 <br />
                 <br />
-                <asp:Button ID="btnPasMaAan" runat="server" OnClick="btnPasMaAan_Click" Text="Pas Prijs Aan" Width="152px" />
+                <asp:Button ID="btnPasMaAan" runat="server" OnClick="btnPasMaAan_Click" Text="Pas Prijs Aan" Width="152px" OnClientClick="return confirm('Weet u het zeker?');"/>
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
@@ -156,7 +156,7 @@
                 <br />
                 <br />
                 <br />
-                <asp:Button ID="btnPlaatsAanpassen" runat="server" OnClick="btnPlaatsAanpassen_Click" Text="Plaats Aanpassen" Width="147px" />
+                <asp:Button ID="btnPlaatsAanpassen" runat="server" OnClick="btnPlaatsAanpassen_Click" Text="Plaats Aanpassen" Width="147px" OnClientClick="return confirm('Weet u het zeker?');"/>
                 <asp:Button ID="btnNieuwPlaats" runat="server" OnClick="btnNieuwPlaats_Click1" Text="Nieuwe Plaats" />
             </ContentTemplate>
         </asp:UpdatePanel>
