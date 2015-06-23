@@ -31,7 +31,7 @@
             top: 3px;
             left: 1px;
             width: 450px;
-            height: 85px;
+            height: 117px;
         }
         #form1 {
             height: 1416px;
@@ -162,16 +162,18 @@
     <div class="EindInschrijf" id="Eindinschrijf">
 
         <asp:CheckBox ID="chbMeederePersonen" runat="server" Text="Meerdere Personen" />
-        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-            <ContentTemplate>
+        
+
                 <asp:DropDownList ID="ddlMeerderePersonen" runat="server" style="margin-left: 0px" Width="118px">
                 </asp:DropDownList>
                 <br />
-                <br />
-                <br />
+
                 <asp:Button ID="btnBevestig" runat="server" OnClick="btnBevestig_Click" Text="Bevestig" />
-            </ContentTemplate>
-        </asp:UpdatePanel>
+
+                <br />
+                <br />
+
+
         <br />
 
     </div>
