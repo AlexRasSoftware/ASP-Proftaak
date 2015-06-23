@@ -640,7 +640,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             // verwijder volgnummer
             string error = "";
-            if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(ddlMateriaalVolgnr.Text)))
+            if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(ddlMateriaalVolgnr.SelectedValue), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
             {
                 popup(error);
             }
