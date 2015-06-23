@@ -32,7 +32,6 @@
     <div>
     
         <h3>Pas event aan</h3>
-        <asp:Button ID="btnNavLogin" runat="server" OnClick="btnNavLogin_Click" Text="Terug Naar Login" />
         <br />
         Naam:
         <asp:TextBox ID="tbEvNaam" runat="server" Enabled="False"></asp:TextBox>
@@ -164,6 +163,7 @@
         <br />
 
     </div>
+        <asp:Button ID="btnNavLogin" runat="server" OnClick="btnNavLogin_Click" Text="Terug" />
     </form>
 </body>
 </html>

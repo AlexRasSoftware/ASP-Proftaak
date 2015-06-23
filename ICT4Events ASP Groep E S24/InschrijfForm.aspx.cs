@@ -26,11 +26,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                 dbKoppeling = new DatabaseKoppeling();
                 inschrijvers = new List<Bezoeker>();
                 aantalPersonen = -1;
-                VulPlaatsen();
-                
+                tbEmail.Text = "";
+                tbWachtwoord.Text = "";
+                VulPlaatsen();               
                 // geef alle categorieën
                 VulCategorieen();
-
             }
            
             // hier wordt een nieuwe reservering aangemaakt in de database
@@ -76,6 +76,8 @@ namespace ICT4Events_ASP_Groep_E_S24
                             }
                             else
                             {
+                                administratie.HuidigeBezoeker = new Bezoeker(tbVoornaam.Text, tbTussenvoegsel.Text, tbAchternaam.Text, tbStraat.Text, tbHuisnr.Text, tbWoonplaats.Text,
+                                    tbGebruikersnaam.Text, tbWachtwoord.Text, tbEmail.Text, null);
                                 GeefMessage("Bezoeker Aangemaakt");
                             }
                         }                       
@@ -276,6 +278,10 @@ namespace ICT4Events_ASP_Groep_E_S24
                     lbGekozenItems.Items.Add(h.ToString());
                 }
             }
+            else
+            {
+                GeefMessage("Maak eerst een bezoeker aan");
+            }
 
         }
 
@@ -349,6 +355,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             tbGebruikersnaam.Text = "";
             tbEmail.Text = "";
             tbWachtwoord.Text = "";
+            lbGekozenItems.Items.Clear();
 
             tbBanknr.Enabled = false;
             ddlPlaatsen.Enabled = false;
@@ -357,6 +364,13 @@ namespace ICT4Events_ASP_Groep_E_S24
             btnVerwijderPlaats.Enabled = false;
             chbMeederePersonen.Enabled = false;
             ddlMeerderePersonen.Enabled = false;
+
+            administratie.HuidigeBezoeker = null;
+        }
+
+        protected void btnTerug_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("LoginForm.aspx");
         }
     }
 }

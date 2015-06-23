@@ -93,7 +93,7 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void btnNavLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LoginForm.aspx");
+            Response.Redirect("SysteemkiezerForm.aspx");
         }
 
         protected void btnPlaatsAanpassen_Click(object sender, EventArgs e)

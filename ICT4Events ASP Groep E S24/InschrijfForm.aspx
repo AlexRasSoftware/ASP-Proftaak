@@ -180,6 +180,7 @@
         <br />
 
         <br />
+        <asp:Button ID="btnTerug" runat="server" OnClick="btnTerug_Click" Text="Terug" />
         <br />
         <asp:Image ID="imgCamping" runat="server" CssClass="Plaatje" ImageUrl="~/Plaatjes/Camping_ReeënDal (1).png" />
 

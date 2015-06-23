@@ -22,15 +22,6 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// btnNavLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNavLogin;
-        
-        /// <summary>
         /// tbEvNaam control.
         /// </summary>
         /// <remarks>
@@ -389,5 +380,14 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNieuwPlaats;
+        
+        /// <summary>
+        /// btnNavLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNavLogin;
     }
 }
