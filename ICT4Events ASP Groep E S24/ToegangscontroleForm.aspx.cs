@@ -63,6 +63,10 @@ namespace ICT4Events_ASP_Groep_E_S24
 
         protected void ButtonTerug_Click(object sender, EventArgs e)
         {
+            if (administratie.NuIngelogdeAccount.Gebruikersnaam == "admin")
+            {
+                Response.Redirect("SysteemkiezerForm.aspx");
+            }
             Response.Redirect("LoginForm.aspx");
         }
 
