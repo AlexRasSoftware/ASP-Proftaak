@@ -102,7 +102,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         //Methodes
 
 
-        //Deze methode zoekt naar bestaande events
+        //Deze methode zoekt naar bestaande items
         public List<Huuritem> AlleHuurItems()
         {
             List<Huuritem> alleItems = new List<Huuritem>();
@@ -114,7 +114,8 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 alleItems.Add(h);
             }
-            return alleItems;
+            List<Huuritem> SortedList = alleItems.OrderBy(h => h.VolgNummer).ToList();
+            return SortedList;
         }       
         
         public Event GeefEvent(string eventNaam)

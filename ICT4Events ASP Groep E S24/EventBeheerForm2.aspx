@@ -59,7 +59,7 @@
         <br />
         Locatie:
         <asp:TextBox ID="tbEvLocatie" runat="server" ></asp:TextBox>
-    
+        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Ongeldige Locatienaam" ControlToValidate="tbEvLocatie" ValidationExpression="[aA-zZ0-9 _]{3,}"></asp:RegularExpressionValidator>
         <br />
         <br />
         <asp:Button ID="btnPasEvAan" runat="server" Text="Pas Aan" OnClick="btnPasEvAan_Click" />
@@ -104,15 +104,19 @@
                 <br />
                 Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="tbMaType" runat="server" ></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="Ongeldig Type" ControlToValidate="tbMaType" ValidationExpression="[a-zA-Z 0-9\-]{3,}"></asp:RegularExpressionValidator>
                 <br />
                 Merk:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbMaMerk" runat="server" ></asp:TextBox>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Ongeldig Merk" ControlToValidate="tbMaMerk" ValidationExpression="[a-zA-Z 0-9\-]{3,}"></asp:RegularExpressionValidator>
                 <br />
                 Volgnummer:
                 <asp:TextBox ID="tbMaVolgnummer" runat="server" ></asp:TextBox>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="Ongeldig Volgnummer" ControlToValidate="tbMaVolgnummer" ValidationExpression="[0-9]{1,}"></asp:RegularExpressionValidator>
                 <br />
                 Prijs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbMaPrijs" runat="server" ></asp:TextBox>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Ongeldige Prijs" ControlToValidate="tbMaPrijs" ValidationExpression="[0-9 ,]{1,}"></asp:RegularExpressionValidator>
                 <br />
                 <br />
                 <br />
@@ -124,7 +128,7 @@
                 <asp:Button ID="btnMaVolgnrVerw" runat="server" OnClick="btnMaVolgnrVerw_Click" Text="Verwijder Volgnr" OnClientClick="return confirm('Weet u het zeker?');"/>
                 <br />
                 <br />
-                <asp:Button ID="btnPasMaAan" runat="server" OnClick="btnPasMaAan_Click" Text="Pas Prijs Aan" Width="152px" OnClientClick="return confirm('Weet u het zeker?');"/>
+                <asp:Button ID="btnPasMaAan" runat="server" OnClick="btnPasMaAan_Click" Text="Pas Prijs Aan" Width="152px" />
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
@@ -136,7 +140,7 @@
     <div>
 
         <br />
-        <h3>Plaats Beheer    Locatienaam:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h3>Plaats Beheer</h3>    Locatienaam:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="lblPlaatsLocatie" runat="server" Text="Label"></asp:Label>
         <br />
         <asp:UpdatePanel ID="UpdatePanel4" runat="server">

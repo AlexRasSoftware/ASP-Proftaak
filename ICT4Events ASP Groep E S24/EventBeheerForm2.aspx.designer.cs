@@ -121,6 +121,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.TextBox tbEvLocatie;
         
         /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
         /// btnPasEvAan control.
         /// </summary>
         /// <remarks>
@@ -220,6 +229,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.TextBox tbMaType;
         
         /// <summary>
+        /// RegularExpressionValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
+        
+        /// <summary>
         /// tbMaMerk control.
         /// </summary>
         /// <remarks>
@@ -227,6 +245,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMaMerk;
+        
+        /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
         /// tbMaVolgnummer control.
@@ -238,6 +265,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         protected global::System.Web.UI.WebControls.TextBox tbMaVolgnummer;
         
         /// <summary>
+        /// RegularExpressionValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
+        
+        /// <summary>
         /// tbMaPrijs control.
         /// </summary>
         /// <remarks>
@@ -245,6 +281,15 @@ namespace ICT4Events_ASP_Groep_E_S24 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMaPrijs;
+        
+        /// <summary>
+        /// RegularExpressionValidator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator5;
         
         /// <summary>
         /// btnNieuwType control.

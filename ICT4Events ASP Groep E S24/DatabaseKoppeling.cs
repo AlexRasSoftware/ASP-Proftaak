@@ -168,7 +168,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT p.MERK, p.SERIE, pe.VOLGNUMMER, c.NAAM FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND pe.ID IN (SELECT PRODUCTEXEMPLAAR_ID FROM VERHUUR)";
+                string query = "SELECT p.MERK, p.SERIE, pe.VOLGNUMMER, c.NAAM FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND pe.ID IN (SELECT PRODUCTEXEMPLAAR_ID FROM VERHUUR) ORDER BY VOLGNUMMER";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
@@ -197,7 +197,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             try
             {
                 conn.Open();
-                string query = "SELECT p.MERK, p.SERIE, pe.VOLGNUMMER, c.NAAM FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND pe.ID NOT IN (SELECT PRODUCTEXEMPLAAR_ID FROM VERHUUR)";
+                string query = "SELECT p.MERK, p.SERIE, pe.VOLGNUMMER, c.NAAM FROM PRODUCT p, PRODUCTCAT c, PRODUCTEXEMPLAAR pe WHERE pe.PRODUCT_ID = p.ID AND p.PRODUCTCAT_ID = c.ID AND pe.ID NOT IN (SELECT PRODUCTEXEMPLAAR_ID FROM VERHUUR) ORDER BY VOLGNUMMER";
                 command = new OracleCommand(query, conn);
                 OracleDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
