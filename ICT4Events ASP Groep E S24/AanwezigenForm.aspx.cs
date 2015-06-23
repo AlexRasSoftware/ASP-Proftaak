@@ -11,10 +11,19 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class AanwezigenForm : System.Web.UI.Page
     {
         private DatabaseKoppeling database;
+        private Administratie administratie;
         protected void Page_Load(object sender, EventArgs e)
         {
             database = new DatabaseKoppeling();
+            administratie = new Administratie();
             VerversLijst();
+            if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "admin")
+            {
+                if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "controleur")
+                {
+                    Response.Redirect("LoginForm.aspx");
+                }
+            }
         }
 
         private void VerversLijst()

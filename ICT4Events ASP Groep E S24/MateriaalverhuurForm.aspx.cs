@@ -26,6 +26,10 @@ namespace ICT4Events_ASP_Groep_E_S24
                 // en alle merken daarbij + volgnummers
                 VulMerken();
             }
+            if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "admin")
+            {
+                Response.Redirect("LoginForm.aspx");
+            }
             
         }
 

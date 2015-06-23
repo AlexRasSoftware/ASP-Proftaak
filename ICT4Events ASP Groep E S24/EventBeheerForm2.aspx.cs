@@ -10,16 +10,15 @@ namespace ICT4Events_ASP_Groep_E_S24
     public partial class EventBeheerForm2 : System.Web.UI.Page
     {
         private Plaats selectedPlaats;
-        private static Administratie administartie;
+        private static Administratie administratie;
         private static DatabaseKoppeling database;
         private Event huidigEvent;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (administartie.NuIngelogdeAccount.Gebruikersnaam == "admin")
-            {
+            
                 if (!IsPostBack)
                 {
-                    administartie = new Administratie();
+                    administratie = new Administratie();
                     database = new DatabaseKoppeling();
                     huidigEvent = database.HaalEvent();
                     refreshPlaatsbeheerddl();
@@ -28,8 +27,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                     refreshMateriaalddl1();
                     VulCategorieen();
                 }
-            }
-            else Response.Redirect("LoginForm.aspx");
+                if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "admin")
+                {
+                    Response.Redirect("LoginForm.aspx");
+                }
+                
         }
 
         protected void refreshGebruikerlb()
@@ -479,7 +481,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         private void VulCategorieen()
         {
             ddlMateriaalType.Items.Clear();
-            foreach (string huurItem in administartie.DatabaseKoppeling.VraagMateriaalSoortOp())
+            foreach (string huurItem in administratie.DatabaseKoppeling.VraagMateriaalSoortOp())
             {
                 ddlMateriaalType.Items.Add(huurItem);
             }
@@ -505,7 +507,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             ddlMateriaalVolgnr.Items.Clear();
             if (ddlMateriaalMerk.SelectedItem != null && ddlMateriaalType.SelectedItem != null)
             {
-                foreach (Huuritem h in administartie.GeefAlleProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
+                foreach (Huuritem h in administratie.GeefAlleProducten(ddlMateriaalMerk.SelectedItem.ToString(), ddlMateriaalType.SelectedItem.ToString()))
                 {
                     ddlMateriaalVolgnr.Items.Add(h.VolgNummer.ToString());                    
                 }

@@ -17,6 +17,13 @@ namespace ICT4Events_ASP_Groep_E_S24
             administratie = new Administratie();
             database = new DatabaseKoppeling();
             RefreshData();
+            if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "admin")
+            {
+                if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "controleur")
+                {
+                    Response.Redirect("LoginForm.aspx");
+                }
+            }
         }
 
         private void RefreshData()

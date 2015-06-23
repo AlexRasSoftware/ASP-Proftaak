@@ -9,9 +9,14 @@ namespace ICT4Events_ASP_Groep_E_S24
 {
     public partial class SysteemkiezerForm : System.Web.UI.Page
     {
+        private Administratie administratie;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            administratie = new Administratie();
+            if (administratie.NuIngelogdeAccount == null || administratie.NuIngelogdeAccount.Gebruikersnaam != "admin")
+            {
+                Response.Redirect("LoginForm.aspx");
+            }
         }
 
         protected void ButtonMedia_Click(object sender, EventArgs e)
