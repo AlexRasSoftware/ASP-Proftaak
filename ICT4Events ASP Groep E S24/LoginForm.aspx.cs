@@ -25,15 +25,22 @@ namespace ICT4Events_ASP_Groep_E_S24
                 Account tempAccount = administratie.CheckGebruikersnaam(tbGebruikersnaam.Text);
                 if (tempAccount != null)
                 {
-                    if (tempAccount.Wachtwoord == tbWachtwoord.Text)
+                    if(tempAccount.Geactiveerd)
                     {
-                        GeefMessage("Succesvol");
-                        administratie.NuIngelogdeAccount = tempAccount;
-                        Doorverwijzen(tempAccount.Accounttype);
-                        
+                        if (tempAccount.Wachtwoord == tbWachtwoord.Text)
+                        {
+                            GeefMessage("Succesvol");
+                            administratie.NuIngelogdeAccount = tempAccount;
+                            Doorverwijzen(tempAccount.Accounttype);
+
+                        }
+                        GeefMessage("Ongeldig wachtwoord");
                     }
-                    GeefMessage("Ongeldig wachtwoord");
-                }
+                    else
+                    {
+                        GeefMessage("Account is niet geactiveerd");
+                    }                  
+                }               
                 GeefMessage("Niet succesvol");
             }
             GeefMessage("Ongeldige gebruikersnaam");
