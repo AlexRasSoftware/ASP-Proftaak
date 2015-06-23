@@ -627,7 +627,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             foreach (ListItem s1 in ddlMateriaalMerk.Items)
             {
                 nowork = false;
-                foreach (string s2 in ddlMateriaalVolgnr.Items)
+                foreach (ListItem s2 in ddlMateriaalVolgnr.Items)
                 {
                     if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s2.ToString()), s1.ToString(), ddlMateriaalType.SelectedValue))
                     {
