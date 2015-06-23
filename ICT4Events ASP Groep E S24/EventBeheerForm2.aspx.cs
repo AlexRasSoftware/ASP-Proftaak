@@ -622,16 +622,16 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             string error = "";
             // verwijder volgnummers in merk en
-            foreach (string s1 in ddlMateriaalMerk.Items)
+            foreach (ListItem s1 in ddlMateriaalMerk.Items)
             {
-                foreach (string s2 in ddlMateriaalVolgnr.Items)
+                foreach (ListItem s2 in ddlMateriaalVolgnr.Items)
                 {
-                    if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s2), s1, ddlMateriaalType.SelectedValue))
+                    if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s2.ToString()), s1.ToString(), ddlMateriaalType.SelectedValue))
                     {
                         popup(error);
                     }
                 }
-                if (!database.VerwijderMateriaalMerk(out error, s1, ddlMateriaalType.SelectedValue))
+                if (!database.VerwijderMateriaalMerk(out error, s1.ToString(), ddlMateriaalType.SelectedValue))
                 {
                     popup(error);
                 }
@@ -652,9 +652,9 @@ namespace ICT4Events_ASP_Groep_E_S24
         {
             string error = "";
             // verwijder volgnummers in merk 
-            foreach (string s in ddlMateriaalVolgnr.Items)
+            foreach (ListItem s in ddlMateriaalVolgnr.Items)
             {
-                if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+                if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s.ToString()), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
                 {
                     popup(error);
                 }
