@@ -17,8 +17,8 @@ namespace ICT4Events_ASP_Groep_E_S24
             //administratie.NuIngelogd = new Persoon();
             if (!IsPostBack)
             {
-                HerlaadGegevens();
                 rbKiesFilter.SelectedIndex = 0;
+                HerlaadGegevens();
             }
             //GeefMessage(Convert.ToString(Administratie.hoogsteIdBericht));
         }
@@ -48,17 +48,33 @@ namespace ICT4Events_ASP_Groep_E_S24
         public void HerlaadGegevens()
         {
             lbPosts.Items.Clear();
-            bool bestandBericht = false;
-            string pad = "";
+            
             foreach (Bericht b in administratie.VraagAlleBerichtenOp())
             {
-                lbPosts.Items.Add(b.ToString());
+                if (rbKiesFilter.SelectedIndex == 0)
+                {
+                    lbPosts.Items.Add(b.ToString());
+                }
+                else if (rbKiesFilter.SelectedIndex == 1)
+                {
+                    if (b.BerichtSoort == 0)
+                    {
+                        lbPosts.Items.Add(b.ToString());
+                    }
+                }
+                else
+                {
+                    if (b.BerichtSoort == 1)
+                    {
+                        lbPosts.Items.Add(b.ToString());
+                    }
+                }
             }
         }
 
         protected void Unnamed1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            HerlaadGegevens();
         }
 
         protected void btnLike_Click(object sender, EventArgs e)
@@ -136,6 +152,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     lbPosts.Items.Add(b.ToString());
                 }
+                tbZoeken.Text = "";
             }
             else
             {

@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         Media Sharing<br />
-        <asp:RadioButtonList ID="rbKiesFilter" runat="server" OnSelectedIndexChanged="Unnamed1_SelectedIndexChanged">
+        <asp:RadioButtonList ID="rbKiesFilter" runat="server" OnSelectedIndexChanged="Unnamed1_SelectedIndexChanged" AutoPostBack="True">
             <asp:ListItem>Alles</asp:ListItem>
             <asp:ListItem>Berichten</asp:ListItem>
             <asp:ListItem>Foto&#39;s</asp:ListItem>
