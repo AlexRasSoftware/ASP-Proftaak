@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Label ID="lbGebruikersnaam" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="lbGebruikersnaam" runat="server" Text="Label" Font-Bold="True"></asp:Label>
         <br />
         <asp:Label ID="lbTekst" runat="server" Text="Label"></asp:Label>
         <br />
@@ -22,12 +22,11 @@
         <asp:Image ID="imgBox" runat="server" Height="216px" Width="291px" />
         <br />
         <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="btnLike_Click" />
-        <asp:Button ID="btnRapporteer" runat="server" Text="Rapporteer" />
         <asp:Button ID="btnPlaatsReactie" runat="server" Text="Plaats Reactie" OnClick="Button1_Click" />
-        <asp:TextBox ID="tbReactie" runat="server" Height="55px" Width="269px"></asp:TextBox>
+        <asp:TextBox ID="tbReactie" runat="server" Height="55px" Width="390px"></asp:TextBox>
         <br />
         <br />
-        <asp:ListBox ID="lbReacties" runat="server" Height="206px" Width="272px"></asp:ListBox>
+        <asp:ListBox ID="lbReacties" runat="server" Height="206px" Width="423px"></asp:ListBox>
         <br />
         <asp:Button ID="btnVerwijderReactie" runat="server" Text="Verwijder Reactie" OnClick="btnVerwijderReactie_Click" />
         <asp:Button ID="btnVerwijderBericht" runat="server" Text="Verwijder Bericht" OnClick="btnVerwijderBericht_Click" />

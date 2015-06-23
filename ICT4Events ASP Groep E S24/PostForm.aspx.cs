@@ -23,11 +23,11 @@ namespace ICT4Events_ASP_Groep_E_S24
             lbReacties.Items.Clear();
             lbGebruikersnaam.Text = administratie.TempBericht.Auteur.Gebruikersnaam;
             lbTekst.Text = administratie.TempBericht.Tekst;
-            lbDatum.Text = administratie.TempBericht.DatumGepost.ToString();
-            lbLikes.Text = administratie.TempBericht.Likes.Count.ToString();
+            lbDatum.Text = "Geplaatst op: " + administratie.TempBericht.DatumGepost.ToString();
+            lbLikes.Text = administratie.TempBericht.Likes.Count.ToString() + " Mens(en) vinden dit netjes.";
             if (administratie.TempBericht.CheckBerichtGeliked(administratie.NuIngelogdeAccount))
             {
-                btnLike.Text = "Minder netjes";
+                btnLike.Text = "Niet meer zo netjes";
             }
             else
             {
