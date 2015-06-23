@@ -73,7 +73,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 bool bestandBericht = false;
                 if (fuUpload.HasFile)
                 {
-                    pad = @"C:\temp\" + fuUpload.FileName;
+                    pad = @"~/foto/" + fuUpload.FileName;
                     bestandBericht = true;
                 }
                 if (bestandBericht)
@@ -83,6 +83,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                         pad = "";
                         bestandBericht = false;
                         HerlaadGegevens();
+                        tbBericht.Text = "";
                     }
                     return;
                 }
@@ -118,6 +119,27 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void btUploadBestand_Click(object sender, EventArgs e)
         {
             
+        }
+
+        protected void tbZoeken_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            if (tbZoeken.Text.Length > 0 && administratie.BerichtenZoeken(tbZoeken.Text) != null)
+            {
+                lbPosts.Items.Clear();
+                foreach (Bericht b in administratie.BerichtenZoeken(tbZoeken.Text))
+                {
+                    lbPosts.Items.Add(b.ToString());
+                }
+            }
+            else
+            {
+                HerlaadGegevens();
+            }
         }
     }
 }

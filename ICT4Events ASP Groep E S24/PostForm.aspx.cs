@@ -51,7 +51,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             {
                 imgBox.Visible = true;
                 string pad = administratie.TempBericht.GeefBestandPad();
-                imgBox.ImageUrl = administratie.TempBericht.GeefBestandPad();
+                imgBox.ImageUrl = pad;
             }
             else
             {

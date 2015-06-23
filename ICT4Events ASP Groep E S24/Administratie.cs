@@ -222,6 +222,7 @@ namespace ICT4Events_ASP_Groep_E_S24
         public List<Bericht> VraagAlleBerichtenOp()
         {
             List<Bericht> tempList = databaseKoppeling.VraagBerichtenOpVanEvent();
+            berichten = tempList;
             tempList.Sort();
             return tempList;         
         }
@@ -438,6 +439,19 @@ namespace ICT4Events_ASP_Groep_E_S24
             bool temp = databaseKoppeling.BerichtVerwijderen(bericht.Id);
             berichten = databaseKoppeling.VraagBerichtenOpVanEvent();
             return temp;
+        }
+
+        public List<Bericht> BerichtenZoeken(string invoer)
+        {
+            List<Bericht> tempList = new List<Bericht>();
+            foreach (Bericht b in berichten)
+            {
+                if (b.Tekst.ToLower().IndexOf(invoer.ToLower()) >= 0 || b.Auteur.Gebruikersnaam.ToLower().IndexOf(invoer.ToLower()) >= 0)
+                {
+                    tempList.Add(b);
+                }
+            }
+            return tempList;
         }
     }
 }

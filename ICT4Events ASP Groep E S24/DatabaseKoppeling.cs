@@ -390,11 +390,11 @@ namespace ICT4Events_ASP_Groep_E_S24
                         soort = 1;
                         tempList.Add(new Bericht(tekst, auteur, datumGepost, soort, id, VraagBestandVanBericht(id)));
                     }
-                    if (berichtSoort == "video")
+                    else if (berichtSoort == "video")
                     {
                         soort = 2;
                     }
-                    if (berichtSoort == "muziek")
+                    else if (berichtSoort == "muziek")
                     {
                         soort = 3;
                     }
