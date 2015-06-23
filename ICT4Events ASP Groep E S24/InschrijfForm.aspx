@@ -161,18 +161,21 @@
                 <br />
                 <br />
                 <br />
+                
+           </ContentTemplate>
+        </asp:UpdatePanel>
                 <asp:Button ID="btnKiesHuurItem" runat="server" Height="38px" OnClick="btnKiesHuurItem_Click" style="margin-left: 0px" Text="Kies" Width="85px" />
                 <br />
                 <asp:Label ID="Label14" runat="server" Text="Gekozen Items"></asp:Label>
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                     <ContentTemplate>
                         <asp:ListBox ID="lbGekozenItems" runat="server" Height="234px" style="margin-left: 0px" Width="426px"></asp:ListBox>
+                    <asp:Button ID="btnVerwijderItem" runat="server" OnClick="btnVerwijderItem_Click" Text="Verwijder Item" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <br />
-                <asp:Button ID="btnVerwijderItem" runat="server" OnClick="btnVerwijderItem_Click" Text="Verwijder Item" />
-            </ContentTemplate>
-        </asp:UpdatePanel>
+                
+
         <br />
         <br />
         <br />
