@@ -18,6 +18,7 @@ namespace ICT4Events_ASP_Groep_E_S24
             if (!IsPostBack)
             {
                 HerlaadGegevens();
+                rbKiesFilter.SelectedIndex = 0;
             }
             //GeefMessage(Convert.ToString(Administratie.hoogsteIdBericht));
         }
