@@ -639,6 +639,10 @@ namespace ICT4Events_ASP_Groep_E_S24
                         popup(error);
                     }
                 }
+                else
+                {
+                    popup("Kan niet merk verwijderen omdat die nog gehuurde items bevat");
+                }
                 VulVolgnummers();
             }
             if (!nowork)
@@ -648,6 +652,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                     popup(error);
                 }
             }
+            else popup("kan niet type verwijderen omdat die nog gehuurd materiaal bevat.");
             // verwijder merken in type
             // verwijder type.
             VulCategorieen();
@@ -658,17 +663,22 @@ namespace ICT4Events_ASP_Groep_E_S24
         protected void MaMerkVerw_Click(object sender, EventArgs e)
         {
             string error = "";
+            bool nowork = false;
             // verwijder volgnummers in merk 
             foreach (string s in ddlMateriaalVolgnr.Items)
             {
-                if (!database.VerwijderMateriaalVolgnummer(out error, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+                if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
                 {
                     popup(error);
                 }
             }
-            if (!database.VerwijderMateriaalMerk(out error, ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+            if (!nowork)
             {
-                popup(error);
+                if (!database.VerwijderMateriaalMerk(out error, ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+                {
+                    popup(error);
+                }
+                else popup("Kan niet merk verwijderen omdat die nog gehuurde items bevat");
             }
             // verwijder merk
             VulMerken();
