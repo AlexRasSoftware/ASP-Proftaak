@@ -635,6 +635,7 @@ namespace ICT4Events_ASP_Groep_E_S24
                 {
                     popup(error);
                 }
+                VulVolgnummers();
             }
             if (!database.VerwijderMateriaalCategorie(out error, ddlMateriaalType.SelectedValue))
             {
