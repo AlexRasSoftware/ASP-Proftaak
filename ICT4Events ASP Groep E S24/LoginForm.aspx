@@ -19,7 +19,7 @@
     
         Inloggen</div>
         <br />
-        <asp:Label ID="lblGebruikersnaam" runat="server" Text="Gebruikersnaam / RFID"></asp:Label>
+        <asp:Label ID="lblGebruikersnaam" runat="server" Text="Gebruikersnaam"></asp:Label>
         <br />
         <asp:TextBox ID="tbGebruikersnaam" runat="server" Width="170px"></asp:TextBox>
         <br />

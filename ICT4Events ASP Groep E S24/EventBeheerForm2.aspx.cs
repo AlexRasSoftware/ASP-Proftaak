@@ -668,10 +668,10 @@ namespace ICT4Events_ASP_Groep_E_S24
             bool nope = false;
             bool nowork = false;
             // verwijder volgnummers in merk 
-            foreach (string s in ddlMateriaalVolgnr.Items)
+            foreach (ListItem s in ddlMateriaalVolgnr.Items)
             {
                 nowork = false;
-                if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
+                if (!database.VerwijderMateriaalVolgnummer(out error, out nowork, Convert.ToInt32(s.ToString()), ddlMateriaalMerk.SelectedValue, ddlMateriaalType.SelectedValue))
                 {
                     popup(error);
                     if (nowork) nope = true;
